@@ -1,0 +1,7 @@
+*.Zone.Identifier
+.DS_Store
+__pycache__/
+*.pyc
+*.log
+/tmp/
+temp_*/
