@@ -7,17 +7,17 @@
 
 ## Project Status
 
-| Deliverable | Count | Status |
+| Deliverable | Deepseekv4 | K2.6 |
 |---|---|---|
-| Competency Questions (CQs) | 80 (4 blocks × 20) | Done |
-| Prompting strategies | 2 (Memoryless CQbyCQ + Ontogenia) | Done |
-| Temperatures tested | 3 (0.3, 0.5, 0.7) | Done |
-| OWL/Turtle files generated | 123 | Done |
-| Classes defined | 24 | Done |
-| Object properties | 21 | Done |
-| Data properties | 8 | Done |
-| CRMarchaeo alignment | Full class subsumption + property ranges | Done |
-| LLM model | deepseek-v4-pro | Done |
+| Competency Questions (CQs) | 80 | 80 |
+| Prompting strategies | 2 | 2 |
+| Temperatures tested | 3 | 3 |
+| OWL/Turtle files generated | 123 | 124 |
+| Classes defined | 24 | 28 |
+| Object properties | 21 | 18 |
+| Data properties | 8 | 7 |
+| CRMarchaeo alignment | Full | Full |
+| Status | Done | Done |
 
 ---
 
@@ -25,8 +25,14 @@
 
 CRMarchaeo models **excavation processes and stratigraphy** exceptionally well, but has limited coverage of **archaeological objects** — their lifecycle, materiality, biography, circulation, and analysis.
 
-The `arqo:` module extends CRMarchaeo by providing:
+Two independent ontology modules have been generated:
 
+| Module | Design | Classes | Properties | Focus |
+|---|---|---|---|---|
+| **Deepseekv4** | Event-centric | 24 | 29 | Object biography as event sequence |
+| **K2.6** | Object-centric | 28 | 25 | Deep taxonomic hierarchy + physical attributes |
+
+Both modules extend CRMarchaeo by providing:
 - **Archaeological Object** — subclass of `crm:E19_Physical_Object`
 - **Object biography** — from production through use, reuse, repair, deposition, recovery, and analysis
 - **Materiality** — material composition, manufacturing techniques, raw material provenance
@@ -36,7 +42,7 @@ The `arqo:` module extends CRMarchaeo by providing:
 - **Scientific sampling** — sample extraction events, laboratory analysis
 - **Circulation** — movement between sites and cultural areas
 
-See `ontologies_generated/Deepseekv4/README.md` for the full inventory.
+See `ontologies_generated/README.md` for the full inventory and comparison.
 
 ---
 
@@ -60,18 +66,25 @@ See `ontologies_generated/Deepseekv4/README.md` for the full inventory.
 │   └── ontogenia/
 │       └── prompt_archaeological_object.md   # Ontogenia metacognitive template
 ├── ontologies_generated/
-│   └── Deepseekv4/                     # Generated OWL/Turtle ontologies
-│       ├── memoryless/temp_0_{3,5,7}/  # 60 .ttl files (independent per CQ)
-│       ├── ontogenia/temp_0_{3,5,7}/   # 60 .ttl step files + 3 cumulative
-│       └── README.md                   # Full documentation
+│   ├── README.md                       # Master index: all modules + comparison
+│   ├── Deepseekv4/                     # Ontologies from deepseek-v4-pro
+│   │   ├── memoryless/temp_0_{3,5,7}/  # 60 .ttl files (independent per CQ)
+│   │   ├── ontogenia/temp_0_{3,5,7}/   # 60 .ttl step files + 3 cumulative
+│   │   └── ...
+│   └── K2.6/                           # Ontologies from K2.6
+│       ├── memoryless/temp_0_{3,5,7}/  # 60 .ttl files
+│       ├── ontogenia/temp_0_{3,5,7}/   # 63 .ttl files (60 steps + 3 cumulative)
+│       └── README.md                   # K2.6 module documentation
 ├── docs/
 │   ├── analisis.docx                   # CRMarchaeo gap analysis
 │   ├── PreguntasCompetencia.docx        # Original CQ set (ChatGPT)
 │   ├── ontologyLLM.pdf                 # OntologyLLM paper (ESWC 2025)
 │   └── modelo idearq_v3b.pdf           # IDEArq UML conceptual model
-└── ONTOLOGIAS/
+└── ontologies_docs/                   # Reference ontologies (renamed from ONTOLOGIAS)
     ├── owl/                            # CRMarchaeo v2.1.1
-    └── ttl/                            # GeoSPARQL, OWL-Time
+    ├── ttl/                            # GeoSPARQL, OWL-Time
+    ├── html/
+    └── pdfs/
 ```
 
 ---
@@ -102,7 +115,7 @@ arqo:wasSampledIn          rdfs:range arqo:SamplingEvent .
 arqo:underwentTreatment    rdfs:range arqo:PostExcavationTreatment .
 ```
 
-See **§3 — CRMarchaeo Integration Map** in `ontologies_generated/Deepseekv4/README.md` for the complete alignment table.
+See `ontologies_generated/Deepseekv4/README.md` and `ontologies_generated/K2.6/README.md` for the complete alignment tables of each module.
 
 ---
 
@@ -119,15 +132,27 @@ Templates at: `prompts/memoryless/prompt_archaeological_object.md` and `prompts/
 
 ## Temperature as Experimental Variable
 
+### Deepseekv4
+
 | Temperature | Classes | Properties | Restrictions | Cumulative lines | Style |
 |---|---|---|---|---|---|
 | **0.3** | 6 | 8 | Minimal | 104 | Conservative — max CRM reuse |
 | **0.5** | 14 | 19 | Moderate | 222 | Balanced |
 | **0.7** | 24 | 29 | Extensive | 263 | Creative — deep hierarchy + reification |
 
+### K2.6
+
+| Temperature | Classes | Properties | Restrictions | Cumulative lines | Style |
+|---|---|---|---|---|---|
+| **0.3** | 6 | 8 | Minimal | 95 | Conservative — max CRM reuse |
+| **0.5** | 14 | 17 | Moderate | 228 | Balanced |
+| **0.7** | 28 | 25 | Extensive | 312 | Creative — deep hierarchy + physical attributes |
+
 ---
 
 ## CQ Attribution
+
+### Deepseekv4
 
 | Block | Reused (from Word) | New (from gap analysis) | Total |
 |---|---|---|---|
@@ -137,7 +162,17 @@ Templates at: `prompts/memoryless/prompt_archaeological_object.md` and `prompts/
 | Stratigraphy | 8 | 12 | 20 |
 | **Total** | **36 (45%)** | **44 (55%)** | **80** |
 
-Detailed attribution table per CQ in `ontologies_generated/Deepseekv4/README.md` §2.
+### K2.6
+
+| Block | Reused | New | Total |
+|---|---|---|---|
+| Archaeological Object | 0 | 20 | 20 |
+| Spatial | 0 | 20 | 20 |
+| Temporal | 0 | 20 | 20 |
+| Stratigraphy | 0 | 20 | 20 |
+| **Total** | **0 (0%)** | **80 (100%)** | **80** |
+
+Detailed attribution tables per CQ in `ontologies_generated/Deepseekv4/README.md` §2 and `ontologies_generated/K2.6/README.md`.
 
 ---
 

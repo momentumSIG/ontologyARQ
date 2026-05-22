@@ -104,7 +104,7 @@ The following sources are authoritative references for ontology generation and a
 
 The folder:
 
-ONTOLOGIAS/documentacion
+ontologies_docs/documentacion
 
 contains:
 - OWL ontologies
@@ -771,6 +771,104 @@ This third set provides additional material for comparing CQ diversity and cover
 
 ---
 
+# Workflow Executed — K2.6
+
+This section documents the ontology generation workflow executed by K2.6 on 2026-05-21, using the same prompting strategies and temperature settings as deepseek-v4-pro but with an independent object-centric design approach.
+
+## Step 1 — Competency Question Generation
+
+80 CQs were generated across 4 thematic blocks (20 each). **All 80 CQs are new** — none were reused from `PreguntasCompetencia.docx` or from previous LLM sets.
+
+| Block | File | CQs | Source |
+|---|---|---|---|
+| Archaeological Object | `CQ/CQ_K2.6/CQ-object-k2.6.md` | 20 | New — object taxonomy, partonomy, physical attributes |
+| Spatial | `CQ/CQ_K2.6/CQ-spatial-k2.6.md` | 20 | New — distances, orientation, geomorphology, viewshed |
+| Temporal | `CQ/CQ_K2.6/CQ-temporal-k2.6.md` | 20 | New — intervals, cross-dating, dendrochronology, Bayesian |
+| Stratigraphy | `CQ/CQ_K2.6/CQ-stratigraphy-k2.6.md` | 20 | New — sequences, contacts, Munsell, negative features, paleosols |
+
+## Step 2 — Ontology Generation
+
+The Archaeological Object module was generated using both strategies at 3 temperatures with an **object-centric** design philosophy.
+
+### Directory structure
+
+```
+ontologies_generated/K2.6/
+├── memoryless/
+│   ├── temp_0_3/          # 20 .ttl files (one per CQ)
+│   ├── temp_0_5/          # 20 .ttl files
+│   └── temp_0_7/          # 20 .ttl files
+├── ontogenia/
+│   ├── temp_0_3/          # 20 step files + cumulative.ttl
+│   ├── temp_0_5/          # 20 step files + cumulative.ttl
+│   └── temp_0_7/          # 20 step files + cumulative.ttl
+└── README.md              # Module documentation
+```
+
+### File counts
+
+| Category | Files |
+|---|---|
+| Memoryless CQbyCQ .ttl | 60 |
+| Ontogenia step .ttl | 60 |
+| Ontogenia cumulative .ttl | 3 |
+| Prompt templates | 2 (reused) |
+| CQ files | 4 |
+| Documentation | 1 |
+| **Total** | **126** |
+
+### Generated deliverables
+
+| Temperature | Classes | Object Properties | Data Properties | Cumulative lines |
+|---|---|---|---|---|
+| 0.3 | 5 | 3 | 4 | 92 |
+| 0.5 | 17 | 11 | 7 | 206 |
+| 0.7 | 28 | 18 | 7 | 277 |
+
+### Key design differences from Deepseekv4
+
+| Aspect | Deepseekv4 | K2.6 |
+|---|---|---|
+| **Philosophy** | Event-centric | Object-centric |
+| **Core entities** | Events (Production, Use, Deposition, Recovery) | Objects (NaturalObject, HumanMadeObject, Artefact, Structure) |
+| **Hierarchy depth** | 1-2 levels | 3 levels |
+| **Reification** | 4 pivot classes | 2 partonomy properties |
+| **Physical attributes** | Minimal | Extensive (morphometry, weight, completeness, Munsell color) |
+| **Disjointness axioms** | None | NaturalObject disjointWith HumanMadeObject; AbioticObject disjointWith BioticObject |
+
+Full class and property inventory in `ontologies_generated/K2.6/README.md`.
+
+## Step 3 — CRMarchaeo Integration
+
+The K2.6 module extends CRMarchaeo through class subsumption and property ranges:
+
+**Class alignment (selected):**
+| arqo: class | Superclass | Temperature |
+|---|---|---|
+| `ArchaeologicalObject` | `crm:E19_Physical_Object` | 0.3 |
+| `NaturalObject` | `arqo:ArchaeologicalObject` | 0.3 |
+| `HumanMadeObject` | `arqo:ArchaeologicalObject` | 0.3 |
+| `AbioticObject` | `arqo:NaturalObject` | 0.5 |
+| `BioticObject` | `arqo:NaturalObject` | 0.5 |
+| `Artefact` | `arqo:HumanMadeObject` | 0.3 |
+| `Structure` | `arqo:HumanMadeObject` | 0.5 |
+| `ArtisticExpression` | `arqo:HumanMadeObject` | 0.5 |
+| `StratigraphicSequence` | `crmarchaeo:A8_Stratigraphic_Unit` | 0.3 |
+| `StratigraphicContact` | `crmarchaeo:A3_Stratigraphic_Interface` | 0.5 |
+| `NegativeFeature` | `crm:E25_Man-Made_Feature` | 0.5 |
+| `Paleosol` | `crmarchaeo:A8_Stratigraphic_Unit` | 0.7 |
+| `ConstructionElement` | `crm:E24_Physical_Human-Made_Thing` | 0.7 |
+
+**Property-to-CRMarchaeo alignment:**
+| Property | Range |
+|---|---|
+| `hasStratigraphicContact` | `crmarchaeo:A3_Stratigraphic_Interface` |
+| `hasNegativeFeature` | `crm:E25_Man-Made_Feature` |
+| `containsPaleosol` | `crmarchaeo:A8_Stratigraphic_Unit` |
+| `hasConstructionElement` | `crm:E24_Physical_Human-Made_Thing` |
+
+---
+
 # Updated Directory Structure
 
 ```
@@ -803,7 +901,12 @@ ONTOLOGIA-ARQ/
 │   └── ontogenia/
 │       └── prompt_archaeological_object.md
 ├── ontologies_generated/
+│   ├── README.md                      # Master index: all modules + comparison
 │   ├── Deepseekv4/                    # Ontologies from deepseek-v4-pro
+│   │   ├── memoryless/temp_0_{3,5,7}/
+│   │   ├── ontogenia/temp_0_{3,5,7}/
+│   │   └── ...
+│   ├── K2.6/                          # Ontologies from K2.6
 │   │   ├── memoryless/temp_0_{3,5,7}/
 │   │   ├── ontogenia/temp_0_{3,5,7}/
 │   │   └── README.md
@@ -813,7 +916,7 @@ ONTOLOGIA-ARQ/
 │   ├── PreguntasCompetencia.docx       # Original CQ set
 │   ├── ontologyLLM.pdf                # OntologyLLM research paper
 │   └── modelo idearq_v3b.pdf          # IDEArq UML model
-├── ONTOLOGIAS/
+├── ontologies_docs/                   # Reference ontologies (renamed from ONTOLOGIAS)
 │   ├── owl/                           # CRMarchaeo v2.1.1
 │   ├── ttl/                           # GeoSPARQL, OWL-Time
 │   ├── html/

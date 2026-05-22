@@ -69,9 +69,11 @@ See `ontologies_generated/Deepseekv4/README.md` for the full inventory.
 │   ├── PreguntasCompetencia.docx        # Original CQ set (ChatGPT)
 │   ├── ontologyLLM.pdf                 # OntologyLLM paper (ESWC 2025)
 │   └── modelo idearq_v3b.pdf           # IDEArq UML conceptual model
-└── ONTOLOGIAS/
+└── ontologies_docs/                   # Reference ontologies (renamed from ONTOLOGIAS)
     ├── owl/                            # CRMarchaeo v2.1.1
-    └── ttl/                            # GeoSPARQL, OWL-Time
+    ├── ttl/                            # GeoSPARQL, OWL-Time
+    ├── html/
+    └── pdfs/
 ```
 
 ---
