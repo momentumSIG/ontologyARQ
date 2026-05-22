@@ -1,0 +1,277 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+
+# ============================================================
+# Ontology: Archaeological Object Module (K2.6 Design)
+# Model: K2.6 | Strategy: ontogenia-cumulative | Temperature: 0.7
+# CQ: ALL
+# Design: Object-centric with deep taxonomic hierarchy
+# ============================================================
+
+# ======================= CLASSES ===========================
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Root class for all archaeological objects"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object"@en .
+
+arqo:StratigraphicSequence a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "StratigraphicSequence"@en ;
+    rdfs:comment "Complete vertical stratigraphic sequence"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living-origin natural object (bone, wood, shell)"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic/symbolic function"@en .
+
+arqo:CompositeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "CompositeObject"@en ;
+    rdfs:comment "Object composed of multiple parts"@en .
+
+arqo:ObjectComponent a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "ObjectComponent"@en ;
+    rdfs:comment "Component part of a composite object"@en .
+
+arqo:RawMaterialSource a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "RawMaterialSource"@en ;
+    rdfs:comment "Quarry or geological source of raw material"@en .
+
+arqo:ChaineOperatoire a owl:Class ;
+    rdfs:subClassOf crm:E29_Design_or_Procedure ;
+    rdfs:label "ChaineOperatoire"@en ;
+    rdfs:comment "Operational chain of manufacturing"@en .
+
+arqo:ManufacturingTechnique a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "ManufacturingTechnique"@en ;
+    rdfs:comment "Manufacturing technique or method"@en .
+
+arqo:MorphometricAttribute a owl:Class ;
+    rdfs:subClassOf crm:E54_Dimension ;
+    rdfs:label "MorphometricAttribute"@en ;
+    rdfs:comment "Morphometric attribute (dimension, weight)"@en .
+
+arqo:ObjectFunction a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "ObjectFunction"@en ;
+    rdfs:comment "Function of the object (primary/secondary/symbolic)"@en .
+
+arqo:FragmentationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "FragmentationState"@en ;
+    rdfs:comment "Fragmentation or completeness state"@en .
+
+arqo:UseWearPattern a owl:Class ;
+    rdfs:subClassOf crmsci:S4_Observation ;
+    rdfs:label "UseWearPattern"@en ;
+    rdfs:comment "Use-wear or abrasion pattern on surface"@en .
+
+arqo:DecorativeMotif a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "DecorativeMotif"@en ;
+    rdfs:comment "Decorative motif or iconographic representation"@en .
+
+arqo:ThermalAlteration a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ThermalAlteration"@en ;
+    rdfs:comment "Evidence of fire exposure or thermal alteration"@en .
+
+arqo:InSituConservation a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "InSituConservation"@en ;
+    rdfs:comment "Preventive conservation applied in situ"@en .
+
+arqo:DigitalDocumentation a owl:Class ;
+    rdfs:subClassOf crm:E84_Information_Carrier ;
+    rdfs:label "DigitalDocumentation"@en ;
+    rdfs:comment "Digital documentation dataset"@en .
+
+arqo:PhotogrammetricModel a owl:Class ;
+    rdfs:subClassOf crm:E84_Information_Carrier ;
+    rdfs:label "PhotogrammetricModel"@en ;
+    rdfs:comment "3D photogrammetric model"@en .
+
+arqo:ScholarlyReference a owl:Class ;
+    rdfs:subClassOf crm:E31_Document ;
+    rdfs:label "ScholarlyReference"@en ;
+    rdfs:comment "Bibliographic reference or catalogue entry"@en .
+
+# =================== OBJECT PROPERTIES =====================
+arqo:hasRawMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "hasRawMaterial"@en ;
+    rdfs:comment "Material composition of the object"@en .
+
+arqo:hasPart a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositeObject ;
+    rdfs:range arqo:ObjectComponent ;
+    rdfs:label "hasPart"@en ;
+    rdfs:comment "Component part of a composite object"@en .
+
+arqo:isComponentOf a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectComponent ;
+    rdfs:range arqo:CompositeObject ;
+    rdfs:label "isComponentOf"@en ;
+    rdfs:comment "Composite object this component belongs to"@en .
+
+arqo:hasMorphometricAttribute a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MorphometricAttribute ;
+    rdfs:label "hasMorphometricAttribute"@en ;
+    rdfs:comment "Morphometric dimension or weight"@en .
+
+arqo:hasUseWearPattern a owl:ObjectProperty ;
+    rdfs:domain arqo:Artefact ;
+    rdfs:range arqo:UseWearPattern ;
+    rdfs:label "hasUseWearPattern"@en ;
+    rdfs:comment "Use-wear pattern observed"@en .
+
+arqo:hasDecorativeMotif a owl:ObjectProperty ;
+    rdfs:domain arqo:HumanMadeObject ;
+    rdfs:range arqo:DecorativeMotif ;
+    rdfs:label "hasDecorativeMotif"@en ;
+    rdfs:comment "Decorative motif present"@en .
+
+arqo:hasObjectFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ObjectFunction ;
+    rdfs:label "hasObjectFunction"@en ;
+    rdfs:comment "Function assigned to the object"@en .
+
+arqo:wasProducedAt a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "wasProducedAt"@en ;
+    rdfs:comment "Source location of raw material"@en .
+
+arqo:followsChaineOperatoire a owl:ObjectProperty ;
+    rdfs:domain arqo:HumanMadeObject ;
+    rdfs:range arqo:ChaineOperatoire ;
+    rdfs:label "followsChaineOperatoire"@en ;
+    rdfs:comment "Operational chain followed"@en .
+
+arqo:hasFragmentationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:FragmentationState ;
+    rdfs:label "hasFragmentationState"@en ;
+    rdfs:comment "Fragmentation or completeness state"@en .
+
+arqo:showsThermalAlteration a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ThermalAlteration ;
+    rdfs:label "showsThermalAlteration"@en ;
+    rdfs:comment "Thermal alteration evidence"@en .
+
+arqo:hasConservationRecord a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:InSituConservation ;
+    rdfs:label "hasConservationRecord"@en ;
+    rdfs:comment "In-situ conservation record"@en .
+
+arqo:hasDigitalModel a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:PhotogrammetricModel ;
+    rdfs:label "hasDigitalModel"@en ;
+    rdfs:comment "3D digital model"@en .
+
+arqo:isReferencedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ScholarlyReference ;
+    rdfs:label "isReferencedIn"@en ;
+    rdfs:comment "Bibliographic reference"@en .
+
+# ==================== DATA PROPERTIES =====================
+arqo:hasWeight a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasWeight"@en ;
+    rdfs:comment "Weight of the object in grams"@en .
+
+arqo:hasLength a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasLength"@en ;
+    rdfs:comment "Length dimension"@en .
+
+arqo:hasWidth a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasWidth"@en ;
+    rdfs:comment "Width dimension"@en .
+
+arqo:hasHeight a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasHeight"@en ;
+    rdfs:comment "Height dimension"@en .
+
+arqo:hasCompletenessPercentage a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasCompletenessPercentage"@en ;
+    rdfs:comment "Completeness percentage (0-100)"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasRawMaterial ;
+    owl:someValuesFrom crm:E57_Material
+] .
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasMorphometricAttribute ;
+    owl:allValuesFrom arqo:MorphometricAttribute
+] .
+
+arqo:NaturalObject owl:disjointWith arqo:HumanMadeObject .
+
+arqo:AbioticObject owl:disjointWith arqo:BioticObject .
+
+arqo:Artefact owl:disjointWith arqo:Structure .
+
+# Ontology generated by K2.6 using ontogenia-cumulative strategy at temperature 0.7
+# Compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1

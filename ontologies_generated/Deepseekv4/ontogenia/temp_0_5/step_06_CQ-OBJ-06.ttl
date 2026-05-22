@@ -1,0 +1,121 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: deepseek-v4-pro | Strategy: ontogenia | Temperature: 0.5
+# CQ: OBJ-06
+# ============================================================
+
+# ======================= CLASSES ===========================
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E22_Human-Made_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "A physical object recovered during archaeological investigation"@en .
+
+arqo:ObjectBiography a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ObjectBiography"@en ;
+    rdfs:comment "The complete sequence of events in an object's lifecycle"@en .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "DepositionEvent"@en ;
+    rdfs:comment "An event where an archaeological object was deposited in a context"@en .
+
+arqo:RecoveryEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A1_Excavation_Process_Unit ;
+    rdfs:label "RecoveryEvent"@en ;
+    rdfs:comment "An event where an archaeological object was recovered from excavation"@en .
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en ;
+    rdfs:comment "An event where an archaeological object was reused for a different purpose"@en .
+
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en ;
+    rdfs:comment "An event where an archaeological object moved between locations"@en .
+
+arqo:ExcavationCampaign a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ExcavationCampaign"@en ;
+    rdfs:comment "An organised excavation campaign during which objects were recovered"@en .
+
+# arqo:ArchaeologicalObject is subclass of crm:E22_Human-Made_Object
+
+# =================== OBJECT PROPERTIES =====================
+arqo:hasMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "hasMaterial"@en ;
+    rdfs:comment "Indicates the material an archaeological object is made of"@en .
+
+arqo:hasBiography a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ObjectBiography ;
+    rdfs:label "hasBiography"@en ;
+    rdfs:comment "Links an archaeological object to its lifecycle biography"@en .
+
+arqo:depositedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "depositedIn"@en ;
+    rdfs:comment "Links an object to the stratigraphic unit where it was deposited"@en .
+
+arqo:recoveredFrom a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "recoveredFrom"@en ;
+    rdfs:comment "Links an object to the stratigraphic unit from which it was recovered"@en .
+
+arqo:participatedInReuse a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ReuseEvent ;
+    rdfs:label "participatedInReuse"@en ;
+    rdfs:comment "Links an object to a reuse event it participated in"@en .
+
+arqo:circulatedThrough a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "circulatedThrough"@en ;
+    rdfs:comment "Links an object to a place it circulated through"@en .
+
+# ==================== DATA PROPERTIES =====================
+arqo:hasLocalIdentifier a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasLocalIdentifier"@en ;
+    rdfs:comment "The original local identifier of the object in the IDEArq system"@en .
+
+arqo:hasObjectCategory a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasObjectCategory"@en ;
+    rdfs:comment "The category or type description of the archaeological object"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasMaterial ;
+    owl:someValuesFrom crm:E57_Material
+] .
+
+arqo:RecoveryEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty crm:P10_falls_within ;
+    owl:allValuesFrom arqo:ExcavationCampaign
+] .
+
+# Ontology generated by deepseek-v4-pro using ontogenia strategy at temperature 0.5
+# Compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1
