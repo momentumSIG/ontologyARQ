@@ -1,4 +1,4 @@
-# Ontología del Objeto Arqueológico
+# Ontología del objeto arqueológico
 
 > Compatible con CIDOC CRM · CRMarchaeo 
 
