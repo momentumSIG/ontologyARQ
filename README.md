@@ -1,4 +1,4 @@
-# ontologyARQ — Archaeological Object Ontology Module
+# ontologyARQ — Archaeological Object Ontology Module (ARQO)
 
 > Ontology engineering for archaeology and cultural heritage using Large Language Models (LLMs).  
 > CIDOC CRM / CRMarchaeo compatible. OWL 2 Turtle (.ttl) serialization.
