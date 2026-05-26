@@ -1,201 +1,197 @@
-# ontologyARQ — Archaeological Object Ontology Module (ARQO)
+# ONTOLOGIA-ARQ
 
-> Ontology engineering for archaeology and cultural heritage using Large Language Models (LLMs).  
-> CIDOC CRM / CRMarchaeo compatible. OWL 2 Turtle (.ttl) serialization.
-
----
-
-## Project Status
-
-| Deliverable | Deepseekv4 | K2.6 |
-|---|---|---|
-| Competency Questions (CQs) | 80 | 80 |
-| Prompting strategies | 2 | 2 |
-| Temperatures tested | 3 | 3 |
-| OWL/Turtle files generated | 123 | 124 |
-| Classes defined | 24 | 28 |
-| Object properties | 21 | 18 |
-| Data properties | 8 | 7 |
-| CRMarchaeo alignment | Full | Full |
-| Status | Done | Done |
+> Ontología del objeto arqueológico generada con Large Language Models
+> Compatible con CIDOC CRM · CRMarchaeo · CRMsci · CRMinf · CRMhs · GeoSPARQL · OWL-Time · PROV-O
 
 ---
 
-## What this ontology does
+## ¿Qué es esto?
 
-CRMarchaeo models **excavation processes and stratigraphy** exceptionally well, but has limited coverage of **archaeological objects** — their lifecycle, materiality, biography, circulation, and analysis.
+ONTOLOGIA-ARQ es un proyecto de ingeniería ontológica que utiliza **LLMs** para generar extensiones de CIDOC CRM centradas en el **objeto arqueológico**. CRMarchaeo modela muy bien la excavación y la estratigrafía, pero deja un vacío en el modelado del propio objeto — su ciclo de vida, materialidad, biografía, clasificación, análisis científico y significado cultural.
 
-Two independent ontology modules have been generated:
-
-| Module | Design | Classes | Properties | Focus |
-|---|---|---|---|---|
-| **Deepseekv4** | Event-centric | 24 | 29 | Object biography as event sequence |
-| **K2.6** | Object-centric | 28 | 25 | Deep taxonomic hierarchy + physical attributes |
-
-Both modules extend CRMarchaeo by providing:
-- **Archaeological Object** — subclass of `crm:E19_Physical_Object`
-- **Object biography** — from production through use, reuse, repair, deposition, recovery, and analysis
-- **Materiality** — material composition, manufacturing techniques, raw material provenance
-- **Typological classification** — aligned with Getty AAT, SKOS
-- **Human agency** — actors associated with production and use
-- **Taphonomy** — post-depositional processes, conservation state
-- **Scientific sampling** — sample extraction events, laboratory analysis
-- **Circulation** — movement between sites and cultural areas
-
-See `ontologies_generated/README.md` for the full inventory and comparison.
+La metodología es **CQ-driven** (Competency Questions) con dos estrategias de prompting (Memoryless CQbyCQ y Ontogenia metacognitiva), evaluadas a 3 temperaturas (0.3, 0.5, 0.7). El diseño se inspira en 14 artículos académicos sobre teoría del objeto arqueológico y en el análisis de gaps de CRMarchaeo.
 
 ---
 
-## Repository Structure
+## Módulos generados
+
+| Módulo | Modelo | Filosofía | CQs | Archivos | Clases |
+|---|---|---|---|---|---|
+| [Deepseekv4 v1](ontologies_generated/Deepseekv4/) | deepseek-v4-pro | **Event-centric** — los eventos son el ancla ontológica | 80 (4 bloques) | 123 | 24 |
+| [Deepseekv4 v2](ontologies_generated/Deepseekv4_objeto/) | deepseek-v4-pro | **Object-centric** — el objeto es el ancla, basado en 14 artículos | 30 (objeto) | 183 | 33 |
+| [Deepseekv4 v3](ontologies_generated/Deepseekv4_objeto_eventos/) | deepseek-v4-pro | **Event-centric** — mismas CQs que v2, modeladas desde eventos | 30 (objeto) | 183 | 17 |
+| [K2.6](ontologies_generated/K2.6/) | K2.6 | **Object-centric** — jerarquía taxonómica profunda + atributos físicos | 80 (4 bloques) | 124 | 28 |
+| [Qwen3.6](ontologies_generated/Qwen3.6/) | Qwen3.6 | **Objeto + eventos** — taxonomía del objeto + ciclo de vida explícito | 80 (4 bloques) | 493 | 30+ |
+
+> Comparativa completa, inventario de clases/propiedades y mapas de alineación CRMarchaeo en [`ontologies_generated/README.md`](ontologies_generated/README.md).
+
+---
+
+## Filosofías de diseño comparadas
+
+Las mismas preguntas de competencia pueden responderse desde filosofías ontológicas distintas:
+
+| | Event-centric | Object-centric | Mixto |
+|---|---|---|---|
+| **Pregunta** | "¿Qué le pasó al objeto?" | "¿Qué es el objeto?" | "¿Qué es y qué le pasó?" |
+| **Clases primarias** | `ProductionEvent`, `UseEvent`, `DepositionEvent` | `ArchaeologicalObject` → `NaturalObject`/`HumanMadeObject` → subtipos | Objeto + eventos de ciclo de vida |
+| **Material** | `ProductionEvent` usa material | El objeto `hasMaterial` | El objeto `hasMaterial` |
+| **Ciclo de vida** | Cadena de eventos | Objeto ancla eventos | `ObjectBiography` contiene eventos |
+| **Clasificación** | `ClassificationEvent` | `TypologicalAssignment` (E17 pivot) | `TypologicalAssignment` |
+| **Ejemplos** | Deepseekv4 v1, v3 | Deepseekv4 v2, K2.6 | Qwen3.6 |
+
+El proyecto demuestra que el **mismo modelo** (Deepseekv4) produce ontologías radicalmente distintas con las **mismas CQs** cambiando solo la filosofía de diseño (v2 object-centric vs v3 event-centric).
+
+---
+
+## Estructura del repositorio
 
 ```
-.
-├── AGENTS.md                           # Project principles, methodology, reproducibility guide
-├── ontologyARQ/                        # This repo (GitHub: momentumSIG/ontologyARQ)
-│   ├── README.md                       # This file
-│   └── LICENSE
+ONTOLOGIA-ARQ/
+│
+├── AGENTS.md                               # Principios, metodología, guía de reproducibilidad
+├── README.md                               # Este archivo
+├── LICENSE
+│
 ├── CQ/
-│   └── CQ_Deepseekv4Pro/               # 80 competency questions (4 blocks × 20)
-│       ├── CQ-object-deepseek.md       # Archaeological object (20 CQ)
-│       ├── CQ-spatial-deepseek.md      # Spatial (20 CQ)
-│       ├── CQ-temporal-deepseek.md     # Temporal (20 CQ)
-│       └── CQ-stratigraphy-deepseek.md # Stratigraphy (20 CQ)
-├── prompts/
+│   ├── CQ_Deepseekv4Pro/                   # 80 CQs originales event-centric (4 bloques × 20)
+│   │   ├── CQ-object-deepseek.md
+│   │   ├── CQ-spatial-deepseek.md
+│   │   ├── CQ-temporal-deepseek.md
+│   │   └── CQ-stratigraphy-deepseek.md
+│   ├── CQ_Deepseekv4Pro_objeto/            # 30 nuevas CQs object-centric (basadas en artículos)
+│   │   └── CQ-object-deepseek-v2.md
+│   ├── CQ_K2.6/                            # 80 CQs independientes (4 bloques × 20)
+│   └── CQ_Qwen3.6/                         # 80 CQs independientes (4 bloques × 20)
+│
+├── prompts/                                # Templates adaptados de Onto-Generation (ESWC 2025)
+│   ├── README.md                           # Overview de estrategias y uso
 │   ├── memoryless/
-│   │   └── prompt_archaeological_object.md   # Memoryless CQbyCQ template
+│   │   └── prompt_archaeological_object.md # Memoryless CQbyCQ (dominio arqueológico)
 │   └── ontogenia/
-│       └── prompt_archaeological_object.md   # Ontogenia metacognitive template
+│       ├── prompt_archaeological_object.md # Ontogenia con 7 ODPs y narrativa arqueológica
+│       └── procedure.md                    # Procedimiento metacognitivo de 9 pasos
+│
 ├── ontologies_generated/
-│   ├── README.md                       # Master index: all modules + comparison
-│   ├── Deepseekv4/                     # Ontologies from deepseek-v4-pro
-│   │   ├── memoryless/temp_0_{3,5,7}/  # 60 .ttl files (independent per CQ)
-│   │   ├── ontogenia/temp_0_{3,5,7}/   # 60 .ttl step files + 3 cumulative
-│   │   └── ...
-│   └── K2.6/                           # Ontologies from K2.6
-│       ├── memoryless/temp_0_{3,5,7}/  # 60 .ttl files
-│       ├── ontogenia/temp_0_{3,5,7}/   # 63 .ttl files (60 steps + 3 cumulative)
-│       └── README.md                   # K2.6 module documentation
+│   ├── README.md                           # Master index: todos los módulos + comparativa unificada
+│   ├── Deepseekv4/                         # v1 — event-centric original
+│   │   ├── memoryless/temp_0_{3,5,7}/      # 60 .ttl
+│   │   └── ontogenia/temp_0_{3,5,7}/       # 63 .ttl
+│   ├── Deepseekv4_objeto/                  # v2 — object-centric
+│   │   ├── memoryless/temp_0_{3,5,7}/      # 90 .ttl
+│   │   └── ontogenia/temp_0_{3,5,7}/       # 93 .ttl
+│   ├── Deepseekv4_objeto_eventos/          # v3 — event-centric (mismas CQs que v2)
+│   │   ├── memoryless/temp_0_{3,5,7}/      # 90 .ttl
+│   │   └── ontogenia/temp_0_{3,5,7}/       # 93 .ttl
+│   ├── K2.6/                               # Object-centric con taxonomía profunda
+│   │   ├── memoryless/temp_0_{3,5,7}/      # 60 .ttl
+│   │   └── ontogenia/temp_0_{3,5,7}/       # 63 .ttl
+│   └── Qwen3.6/                            # IDEArq-inspired lifecycle (4 bloques completos)
+│       ├── memoryless/temp_0_{3,5,7}/      # 240 .ttl
+│       └── ontogenia/temp_0_{3,5,7}/       # 252 .ttl
+│
 ├── docs/
-│   ├── analisis.docx                   # CRMarchaeo gap analysis
-│   ├── PreguntasCompetencia.docx        # Original CQ set (ChatGPT)
-│   ├── ontologyLLM.pdf                 # OntologyLLM paper (ESWC 2025)
-│   └── modelo idearq_v3b.pdf           # IDEArq UML conceptual model
-└── ontologies_docs/                   # Reference ontologies (renamed from ONTOLOGIAS)
-    ├── owl/                            # CRMarchaeo v2.1.1
-    ├── ttl/                            # GeoSPARQL, OWL-Time
-    ├── html/
-    └── pdfs/
+│   ├── analisis.docx                       # Análisis de gaps de CRMarchaeo
+│   ├── PreguntasCompetencia.docx           # CQs originales (ChatGPT)
+│   ├── ontologyLLM.pdf                     # Paper Onto-Generation (ESWC 2025)
+│   ├── modelo idearq_v3b.pdf               # UML conceptual IDEArq
+│   ├── objetoArqueologico/                 # 14 artículos sobre teoría del objeto arqueológico
+│   │   └── analisis_ontologico.md          # Extracción semántica: 24 clases, 29 props, 8 módulos
+│   └── ...
+│
+└── ontologies_docs/                        # Ontologías de referencia
+    ├── owl/                                # CRMarchaeo v2.1.1
+    ├── ttl/                                # GeoSPARQL, OWL-Time
+    └── pdfs/                               # SKOS, PROV-O
 ```
 
 ---
 
-## CRMarchaeo Integration
+## Metodología
 
-The `arqo:` module connects to CRMarchaeo through **class subsumption** and **property ranges**:
+### 1. Preguntas de competencia (CQs)
+
+Cada modelo genera sus propias CQs a partir del análisis de gaps de CRMarchaeo (`docs/analisis.docx`). Las CQs se agrupan en 4 bloques temáticos: **Archaeological Object**, **Spatial**, **Temporal** y **Stratigraphy**.
+
+La segunda generación de Deepseekv4 usa 30 CQs nuevas basadas en 14 artículos académicos sobre el objeto arqueológico, analizados en `docs/objetoArqueologico/analisis_ontologico.md`.
+
+### 2. Estrategias de prompting
+
+Adaptadas de [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) (Lippolis et al., ESWC 2025):
+
+| Estrategia | Descripción | Archivos/prompt |
+|---|---|---|
+| **Memoryless CQbyCQ** | Cada CQ se procesa independientemente. RDF vacío siempre. Sin memoria entre CQs. | `prompts/memoryless/` |
+| **Ontogenia** | Extensión iterativa con prompting metacognitivo. 9 pasos. RDF se acumula entre pasos. | `prompts/ontogenia/` |
+
+### 3. Temperatura como variable experimental
+
+| Temp | Comportamiento | Efecto arqueológico |
+|---|---|---|
+| **0.3** | Conservador | Máxima reutilización de CRM, jerarquías planas, sin disjointness |
+| **0.5** | Balanceado | Extensiones moderadas, alineación CRM estándar, jerarquía de 2 niveles |
+| **0.7** | Creativo | Jerarquías profundas, clases pivote, disjointness, cadena completa de eventos |
+
+### 4. Evaluación
+
+Las ontologías generadas se evalúan en:
+- Consistencia semántica
+- Alineación con CIDOC CRM
+- Cobertura de CQs
+- Interoperabilidad
+- Capacidad de razonamiento
+- Redundancia ontológica
+
+---
+
+## CRMarchaeo — Integración
+
+Todas las ontologías generadas extienden CRMarchaeo mediante **subsunción de clases** y **rangos de propiedades**:
 
 ```turtle
-# ── Class subsumption ───────────────────────────────────────
+# Clases arqueológicas ancladas en CRM/CRMarchaeo
+arqo:ArchaeologicalObject  rdfs:subClassOf crm:E19_Physical_Object .
 arqo:DepositionEvent       rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis .
 arqo:RecoveryEvent         rdfs:subClassOf crmarchaeo:A1_Excavation_Process_Unit .
-arqo:TaphonomicProcess     rdfs:subClassOf crmarchaeo:A5_Stratigraphic_Modification_Event .
-arqo:ArchaeologicalObject  rdfs:subClassOf crm:E19_Physical_Object .
+arqo:TransformationEvent   rdfs:subClassOf crm:E81_Transformation .
+arqo:ClassificationEvent   rdfs:subClassOf crm:E17_Type_Assignment .
+arqo:AnalysisEvent         rdfs:subClassOf crmsci:S19_Encounter .
+arqo:MeasurementEvent      rdfs:subClassOf crmsci:S21_Measurement .
 
-# ── Property ranges ─────────────────────────────────────────
+# Propiedades que apuntan a entidades CRMarchaeo
 arqo:depositedIn           rdfs:range crmarchaeo:A8_Stratigraphic_Unit .
 arqo:recoveredFrom         rdfs:range crmarchaeo:A8_Stratigraphic_Unit .
-arqo:locatedInStructure    rdfs:range crmarchaeo:A2_Stratigraphic_Volume_Unit .
-
-# ── Object lifecycle chain ──────────────────────────────────
-arqo:hasBiography          rdfs:range arqo:ObjectBiography .
-arqo:participatedInProduction rdfs:range arqo:ProductionEvent .
-arqo:participatedInUse     rdfs:range arqo:UseEvent .
-arqo:participatedInReuse   rdfs:range arqo:ReuseEvent .
-arqo:repairedIn            rdfs:range arqo:RepairEvent .
-arqo:wasSampledIn          rdfs:range arqo:SamplingEvent .
-arqo:underwentTreatment    rdfs:range arqo:PostExcavationTreatment .
+arqo:underwentTaphonomic   rdfs:range crmarchaeo:A5_Stratigraphic_Modification_Event .
 ```
 
-See `ontologies_generated/Deepseekv4/README.md` and `ontologies_generated/K2.6/README.md` for the complete alignment tables of each module.
+---
+
+## Cómo reproducir con otro LLM
+
+Ver la sección **"How to Reproduce with Another LLM Model"** en [`AGENTS.md`](AGENTS.md). El pipeline es:
+
+1. Generar CQs propias (4 bloques × ~20 CQs)
+2. Usar los prompts arqueológicos en `prompts/`
+3. Generar ontologías en ambas estrategias a 3 temperaturas
+4. Documentar en `ontologies_generated/{modelo}/`
+5. Actualizar el master index
 
 ---
 
-## Prompting Strategies
-
-| Strategy | Reference | Behaviour |
-|---|---|---|
-| **Memoryless CQbyCQ** | [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) | Each CQ processed independently. RDF context always empty. 60 files generated (20 CQ × 3 temps). |
-| **Ontogenia** | [Ontogenia (Lippolis et al.)](https://github.com/dersuchendee/Onto-Generation) | Iterative ontology extension. 9-step metacognitive procedure. RDF accumulates across steps. 63 files (60 steps + 3 cumulative). |
-
-Templates at: `prompts/memoryless/prompt_archaeological_object.md` and `prompts/ontogenia/prompt_archaeological_object.md`
-
----
-
-## Temperature as Experimental Variable
-
-### Deepseekv4
-
-| Temperature | Classes | Properties | Restrictions | Cumulative lines | Style |
-|---|---|---|---|---|---|
-| **0.3** | 6 | 8 | Minimal | 104 | Conservative — max CRM reuse |
-| **0.5** | 14 | 19 | Moderate | 222 | Balanced |
-| **0.7** | 24 | 29 | Extensive | 263 | Creative — deep hierarchy + reification |
-
-### K2.6
-
-| Temperature | Classes | Properties | Restrictions | Cumulative lines | Style |
-|---|---|---|---|---|---|
-| **0.3** | 6 | 8 | Minimal | 95 | Conservative — max CRM reuse |
-| **0.5** | 14 | 17 | Moderate | 228 | Balanced |
-| **0.7** | 28 | 25 | Extensive | 312 | Creative — deep hierarchy + physical attributes |
-
----
-
-## CQ Attribution
-
-### Deepseekv4
-
-| Block | Reused (from Word) | New (from gap analysis) | Total |
-|---|---|---|---|
-| Archaeological Object | 8 | 12 | 20 |
-| Spatial | 11 | 9 | 20 |
-| Temporal | 9 | 11 | 20 |
-| Stratigraphy | 8 | 12 | 20 |
-| **Total** | **36 (45%)** | **44 (55%)** | **80** |
-
-### K2.6
-
-| Block | Reused | New | Total |
-|---|---|---|---|
-| Archaeological Object | 0 | 20 | 20 |
-| Spatial | 0 | 20 | 20 |
-| Temporal | 0 | 20 | 20 |
-| Stratigraphy | 0 | 20 | 20 |
-| **Total** | **0 (0%)** | **80 (100%)** | **80** |
-
-Detailed attribution tables per CQ in `ontologies_generated/Deepseekv4/README.md` §2 and `ontologies_generated/K2.6/README.md`.
-
----
-
-## How to Reproduce with Another LLM
-
-See the **"How to Reproduce with Another LLM Model"** section in `AGENTS.md` for step-by-step instructions covering:
-1. Generating CQs
-2. Creating prompt templates
-3. Generating OWL/Turtle ontologies
-4. Documenting results
-
-Each LLM model should produce its own directory under `CQ/CQ_{model_name}/` and `ontologies_generated/{model_name}/`.
-
----
-
-## References
+## Referencias
 
 - **Onto-Generation** — Lippolis, A.S. et al. (2025). *Ontology Generation using Large Language Models*. ESWC 2025. [GitHub](https://github.com/dersuchendee/Onto-Generation)
 - **CIDOC CRM v7.3.2** — [cidoc-crm.org](https://www.cidoc-crm.org/)
 - **CRMarchaeo v2.1.1** — [cidoc-crm.org/crmarchaeo](https://www.cidoc-crm.org/crmarchaeo/)
 - **Ontogenia** — Lippolis, A.S., Ceriani, M., Zuppiroli, S., Nuzzolese, A.G. *Ontogenia: Ontology Generation with Metacognitive Prompting in LLMs*
-- **IDEArq** — UML conceptual model (`docs/modelo idearq_v3b.pdf`)
 
-## License
+### Artículos de teoría del objeto arqueológico
+
+14 artículos analizados en `docs/objetoArqueologico/analisis_ontologico.md`:
+Holtorf (2013) — *On Pastness* · Gosden — *What do objects want?* · Garcia-Rovira (2015) · Rowe (1959) · Pollard (2014) · Gill (2018) · Guerra (2003) · Schwarcz (2002) · ICCROM (2018) · Pernicka et al. · BF03376602 · y otros.
+
+---
+
+## Licencia
 
 [MIT License](LICENSE)
