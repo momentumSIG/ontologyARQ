@@ -1,6 +1,6 @@
 # Ontología del Objeto Arqueológico
 
-> Compatible con CIDOC CRM · CRMarchaeo · CRMsci · CRMinf · CRMhs · GeoSPARQL · OWL-Time · PROV-O
+> Compatible con CIDOC CRM · CRMarchaeo 
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![CIDOC CRM](https://img.shields.io/badge/CIDOC%20CRM-v7.3.2-green)](https://www.cidoc-crm.org/)
