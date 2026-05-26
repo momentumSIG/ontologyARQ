@@ -1,0 +1,137 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ============================================================
+# Ontology: Archaeological Object Module (Event-Centric Design)
+# Model: Deepseekv4 | Strategy: memoryless | Temperature: 0.7
+# CQ: CQ-OBJ-03
+# Design: Event-centric — events are the primary ontological anchor.
+#         Objects participate in events. Lifecycle = event chain.
+# ============================================================
+# ======================= CLASSES ===========================
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered from archaeological investigation. Participates in lifecycles modelled as event chains."@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en .
+
+arqo:ProductionEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "ProductionEvent"@en ;
+    rdfs:comment "Event where an object is produced. Anchors the beginning of the object lifecycle."@en .
+
+arqo:UseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "UseEvent"@en ;
+    rdfs:comment "Event where an object is actively used"@en .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "DepositionEvent"@en ;
+    rdfs:comment "Event where an object enters the archaeological record"@en .
+
+arqo:RecoveryEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A1_Excavation_Process_Unit ;
+    rdfs:label "RecoveryEvent"@en ;
+    rdfs:comment "Event where an object is excavated or recovered"@en .
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en ;
+    rdfs:comment "Event where an object is reused for a new function"@en .
+
+arqo:RepairEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RepairEvent"@en ;
+    rdfs:comment "Event where an object is repaired or modified"@en .
+
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en ;
+    rdfs:comment "Event where an object moves between locations"@en .
+
+arqo:TransformationEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "TransformationEvent"@en ;
+    rdfs:comment "Event where an object undergoes physical change"@en .
+
+arqo:ConservationEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationEvent"@en ;
+    rdfs:comment "Event where conservation treatment is applied"@en .
+
+arqo:SamplingEvent a owl:Class ;
+    rdfs:subClassOf crmsci:S19_Encounter ;
+    rdfs:label "SamplingEvent"@en ;
+    rdfs:comment "Event where a sample is extracted for analysis"@en .
+
+arqo:RepatriationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "RepatriationEvent"@en ;
+    rdfs:comment "Event where an object is returned to its origin"@en .
+
+arqo:MeasurementEvent a owl:Class ;
+    rdfs:subClassOf crmsci:S21_Measurement ;
+    rdfs:label "MeasurementEvent"@en ;
+    rdfs:comment "Event where object dimensions are measured"@en .
+
+# =================== OBJECT PROPERTIES =====================
+arqo:wasMeasuredIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MeasurementEvent ;
+    rdfs:label "wasMeasuredIn"@en .
+
+# ==================== DATA PROPERTIES =====================
+arqo:hasLengthValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:MeasurementEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasLengthValue"@en .
+
+arqo:hasWeightValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:MeasurementEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasWeightValue"@en .
+
+# Ontology generated by Deepseekv4 using event-centric strategy at temperature 0.7
+# Compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1
