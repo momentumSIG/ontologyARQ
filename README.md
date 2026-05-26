@@ -12,8 +12,7 @@
 ---
 
 ## ¿Qué es esto?
-
-ONTOLOGIA-ARQ es un proyecto de ingeniería ontológica que utiliza **LLMs** para generar extensiones de CIDOC CRM centradas en el **objeto arqueológico**. CRMarchaeo modela muy bien la excavación y la estratigrafía, pero deja un vacío en el modelado del propio objeto — su ciclo de vida, materialidad, biografía, clasificación, análisis científico y significado cultural.
+Esto es un proyecto de ingeniería ontológica que utiliza **LLMs** para generar extensiones de CIDOC CRM centradas en el **objeto arqueológico**. CRMarchaeo modela muy bien la excavación y la estratigrafía, pero deja un vacío en el modelado del propio objeto — su ciclo de vida, materialidad, biografía, clasificación, análisis científico y significado cultural.
 
 La metodología es **CQ-driven** (Competency Questions) con dos estrategias de prompting (Memoryless CQbyCQ y Ontogenia metacognitiva), evaluadas a 3 temperaturas (0.3, 0.5, 0.7). El diseño se inspira en 14 artículos académicos sobre teoría del objeto arqueológico y en el análisis de gaps de CRMarchaeo.
 
