@@ -1,9 +1,8 @@
-# ONTOLOGIA-ARQ
+# Ontología del Objeto Arqueológico
 
-> Ontología del objeto arqueológico generada con Large Language Models
 > Compatible con CIDOC CRM · CRMarchaeo · CRMsci · CRMinf · CRMhs · GeoSPARQL · OWL-Time · PROV-O
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![CIDOC CRM](https://img.shields.io/badge/CIDOC%20CRM-v7.3.2-green)](https://www.cidoc-crm.org/)
 [![CRMarchaeo](https://img.shields.io/badge/CRMarchaeo-v2.1.1-green)](https://www.cidoc-crm.org/crmarchaeo/)
 [![Methodology](https://img.shields.io/badge/Methodology-CQ--driven-orange)](ontologies_generated/)
