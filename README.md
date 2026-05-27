@@ -1,9 +1,8 @@
-# ONTOLOGIA-ARQ
+# Ontología del objeto arqueológico
 
-> Ontología del objeto arqueológico generada con Large Language Models
-> Compatible con CIDOC CRM · CRMarchaeo · CRMsci · CRMinf · CRMhs · GeoSPARQL · OWL-Time · PROV-O
+> Compatible con CIDOC CRM · CRMarchaeo 
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![CIDOC CRM](https://img.shields.io/badge/CIDOC%20CRM-v7.3.2-green)](https://www.cidoc-crm.org/)
 [![CRMarchaeo](https://img.shields.io/badge/CRMarchaeo-v2.1.1-green)](https://www.cidoc-crm.org/crmarchaeo/)
 [![Methodology](https://img.shields.io/badge/Methodology-CQ--driven-orange)](ontologies_generated/)
@@ -13,8 +12,7 @@
 ---
 
 ## ¿Qué es esto?
-
-ONTOLOGIA-ARQ es un proyecto de ingeniería ontológica que utiliza **LLMs** para generar extensiones de CIDOC CRM centradas en el **objeto arqueológico**. CRMarchaeo modela muy bien la excavación y la estratigrafía, pero deja un vacío en el modelado del propio objeto — su ciclo de vida, materialidad, biografía, clasificación, análisis científico y significado cultural.
+Esto es un proyecto de ingeniería ontológica que utiliza **LLMs** para generar extensiones de CIDOC CRM centradas en el **objeto arqueológico**. CRMarchaeo modela muy bien la excavación y la estratigrafía, pero deja un vacío en el modelado del propio objeto — su ciclo de vida, materialidad, biografía, clasificación, análisis científico y significado cultural.
 
 La metodología es **CQ-driven** (Competency Questions) con dos estrategias de prompting (Memoryless CQbyCQ y Ontogenia metacognitiva), evaluadas a 3 temperaturas (0.3, 0.5, 0.7). El diseño se inspira en 14 artículos académicos sobre teoría del objeto arqueológico y en el análisis de gaps de CRMarchaeo.
 
