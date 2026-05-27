@@ -1,0 +1,54 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-17
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:PostDepositionalAlterationEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A5_Stratigraphic_Modification_Event ;
+    rdfs:label "PostDepositionalAlterationEvent"@en .
+
+arqo:PatinationEvent a owl:Class ;
+    rdfs:subClassOf arqo:PostDepositionalAlterationEvent ;
+    rdfs:label "PatinationEvent"@en .
+
+arqo:WeatheringEvent a owl:Class ;
+    rdfs:subClassOf arqo:PostDepositionalAlterationEvent ;
+    rdfs:label "WeatheringEvent"@en .
+
+arqo:CorrosionEvent a owl:Class ;
+    rdfs:subClassOf arqo:PostDepositionalAlterationEvent ;
+    rdfs:label "CorrosionEvent"@en .
+
+arqo:BioturbationEvent a owl:Class ;
+    rdfs:subClassOf arqo:PostDepositionalAlterationEvent ;
+    rdfs:label "BioturbationEvent"@en .
+
+arqo:hasAlterationType a owl:DatatypeProperty ;
+    rdfs:domain arqo:PostDepositionalAlterationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has alteration type"@en .
+
+arqo:resultedInConditionState a owl:ObjectProperty ;
+    rdfs:domain arqo:PostDepositionalAlterationEvent ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "resulted in condition state"@en .
+
+arqo:affectedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:PostDepositionalAlterationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "affected object"@en .
+
+# Disjointness
+arqo:PatinationEvent owl:disjointWith arqo:CorrosionEvent .
+arqo:WeatheringEvent owl:disjointWith arqo:BioturbationEvent .

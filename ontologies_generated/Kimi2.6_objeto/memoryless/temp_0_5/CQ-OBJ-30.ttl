@@ -1,0 +1,46 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-30
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:CulturalSignificanceAssignmentEvent a owl:Class ;
+    rdfs:subClassOf crm:E17_Type_Assignment ;
+    rdfs:label "CulturalSignificanceAssignmentEvent"@en ;
+    rdfs:comment "Assignment of symbolic, ritual, or aesthetic meaning to an object"@en .
+
+arqo:hasSignificanceType a owl:DatatypeProperty ;
+    rdfs:domain arqo:CulturalSignificanceAssignmentEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has significance type"@en ;
+    rdfs:comment "symbolic, ritual, aesthetic, sacred"@en .
+
+arqo:relatedToUseEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:CulturalSignificanceAssignmentEvent ;
+    rdfs:range crm:E7_Activity ;
+    rdfs:label "related to use event"@en .
+
+arqo:relatedToReuseEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:CulturalSignificanceAssignmentEvent ;
+    rdfs:range crm:E7_Activity ;
+    rdfs:label "related to reuse event"@en .
+
+arqo:relatedToRitualizationEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:CulturalSignificanceAssignmentEvent ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "related to ritualization event"@en .
+
+arqo:assignedByInterpreter a owl:ObjectProperty ;
+    rdfs:domain arqo:CulturalSignificanceAssignmentEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "assigned by interpreter"@en .

@@ -1,0 +1,34 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-06
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:UseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "UseEvent"@en ;
+    rdfs:comment "Event of object utilization in its original or assigned functional role"@en .
+
+arqo:hasFunctionalRole a owl:ObjectProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has functional role"@en .
+
+arqo:hasUseDateStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has use date start"@en .
+
+arqo:hasUseDateEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has use date end"@en .

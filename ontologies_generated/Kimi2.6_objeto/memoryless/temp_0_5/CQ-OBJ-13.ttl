@@ -1,0 +1,39 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-13
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:RepatriationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "RepatriationEvent"@en ;
+    rdfs:comment "Event of returning an archaeological object to its country or community of origin"@en .
+
+arqo:ProvenanceInvestigationEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ProvenanceInvestigationEvent"@en ;
+    rdfs:comment "Investigation establishing the legal and ethical basis for repatriation"@en .
+
+arqo:precededByInvestigation a owl:ObjectProperty ;
+    rdfs:domain arqo:RepatriationEvent ;
+    rdfs:range arqo:ProvenanceInvestigationEvent ;
+    rdfs:label "preceded by investigation"@en .
+
+arqo:hasLegalBasis a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepatriationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has legal basis"@en .
+
+arqo:hasRepatriationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepatriationEvent ;
+    rdfs:range xsd:date ;
+    rdfs:label "has repatriation date"@en .

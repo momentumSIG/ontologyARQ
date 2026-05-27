@@ -1,0 +1,40 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-01
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Reuse CIDOC CRM classes directly
+
+arqo:ManufacturingEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "ManufacturingEvent"@en ;
+    rdfs:comment "Event of object production through specific technological procedures"@en .
+
+arqo:employedChaineOperatoire a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range crm:E29_Design_or_Procedure ;
+    rdfs:label "employed chaine operatoire"@en ;
+    rdfs:comment "Links a manufacturing event to the operational sequence of technological steps employed"@en .
+
+arqo:producedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range crm:E22_Human-Made_Object ;
+    rdfs:label "produced object"@en ;
+    rdfs:comment "Links a manufacturing event to the object that was produced"@en .
+
+arqo:recoveredFromUnit a owl:ObjectProperty ;
+    rdfs:domain crm:E19_Physical_Object ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "recovered from stratigraphic unit"@en .

@@ -1,0 +1,39 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-10
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:GradualTransformationEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "GradualTransformationEvent"@en ;
+    rdfs:comment "Continuous alteration of physical form or function over time"@en .
+
+arqo:TransformationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "TransformationState"@en ;
+    rdfs:comment "Measurable state of an object at a point during a gradual transformation"@en .
+
+arqo:hasTransformationStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has transformation start"@en .
+
+arqo:hasTransformationEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has transformation end"@en .
+
+arqo:hasRecordedState a owl:ObjectProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range arqo:TransformationState ;
+    rdfs:label "has recorded state"@en .

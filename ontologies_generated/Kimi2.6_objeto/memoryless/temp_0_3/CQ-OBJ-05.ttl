@@ -1,0 +1,31 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-05
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:employedNonLocalMaterial a owl:ObjectProperty ;
+    rdfs:domain crm:E12_Production ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "employed non-local material"@en ;
+    rdfs:comment "Links a manufacturing event to a raw material whose geological source differs from the production locus"@en .
+
+arqo:materialCirculatedThrough a owl:ObjectProperty ;
+    rdfs:domain crm:E57_Material ;
+    rdfs:range crm:E9_Move ;
+    rdfs:label "material circulated through"@en ;
+    rdfs:comment "Links a material to the movement events that transported it from source to production locus"@en .
+
+arqo:sourcePlace a owl:ObjectProperty ;
+    rdfs:domain crm:E9_Move ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "source place"@en .

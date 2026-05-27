@@ -29,6 +29,7 @@ La metodología es **CQ-driven** (Competency Questions) con dos estrategias de p
 | [Deepseekv4 v3](ontologies_generated/Deepseekv4_objeto_eventos/) | deepseek-v4-pro | **Event-centric** — mismas CQs que v2, modeladas desde eventos | 30 (objeto) | 183 | 17 |
 | [K2.6](ontologies_generated/K2.6/) | K2.6 | **Object-centric** — jerarquía taxonómica profunda + atributos físicos | 80 (4 bloques) | 124 | 28 |
 | [Qwen3.6](ontologies_generated/Qwen3.6/) | Qwen3.6 | **Objeto + eventos** — taxonomía del objeto + ciclo de vida explícito | 80 (4 bloques) | 493 | 30+ |
+| [Kimi2.6_objeto](ontologies_generated/Kimi2.6_objeto/) | Kimi-2.6 | **Event-centric** — 30 CQs nuevas, evento como ancla ontológica | 30 (objeto) | 183 | 121 |
 
 > Comparativa completa, inventario de clases/propiedades y mapas de alineación CRMarchaeo en [`ontologies_generated/README.md`](ontologies_generated/README.md).
 
@@ -45,7 +46,7 @@ Las mismas preguntas de competencia pueden responderse desde filosofías ontoló
 | **Material** | `ProductionEvent` usa material | El objeto `hasMaterial` | El objeto `hasMaterial` |
 | **Ciclo de vida** | Cadena de eventos | Objeto ancla eventos | `ObjectBiography` contiene eventos |
 | **Clasificación** | `ClassificationEvent` | `TypologicalAssignment` (E17 pivot) | `TypologicalAssignment` |
-| **Ejemplos** | Deepseekv4 v1, v3 | Deepseekv4 v2, K2.6 | Qwen3.6 |
+| **Ejemplos** | Deepseekv4 v1, v3, Kimi-2.6 | Deepseekv4 v2, K2.6 | Qwen3.6 |
 
 El proyecto demuestra que el **mismo modelo** (Deepseekv4) produce ontologías radicalmente distintas con las **mismas CQs** cambiando solo la filosofía de diseño (v2 object-centric vs v3 event-centric).
 
@@ -93,9 +94,12 @@ ONTOLOGIA-ARQ/
 │   ├── K2.6/                               # Object-centric con taxonomía profunda
 │   │   ├── memoryless/temp_0_{3,5,7}/      # 60 .ttl
 │   │   └── ontogenia/temp_0_{3,5,7}/       # 63 .ttl
-│   └── Qwen3.6/                            # IDEArq-inspired lifecycle (4 bloques completos)
-│       ├── memoryless/temp_0_{3,5,7}/      # 240 .ttl
-│       └── ontogenia/temp_0_{3,5,7}/       # 252 .ttl
+│   ├── Qwen3.6/                            # IDEArq-inspired lifecycle (4 bloques completos)
+│   │   ├── memoryless/temp_0_{3,5,7}/      # 240 .ttl
+│   │   └── ontogenia/temp_0_{3,5,7}/       # 252 .ttl
+│   └── Kimi2.6_objeto/                     # Event-centric — 30 CQs nuevas basadas en artículos
+│       ├── memoryless/temp_0_{3,5,7}/      # 90 .ttl
+│       └── ontogenia/temp_0_{3,5,7}/       # 93 .ttl
 │
 ├── docs/
 │   ├── analisis.docx                       # Análisis de gaps de CRMarchaeo

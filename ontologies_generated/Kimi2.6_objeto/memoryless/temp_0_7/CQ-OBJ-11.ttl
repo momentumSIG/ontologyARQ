@@ -1,0 +1,62 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-11
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en .
+
+arqo:TradeEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "TradeEvent"@en .
+
+arqo:GiftExchangeEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "GiftExchangeEvent"@en .
+
+arqo:LootingEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "LootingEvent"@en .
+
+arqo:AuctionEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "AuctionEvent"@en .
+
+arqo:ExchangeMechanism a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "ExchangeMechanism"@en .
+
+arqo:hasExchangeMechanism a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range arqo:ExchangeMechanism ;
+    rdfs:label "has exchange mechanism"@en .
+
+arqo:movedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "moved object"@en .
+
+arqo:originPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "origin place"@en .
+
+arqo:destinationPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "destination place"@en .
+
+# Disjointness
+arqo:TradeEvent owl:disjointWith arqo:LootingEvent .
+arqo:GiftExchangeEvent owl:disjointWith arqo:AuctionEvent .

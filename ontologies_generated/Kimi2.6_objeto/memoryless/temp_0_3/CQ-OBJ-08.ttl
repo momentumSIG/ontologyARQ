@@ -1,0 +1,34 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-08
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:RepairEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RepairEvent"@en ;
+    rdfs:comment "Physical modification of an object to restore or extend its function during use-life"@en .
+
+arqo:ConservationTreatment a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationTreatment"@en ;
+    rdfs:comment "Post-recovery preservation action applied after excavation"@en .
+
+arqo:repairDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepairEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "repair date"@en .
+
+arqo:conservationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationTreatment ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "conservation date"@en .

@@ -1,0 +1,54 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-20
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:PatinaFormationEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "PatinaFormationEvent"@en .
+
+arqo:ChemicalPatinationEvent a owl:Class ;
+    rdfs:subClassOf arqo:PatinaFormationEvent ;
+    rdfs:label "ChemicalPatinationEvent"@en .
+
+arqo:PhysicalPatinationEvent a owl:Class ;
+    rdfs:subClassOf arqo:PatinaFormationEvent ;
+    rdfs:label "PhysicalPatinationEvent"@en .
+
+arqo:hasCulturalValuation a owl:DatatypeProperty ;
+    rdfs:domain arqo:PatinaFormationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has cultural valuation"@en .
+
+arqo:resultedInPatina a owl:ObjectProperty ;
+    rdfs:domain arqo:PatinaFormationEvent ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "resulted in patina"@en .
+
+arqo:affectedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:PatinaFormationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "affected object"@en .
+
+arqo:valuedByCommunity a owl:ObjectProperty ;
+    rdfs:domain arqo:PatinaFormationEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "valued by community"@en .
+
+arqo:authenticityClaim a owl:DatatypeProperty ;
+    rdfs:domain arqo:PatinaFormationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "authenticity claim"@en .
+
+# Disjointness
+arqo:ChemicalPatinationEvent owl:disjointWith arqo:PhysicalPatinationEvent .

@@ -1,0 +1,61 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-25
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ConflictingAssignmentEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ConflictingAssignmentEvent"@en .
+
+arqo:UnresolvedConflictEvent a owl:Class ;
+    rdfs:subClassOf arqo:ConflictingAssignmentEvent ;
+    rdfs:label "UnresolvedConflictEvent"@en .
+
+arqo:ResolvedConflictEvent a owl:Class ;
+    rdfs:subClassOf arqo:ConflictingAssignmentEvent ;
+    rdfs:label "ResolvedConflictEvent"@en .
+
+arqo:AnalyticalEncounterA a owl:ObjectProperty ;
+    rdfs:domain arqo:ConflictingAssignmentEvent ;
+    rdfs:range crmsci:S19_Encounter ;
+    rdfs:label "analytical encounter A"@en .
+
+arqo:AnalyticalEncounterB a owl:ObjectProperty ;
+    rdfs:domain arqo:ConflictingAssignmentEvent ;
+    rdfs:range crmsci:S19_Encounter ;
+    rdfs:label "analytical encounter B"@en .
+
+arqo:hasConflictingTechniqueA a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConflictingAssignmentEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has conflicting technique A"@en .
+
+arqo:hasConflictingTechniqueB a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConflictingAssignmentEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has conflicting technique B"@en .
+
+arqo:resolutionMethod a owl:DatatypeProperty ;
+    rdfs:domain arqo:ResolvedConflictEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "resolution method"@en .
+
+arqo:resolvedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ResolvedConflictEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "resolved by"@en .
+
+# Disjointness
+arqo:UnresolvedConflictEvent owl:disjointWith arqo:ResolvedConflictEvent .

@@ -1,0 +1,40 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-23
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ProvenanceDeterminationEvent a owl:Class ;
+    rdfs:subClassOf crmsci:S19_Encounter ;
+    rdfs:label "ProvenanceDeterminationEvent"@en ;
+    rdfs:comment "Analytical event using chemical/isotopic data to determine geographic source"@en .
+
+arqo:LeadIsotopeAnalysisEvent a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceDeterminationEvent ;
+    rdfs:label "LeadIsotopeAnalysisEvent"@en ;
+    rdfs:comment "Provenance determination via lead isotope ratios"@en .
+
+arqo:hasLeadIsotopeRatio a owl:DatatypeProperty ;
+    rdfs:domain arqo:LeadIsotopeAnalysisEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has lead isotope ratio"@en .
+
+arqo:hasTraceElementProfile a owl:DatatypeProperty ;
+    rdfs:domain arqo:ProvenanceDeterminationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has trace element profile"@en .
+
+arqo:linkedToSourceRegion a owl:ObjectProperty ;
+    rdfs:domain arqo:ProvenanceDeterminationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "linked to source region"@en .

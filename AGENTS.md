@@ -20,6 +20,12 @@ The ontology must remain semantically compatible with:
 - CRMinf
 - CRMhs
 - ARIADNE AO-Cat
+- GeoSPARQL
+- OWL-Time
+- PROV-O
+- GeoSciML
+- SKOS
+
 
 ---
 
@@ -32,15 +38,15 @@ The current ontology engineering work focuses primarily on the following section
 Priority subsections:
 - 3.1 Archaeological Object Module
 - 3.4 Spatial and Geospatial Module
-- 3.5 Archaeological Inference Module
-- 3.6 Extended Archaeological Context Module
+- 3.5. Temporal Module
 
 ## Section 4 — External Ontology Integration
 
 Priority subsections:
 - 4.1 UML comparison with IDEArq conceptual model
-- 4.3 GeoSPARQL / OGC integration
-- 4.4 PROV-O integration and provenance modeling
+- 4.3 GeoSPARQL / OGC integration and PeriodO alignment
+- 4.4 OWL-Time and GeosciMl integration 
+- PROV-O integration and provenance modeling
 
 ---
 
@@ -62,22 +68,18 @@ The new ontology module must extend these capabilities toward:
 - materiality
 - use and reuse
 - deposition
-- laboratory analysis
 - archaeological interpretation
-- spatial context
-- temporal context
-- inferential reasoning
 
-The ontology should connect archaeological objects with:
+The ontology should connect archaeological objects wit these sections but in the future, not now:
 - excavation events
 - stratigraphic units
 - depositional events
 - spatial entities
 - temporal entities
-- analytical observations
 - archaeological interpretations
 
-An archaelogical experts thinks that a physical object can be a superclass of natural objects and human-made objects. Natural objects can be divided into abiotic and biotic objects, and human-made objects into artifacts, structures, and artistic expressions.
+An archaelogical experts thinks that a physical object can be a superclass of natural objects and E22human-made object or E24Physical Human-Made Thing (we are not sure). Natural objects can be divided into abiotic and biotic objects, and human-made objects into artifacts, structures, and artistic expressions.
+In this moment we only want to module the object per se.
 ---
 
 # Project Documentation Sources
@@ -104,11 +106,13 @@ The following sources are authoritative references for ontology generation and a
 
 The folder:
 
-ontologies_docs/documentacion
+ontologies_docs/
 
 contains:
 - OWL ontologies
 - TTL ontologies
+- HTML ontologies
+- PDF ontologies
 - ontology specifications
 - PDF conceptual documentation
 
@@ -165,12 +169,11 @@ Target topics:
 - reuse
 - deposition
 - conservation
-- laboratory analysis
 - manufacturing
 - human agency
 
 Target amount:
-- approximately 20 CQ
+- 20 CQ
 
 ---
 
@@ -189,7 +192,7 @@ Target topics:
 - GeoSPARQL alignment
 
 Target amount:
-- approximately 20 CQ
+- y 20 CQ
 
 ---
 
@@ -207,7 +210,7 @@ Target topics:
 - hybrid chronologies
 
 Target amount:
-- approximately 20 CQ
+- 20 CQ
 
 ---
 
@@ -216,7 +219,6 @@ Target amount:
 Target topics:
 - stratigraphic units
 - depositional processes
-- Harris Matrix reasoning
 - stratigraphic correlation
 - formation processes
 - geoarchaeology
@@ -224,7 +226,7 @@ Target topics:
 - stratigraphic uncertainty
 
 Target amount:
-- approximately 20 CQ
+- 20 CQ
 
 ---
 
@@ -235,7 +237,7 @@ Each competency question must include:
 - ontology modules required
 - possible ontology reuse
 - complexity classification (block of the CQ)
-
+- which language model generated the CQ
 ---
 
 # Gold Standard Extraction
@@ -924,3 +926,94 @@ ONTOLOGIA-ARQ/
 ├── evaluation/                        # Evaluation framework (future)
 └── generated_ontologies/              # (legacy)
 ```
+
+---
+
+# Workflow Executed — Kimi-2.6
+
+This section documents the ontology generation workflow executed by Kimi-2.6 on 2026-05-26, using the same prompting strategies and temperature settings as previous LLMs but with an independent event-centric design approach and 30 new competency questions.
+
+## Step 1 — Competency Question Generation
+
+30 CQs were generated across 6 thematic blocks (5 each). **All 30 CQs are new** — none were reused from `PreguntasCompetencia.docx` or from previous LLM sets. The CQs were designed from scratch with an **event-centric** grammatical structure (the event is the subject of each question).
+
+| Block | Theme | CQs | Source Articles |
+|---|---|---|---|
+| 1 | Production and manufacturing events | 5 | Garcia-Rovira, Guerra, Pernicka et al. |
+| 2 | Use, reuse, and functional transformation events | 5 | BF03376602, Gosden, ICCROM, "Things in the Eye of the Beholder" |
+| 3 | Circulation, exchange, and provenance events | 5 | Gill, Guerra, Pernicka et al. |
+| 4 | Deposition and post-depositional events | 5 | BF03376602, Holtorf, ICCROM |
+| 5 | Scientific analysis and dating events | 5 | Guerra, Schwarcz, "Non-invasive studies", "2949238" |
+| 6 | Conservation, interpretation, and meaning events | 5 | ICCROM, Holtorf, Rowe, Pollard |
+
+File: `CQ/CQ_Kimi2.6_objeto/CQ-object-kimi2.6.md`
+
+## Step 2 — Ontology Generation
+
+The Archaeological Object module was generated using both strategies at 3 temperatures with an **event-centric** design philosophy.
+
+### Directory structure
+
+```
+ontologies_generated/Kimi2.6_objeto/
+├── memoryless/
+│   ├── temp_0_3/          # 30 .ttl files (one per CQ)
+│   ├── temp_0_5/          # 30 .ttl files
+│   └── temp_0_7/          # 30 .ttl files
+├── ontogenia/
+│   ├── temp_0_3/          # 30 step files + cumulative.ttl
+│   ├── temp_0_5/          # 30 step files + cumulative.ttl
+│   └── temp_0_7/          # 30 step files + cumulative.ttl
+└── README.md              # Module documentation
+```
+
+### File counts
+
+| Category | Files |
+|---|---|
+| Memoryless CQbyCQ .ttl | 90 |
+| Ontogenia step .ttl | 90 |
+| Ontogenia cumulative .ttl | 3 |
+| Prompt templates | 2 (reused) |
+| CQ files | 1 |
+| Documentation | 1 |
+| **Total** | **187** |
+
+### Generated deliverables
+
+| Temperature | Classes | Object Properties | Data Properties | Cumulative lines |
+|---|---|---|---|---|
+| 0.3 | 32 | 52 | 39 | 634 |
+| 0.5 | 56 | 67 | 41 | 818 |
+| 0.7 | 121 | 73 | 54 | 1269 |
+
+### Key design characteristics
+
+| Aspect | Kimi-2.6 Event-centric |
+|---|---|
+| **Core entities** | Events (ManufacturingEvent, UseEvent, CirculationEvent, DepositionEvent, etc.) |
+| **Object role** | Participant in events, not primary anchor |
+| **Hierarchy depth** | 1 level (0.3) → 2 levels (0.5) → 3-4 levels (0.7) |
+| **Disjointness axioms** | 0 (0.3) → 2-4 per file (0.5) → 4-8 per file (0.7) |
+| **Reification** | Minimal (0.3) → Moderate (0.5) → Extensive (0.7) |
+| **Cultural concepts** | PastnessEvent, ObjectAgencyEvent, CulturalSignificanceAssignmentEvent |
+
+## Step 3 — CRMarchaeo Integration
+
+The Kimi-2.6 module extends CRMarchaeo through class subsumption:
+
+**Class alignment (selected):**
+| arqo: class | Superclass | Temperature |
+|---|---|---|
+| `ManufacturingEvent` | `crm:E12_Production` | 0.3+ |
+| `UseEvent` | `crm:E7_Activity` | 0.3+ |
+| `DepositionEvent` | `crmarchaeo:A4_Stratigraphic_Genesis` | 0.3+ |
+| `RecoveryEvent` | `crmarchaeo:A1_Excavation_Process_Unit` | 0.3+ |
+| `PostDepositionalAlterationEvent` | `crmarchaeo:A5_Stratigraphic_Modification_Event` | 0.3+ |
+| `AnalyticalEncounterEvent` | `crmsci:S19_Encounter` | 0.3+ |
+| `ObjectBiographyEvent` | `crminf:I4_Proposition_Set` | 0.5+ |
+| `PastnessEvent` | `crminf:I4_Proposition_Set` | 0.5+ |
+| `TypologicalAssignmentEvent` | `crm:E17_Type_Assignment` | 0.3+ |
+| `RepatriationEvent` | `crm:E9_Move` | 0.5+ |
+
+Full inventory in `ontologies_generated/Kimi2.6_objeto/README.md`.

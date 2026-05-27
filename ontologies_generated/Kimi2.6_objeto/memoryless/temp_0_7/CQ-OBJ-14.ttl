@@ -1,0 +1,53 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-14
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:SharedCirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "SharedCirculationEvent"@en .
+
+arqo:ProvenanceNetwork a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "ProvenanceNetwork"@en .
+
+arqo:DealerNetwork a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceNetwork ;
+    rdfs:label "DealerNetwork"@en .
+
+arqo:AuctionNetwork a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceNetwork ;
+    rdfs:label "AuctionNetwork"@en .
+
+arqo:LootingNetwork a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceNetwork ;
+    rdfs:label "LootingNetwork"@en .
+
+arqo:sharedByObject a owl:ObjectProperty ;
+    rdfs:domain arqo:SharedCirculationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "shared by object"@en .
+
+arqo:indicatesNetwork a owl:ObjectProperty ;
+    rdfs:domain arqo:SharedCirculationEvent ;
+    rdfs:range arqo:ProvenanceNetwork ;
+    rdfs:label "indicates network"@en .
+
+arqo:networkIdentifier a owl:DatatypeProperty ;
+    rdfs:domain arqo:ProvenanceNetwork ;
+    rdfs:range xsd:string ;
+    rdfs:label "network identifier"@en .
+
+# Disjointness
+arqo:DealerNetwork owl:disjointWith arqo:LootingNetwork .
+arqo:AuctionNetwork owl:disjointWith arqo:LootingNetwork .

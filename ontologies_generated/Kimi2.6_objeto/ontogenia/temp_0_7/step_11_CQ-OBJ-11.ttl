@@ -1,0 +1,508 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: ontogenia
+# Temperature: 0.7
+# CQ: OBJ-11
+# Step: 11/30
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+arqo:ManufacturingEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "ManufacturingEvent"@en ;
+    rdfs:comment "Event of object production through specific technological procedures"@en .
+
+arqo:PrimaryManufacturingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ManufacturingEvent ;
+    rdfs:label "PrimaryManufacturingEvent"@en ;
+    rdfs:comment "Initial production of an object from raw materials"@en .
+
+arqo:SecondaryManufacturingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ManufacturingEvent ;
+    rdfs:label "SecondaryManufacturingEvent"@en ;
+    rdfs:comment "Re-manufacturing or modification of an existing object"@en .
+
+arqo:ChaineOperatoire a owl:Class ;
+    rdfs:subClassOf crm:E29_Design_or_Procedure ;
+    rdfs:label "ChaineOperatoire"@en .
+
+arqo:TechnologicalStep a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "TechnologicalStep"@en ;
+    rdfs:comment "Individual step within a chaine operatoire"@en .
+
+arqo:employedChaineOperatoire a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range arqo:ChaineOperatoire ;
+    rdfs:label "employed chaine operatoire"@en .
+
+arqo:hasTechnologicalStep a owl:ObjectProperty ;
+    rdfs:domain arqo:ChaineOperatoire ;
+    rdfs:range arqo:TechnologicalStep ;
+    rdfs:label "has technological step"@en .
+
+arqo:producedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range crm:E22_Human-Made_Object ;
+    rdfs:label "produced object"@en .
+
+arqo:recoveredFromUnit a owl:ObjectProperty ;
+    rdfs:domain crm:E19_Physical_Object ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "recovered from stratigraphic unit"@en .
+
+arqo:hasManufacturingDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has manufacturing date"@en .
+
+# Restrictions
+arqo:ManufacturingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:employedChaineOperatoire ;
+    owl:minCardinality 1
+] .
+arqo:RawMaterialExtractionEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "RawMaterialExtractionEvent"@en .
+
+arqo:MiningExtractionEvent a owl:Class ;
+    rdfs:subClassOf arqo:RawMaterialExtractionEvent ;
+    rdfs:label "MiningExtractionEvent"@en .
+
+arqo:QuarryExtractionEvent a owl:Class ;
+    rdfs:subClassOf arqo:RawMaterialExtractionEvent ;
+    rdfs:label "QuarryExtractionEvent"@en .
+
+arqo:RawMaterialSource a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "RawMaterialSource"@en .
+
+arqo:Mine a owl:Class ;
+    rdfs:subClassOf arqo:RawMaterialSource ;
+    rdfs:label "Mine"@en .
+
+arqo:Quarry a owl:Class ;
+    rdfs:subClassOf arqo:RawMaterialSource ;
+    rdfs:label "Quarry"@en .
+
+arqo:suppliedMaterialFor a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range crm:E12_Production ;
+    rdfs:label "supplied material for"@en .
+
+arqo:extractedFromSource a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "extracted from source"@en .
+
+arqo:extractedMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "extracted material"@en .
+
+arqo:hasSourceGeology a owl:DatatypeProperty ;
+    rdfs:domain arqo:RawMaterialSource ;
+    rdfs:range xsd:string ;
+    rdfs:label "has source geology"@en .
+
+arqo:hasLeadIsotopeSignature a owl:DatatypeProperty ;
+    rdfs:domain arqo:RawMaterialSource ;
+    rdfs:range xsd:string ;
+    rdfs:label "has lead isotope signature"@en .
+
+# Disjointness
+arqo:Mine owl:disjointWith arqo:Quarry .
+arqo:ManufacturingEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "ManufacturingEvent"@en .
+
+arqo:ChaineOperatoire a owl:Class ;
+    rdfs:subClassOf crm:E29_Design_or_Procedure ;
+    rdfs:label "ChaineOperatoire"@en .
+
+arqo:AmbiguousManufacturingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ManufacturingEvent ;
+    rdfs:label "AmbiguousManufacturingEvent"@en ;
+    rdfs:comment "Manufacturing event producing objects whose nature/culture status is ambiguous"@en .
+
+arqo:employedChaineOperatoire a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range arqo:ChaineOperatoire ;
+    rdfs:label "employed chaine operatoire"@en .
+
+arqo:producedHumanMadeObject a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range crm:E22_Human-Made_Object ;
+    rdfs:label "produced human-made object"@en .
+
+arqo:producedNaturalObject a owl:ObjectProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "produced natural object"@en .
+
+arqo:hasAmbiguousOrigin a owl:DatatypeProperty ;
+    rdfs:domain arqo:AmbiguousManufacturingEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "has ambiguous origin"@en .
+
+# Restrictions
+arqo:AmbiguousManufacturingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:producedHumanMadeObject ;
+    owl:minCardinality 1
+] , [
+    a owl:Restriction ;
+    owl:onProperty arqo:producedNaturalObject ;
+    owl:minCardinality 1
+] .
+arqo:TypeManufacturingEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "TypeManufacturingEvent"@en ;
+    rdfs:comment "Manufacturing event producing the object type"@en .
+
+arqo:InstanceUseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "InstanceUseEvent"@en ;
+    rdfs:comment "Use event of a specific object instance"@en .
+
+arqo:TemporalGapEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "TemporalGapEvent"@en ;
+    rdfs:comment "The interval between type manufacturing and instance use"@en .
+
+arqo:hasManufacturingDateEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypeManufacturingEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has manufacturing date end"@en .
+
+arqo:hasUseDateStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:InstanceUseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has use date start"@en .
+
+arqo:hasTemporalGapDuration a owl:DatatypeProperty ;
+    rdfs:domain arqo:TemporalGapEvent ;
+    rdfs:range xsd:duration ;
+    rdfs:label "has temporal gap duration"@en .
+
+arqo:gapBetweenManufacturingAndUse a owl:ObjectProperty ;
+    rdfs:domain arqo:TemporalGapEvent ;
+    rdfs:range crm:E52_Time-Span ;
+    rdfs:label "gap between manufacturing and use"@en .
+
+# Restrictions
+arqo:TemporalGapEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasTemporalGapDuration ;
+    owl:minCardinality 1
+] .
+arqo:MaterialCirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "MaterialCirculationEvent"@en ;
+    rdfs:comment "Movement of raw materials from source to manufacturing locus"@en .
+
+arqo:LocalMaterialEvent a owl:Class ;
+    rdfs:subClassOf arqo:MaterialCirculationEvent ;
+    rdfs:label "LocalMaterialEvent"@en .
+
+arqo:NonLocalMaterialEvent a owl:Class ;
+    rdfs:subClassOf arqo:MaterialCirculationEvent ;
+    rdfs:label "NonLocalMaterialEvent"@en .
+
+arqo:materialSource a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "material source"@en .
+
+arqo:materialDestination a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "material destination"@en .
+
+arqo:transportedMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "transported material"@en .
+
+arqo:hasTransportDistance a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has transport distance"@en .
+
+arqo:isNonLocal a owl:DatatypeProperty ;
+    rdfs:domain arqo:NonLocalMaterialEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is non-local"@en .
+
+# Disjointness
+arqo:LocalMaterialEvent owl:disjointWith arqo:NonLocalMaterialEvent .
+
+# Restrictions
+arqo:NonLocalMaterialEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasTransportDistance ;
+    owl:someValuesFrom xsd:decimal
+] .
+arqo:UseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "UseEvent"@en .
+
+arqo:PrimaryUseEvent a owl:Class ;
+    rdfs:subClassOf arqo:UseEvent ;
+    rdfs:label "PrimaryUseEvent"@en .
+
+arqo:ExtendedUseEvent a owl:Class ;
+    rdfs:subClassOf arqo:UseEvent ;
+    rdfs:label "ExtendedUseEvent"@en ;
+    rdfs:comment "Use beyond the manufacturing date range of the typological class"@en .
+
+arqo:RitualUseEvent a owl:Class ;
+    rdfs:subClassOf arqo:UseEvent ;
+    rdfs:label "RitualUseEvent"@en .
+
+arqo:hasFunctionalRole a owl:ObjectProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has functional role"@en .
+
+arqo:hasUseDateStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has use date start"@en .
+
+arqo:hasUseDateEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has use date end"@en .
+
+arqo:extendsBeyondTypeRange a owl:DatatypeProperty ;
+    rdfs:domain arqo:ExtendedUseEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "extends beyond type range"@en .
+
+# Disjointness
+arqo:PrimaryUseEvent owl:disjointWith arqo:RitualUseEvent .
+
+# Restrictions
+arqo:ExtendedUseEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:extendsBeyondTypeRange ;
+    owl:hasValue true
+] .
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en .
+
+arqo:RepurposingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "RepurposingEvent"@en ;
+    rdfs:comment "Reuse for a substantially different function"@en .
+
+arqo:CyclicalReuseEvent a owl:Class ;
+    rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "CyclicalReuseEvent"@en ;
+    rdfs:comment "Multiple reuse episodes in an object's biography"@en .
+
+arqo:FunctionalTransformationEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "FunctionalTransformationEvent"@en .
+
+arqo:hasOriginalFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has original function"@en .
+
+arqo:hasNewFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has new function"@en .
+
+arqo:leavesTraceEvidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "leaves trace evidence"@en .
+
+# Restrictions
+arqo:RepurposingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasOriginalFunction ;
+    owl:cardinality 1
+] , [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasNewFunction ;
+    owl:cardinality 1
+] .
+arqo:RepairEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RepairEvent"@en .
+
+arqo:ConservationTreatment a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationTreatment"@en .
+
+arqo:StructuralRepairEvent a owl:Class ;
+    rdfs:subClassOf arqo:RepairEvent ;
+    rdfs:label "StructuralRepairEvent"@en .
+
+arqo:SurfaceRepairEvent a owl:Class ;
+    rdfs:subClassOf arqo:RepairEvent ;
+    rdfs:label "SurfaceRepairEvent"@en .
+
+arqo:repairDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepairEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "repair date"@en .
+
+arqo:conservationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationTreatment ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "conservation date"@en .
+
+arqo:hasRepairTechnique a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepairEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has repair technique"@en .
+
+arqo:hasConservationTechnique a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationTreatment ;
+    rdfs:range xsd:string ;
+    rdfs:label "has conservation technique"@en .
+
+# Disjointness
+arqo:RepairEvent owl:disjointWith arqo:ConservationTreatment .
+arqo:StructuralRepairEvent owl:disjointWith arqo:SurfaceRepairEvent .
+arqo:ObjectAgencyEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ObjectAgencyEvent"@en .
+
+arqo:AgencyEffect a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "AgencyEffect"@en .
+
+arqo:BehavioralChangeEvent a owl:Class ;
+    rdfs:subClassOf arqo:AgencyEffect ;
+    rdfs:label "BehavioralChangeEvent"@en .
+
+arqo:PerceptualChangeEvent a owl:Class ;
+    rdfs:subClassOf arqo:AgencyEffect ;
+    rdfs:label "PerceptualChangeEvent"@en .
+
+arqo:shapedHumanBehavior a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "shaped human behavior"@en .
+
+arqo:producedEffect a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range arqo:AgencyEffect ;
+    rdfs:label "produced effect"@en .
+
+arqo:agencyMechanism a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "agency mechanism"@en .
+
+# Disjointness
+arqo:BehavioralChangeEvent owl:disjointWith arqo:PerceptualChangeEvent .
+arqo:GradualTransformationEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "GradualTransformationEvent"@en .
+
+arqo:ContinuousDegradationEvent a owl:Class ;
+    rdfs:subClassOf arqo:GradualTransformationEvent ;
+    rdfs:label "ContinuousDegradationEvent"@en .
+
+arqo:ProgressiveWearEvent a owl:Class ;
+    rdfs:subClassOf arqo:GradualTransformationEvent ;
+    rdfs:label "ProgressiveWearEvent"@en .
+
+arqo:TransformationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "TransformationState"@en .
+
+arqo:hasTransformationStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has transformation start"@en .
+
+arqo:hasTransformationEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has transformation end"@en .
+
+arqo:hasRecordedState a owl:ObjectProperty ;
+    rdfs:domain arqo:GradualTransformationEvent ;
+    rdfs:range arqo:TransformationState ;
+    rdfs:label "has recorded state"@en .
+
+arqo:stateMeasurementDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:TransformationState ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "state measurement date"@en .
+
+# Disjointness
+arqo:ContinuousDegradationEvent owl:disjointWith arqo:ProgressiveWearEvent .
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en .
+
+arqo:TradeEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "TradeEvent"@en .
+
+arqo:GiftExchangeEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "GiftExchangeEvent"@en .
+
+arqo:LootingEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "LootingEvent"@en .
+
+arqo:AuctionEvent a owl:Class ;
+    rdfs:subClassOf arqo:CirculationEvent ;
+    rdfs:label "AuctionEvent"@en .
+
+arqo:ExchangeMechanism a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "ExchangeMechanism"@en .
+
+arqo:hasExchangeMechanism a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range arqo:ExchangeMechanism ;
+    rdfs:label "has exchange mechanism"@en .
+
+arqo:movedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "moved object"@en .
+
+arqo:originPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "origin place"@en .
+
+arqo:destinationPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "destination place"@en .
+
+# Disjointness
+arqo:TradeEvent owl:disjointWith arqo:LootingEvent .
+arqo:GiftExchangeEvent owl:disjointWith arqo:AuctionEvent .

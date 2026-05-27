@@ -1,0 +1,39 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-26
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ConservationTreatmentEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationTreatmentEvent"@en ;
+    rdfs:comment "Post-recovery preservation action applied to an archaeological object"@en .
+
+arqo:ConservationDecisionEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ConservationDecisionEvent"@en ;
+    rdfs:comment "Decision-making process determining what conservation treatment to apply"@en .
+
+arqo:precededByDecision a owl:ObjectProperty ;
+    rdfs:domain arqo:ConservationTreatmentEvent ;
+    rdfs:range arqo:ConservationDecisionEvent ;
+    rdfs:label "preceded by decision"@en .
+
+arqo:hasStakeholderValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationDecisionEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has stakeholder value"@en .
+
+arqo:hasRiskAssessment a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationDecisionEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has risk assessment"@en .

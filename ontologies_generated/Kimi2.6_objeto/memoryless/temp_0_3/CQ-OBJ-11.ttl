@@ -1,0 +1,40 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-11
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en ;
+    rdfs:comment "Event of an object moving between geographic locations or cultural zones during use-life"@en .
+
+arqo:hasExchangeMechanism a owl:DatatypeProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has exchange mechanism"@en ;
+    rdfs:comment "Type of exchange: trade, gift, looting, auction, migration"@en .
+
+arqo:movedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "moved object"@en .
+
+arqo:originPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "origin place"@en .
+
+arqo:destinationPlace a owl:ObjectProperty ;
+    rdfs:domain arqo:CirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "destination place"@en .

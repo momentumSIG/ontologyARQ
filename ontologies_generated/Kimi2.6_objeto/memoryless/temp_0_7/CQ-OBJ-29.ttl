@@ -1,0 +1,55 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-29
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:PastnessEvent a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "PastnessEvent"@en .
+
+arqo:AuthenticityExperienceEvent a owl:Class ;
+    rdfs:subClassOf arqo:PastnessEvent ;
+    rdfs:label "AuthenticityExperienceEvent"@en .
+
+arqo:AestheticAgeExperienceEvent a owl:Class ;
+    rdfs:subClassOf arqo:PastnessEvent ;
+    rdfs:label "AestheticAgeExperienceEvent"@en .
+
+arqo:experiencedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:PastnessEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "experienced by"@en .
+
+arqo:relatesToConditionState a owl:ObjectProperty ;
+    rdfs:domain arqo:PastnessEvent ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "relates to condition state"@en .
+
+arqo:hasMeasuredAge a owl:DatatypeProperty ;
+    rdfs:domain arqo:PastnessEvent ;
+    rdfs:range xsd:integer ;
+    rdfs:label "has measured age"@en .
+
+arqo:isIndependentOfAge a owl:DatatypeProperty ;
+    rdfs:domain arqo:PastnessEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is independent of age"@en .
+
+arqo:hasCulturalContext a owl:DatatypeProperty ;
+    rdfs:domain arqo:PastnessEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has cultural context"@en .
+
+# Disjointness
+arqo:AuthenticityExperienceEvent owl:disjointWith arqo:AestheticAgeExperienceEvent .

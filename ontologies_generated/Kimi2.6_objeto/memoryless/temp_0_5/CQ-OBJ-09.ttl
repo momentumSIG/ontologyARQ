@@ -1,0 +1,39 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-09
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ObjectAgencyEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ObjectAgencyEvent"@en ;
+    rdfs:comment "Event where the form, materiality, or meaning of an object shaped human behavior"@en .
+
+arqo:AgencyEffect a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "AgencyEffect"@en ;
+    rdfs:comment "The specific effect on human behavior produced by object agency"@en .
+
+arqo:shapedHumanBehavior a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "shaped human behavior"@en .
+
+arqo:producedEffect a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range arqo:AgencyEffect ;
+    rdfs:label "produced effect"@en .
+
+arqo:agencyMechanism a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectAgencyEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "agency mechanism"@en .

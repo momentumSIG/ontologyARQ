@@ -1,0 +1,36 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-28
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ObjectBiographyEvent a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "ObjectBiographyEvent"@en ;
+    rdfs:comment "Narrative construct told by a specific interpreter about an object's history"@en .
+
+arqo:toldByInterpreter a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectBiographyEvent ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "told by interpreter"@en .
+
+arqo:hasNarrativeFocus a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectBiographyEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has narrative focus"@en .
+
+arqo:differsFromLifecycle a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectBiographyEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "differs from lifecycle"@en ;
+    rdfs:comment "Explanation of how the narrative biography diverges from the measurable physical lifecycle"@en .

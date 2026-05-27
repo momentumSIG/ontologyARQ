@@ -1,0 +1,54 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-23
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ProvenanceDeterminationEvent a owl:Class ;
+    rdfs:subClassOf crmsci:S19_Encounter ;
+    rdfs:label "ProvenanceDeterminationEvent"@en .
+
+arqo:LeadIsotopeAnalysisEvent a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceDeterminationEvent ;
+    rdfs:label "LeadIsotopeAnalysisEvent"@en .
+
+arqo:TraceElementAnalysisEvent a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceDeterminationEvent ;
+    rdfs:label "TraceElementAnalysisEvent"@en .
+
+arqo:PetrographicAnalysisEvent a owl:Class ;
+    rdfs:subClassOf arqo:ProvenanceDeterminationEvent ;
+    rdfs:label "PetrographicAnalysisEvent"@en .
+
+arqo:hasLeadIsotopeRatio206 a owl:DatatypeProperty ;
+    rdfs:domain arqo:LeadIsotopeAnalysisEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has lead isotope ratio 206/204"@en .
+
+arqo:hasLeadIsotopeRatio207 a owl:DatatypeProperty ;
+    rdfs:domain arqo:LeadIsotopeAnalysisEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has lead isotope ratio 207/204"@en .
+
+arqo:hasLeadIsotopeRatio208 a owl:DatatypeProperty ;
+    rdfs:domain arqo:LeadIsotopeAnalysisEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has lead isotope ratio 208/204"@en .
+
+arqo:linkedToSourceRegion a owl:ObjectProperty ;
+    rdfs:domain arqo:ProvenanceDeterminationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "linked to source region"@en .
+
+# Disjointness
+arqo:LeadIsotopeAnalysisEvent owl:disjointWith arqo:PetrographicAnalysisEvent .

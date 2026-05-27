@@ -1,0 +1,36 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.3
+# CQ: OBJ-02
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:RawMaterialExtractionEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "RawMaterialExtractionEvent"@en ;
+    rdfs:comment "Event of extracting raw materials from a geological source"@en .
+
+arqo:suppliedMaterialFor a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range crm:E12_Production ;
+    rdfs:label "supplied material for"@en ;
+    rdfs:comment "Links a raw material extraction event to the manufacturing event that used the extracted material"@en .
+
+arqo:extractedFromSource a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "extracted from source"@en ;
+    rdfs:comment "Links an extraction event to the geographic or geological source"@en .
+
+arqo:extractedMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:RawMaterialExtractionEvent ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "extracted material"@en .

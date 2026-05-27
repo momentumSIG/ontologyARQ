@@ -1,0 +1,58 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-07
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en .
+
+arqo:RepurposingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "RepurposingEvent"@en ;
+    rdfs:comment "Reuse for a substantially different function"@en .
+
+arqo:CyclicalReuseEvent a owl:Class ;
+    rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "CyclicalReuseEvent"@en ;
+    rdfs:comment "Multiple reuse episodes in an object's biography"@en .
+
+arqo:FunctionalTransformationEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "FunctionalTransformationEvent"@en .
+
+arqo:hasOriginalFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has original function"@en .
+
+arqo:hasNewFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "has new function"@en .
+
+arqo:leavesTraceEvidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "leaves trace evidence"@en .
+
+# Restrictions
+arqo:RepurposingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasOriginalFunction ;
+    owl:cardinality 1
+] , [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasNewFunction ;
+    owl:cardinality 1
+] .

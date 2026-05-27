@@ -1,0 +1,39 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.5
+# CQ: OBJ-15
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:MaterialCirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "MaterialCirculationEvent"@en ;
+    rdfs:comment "Movement of raw materials from source to manufacturing locus"@en .
+
+arqo:materialSource a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "material source"@en .
+
+arqo:materialDestination a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "material destination"@en .
+
+arqo:transportedMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "transported material"@en .
+
+arqo:hasTransportDistance a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialCirculationEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has transport distance"@en .

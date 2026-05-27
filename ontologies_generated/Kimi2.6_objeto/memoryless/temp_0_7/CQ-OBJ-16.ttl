@@ -1,0 +1,54 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-16
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "DepositionEvent"@en .
+
+arqo:IntentionalDepositionEvent a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "IntentionalDepositionEvent"@en .
+
+arqo:RitualDepositionEvent a owl:Class ;
+    rdfs:subClassOf arqo:IntentionalDepositionEvent ;
+    rdfs:label "RitualDepositionEvent"@en .
+
+arqo:BurialDepositionEvent a owl:Class ;
+    rdfs:subClassOf arqo:IntentionalDepositionEvent ;
+    rdfs:label "BurialDepositionEvent"@en .
+
+arqo:AccidentalDepositionEvent a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "AccidentalDepositionEvent"@en .
+
+arqo:hasDepositionIntentionality a owl:DatatypeProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has deposition intentionality"@en .
+
+arqo:depositedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "deposited object"@en .
+
+arqo:depositedInUnit a owl:ObjectProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "deposited in stratigraphic unit"@en .
+
+# Disjointness
+arqo:RitualDepositionEvent owl:disjointWith arqo:AccidentalDepositionEvent .
+arqo:BurialDepositionEvent owl:disjointWith arqo:AccidentalDepositionEvent .

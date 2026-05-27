@@ -1,0 +1,53 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Model: Kimi-2.6
+# Strategy: memoryless
+# Temperature: 0.7
+# CQ: OBJ-18
+# Design: Event-centric
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+arqo:FragmentationEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "FragmentationEvent"@en .
+
+arqo:PostDepositionalFragmentation a owl:Class ;
+    rdfs:subClassOf arqo:FragmentationEvent ;
+    rdfs:label "PostDepositionalFragmentation"@en .
+
+arqo:IntentionalCompositionEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "IntentionalCompositionEvent"@en .
+
+arqo:ComponentAssemblyEvent a owl:Class ;
+    rdfs:subClassOf arqo:IntentionalCompositionEvent ;
+    rdfs:label "ComponentAssemblyEvent"@en .
+
+arqo:fragmentedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:FragmentationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "fragmented object"@en .
+
+arqo:producesFragments a owl:ObjectProperty ;
+    rdfs:domain arqo:FragmentationEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "produces fragments"@en .
+
+arqo:composesWhole a owl:ObjectProperty ;
+    rdfs:domain arqo:IntentionalCompositionEvent ;
+    rdfs:range crm:E19_Physical_Object ;
+    rdfs:label "composes whole"@en .
+
+arqo:hasFragmentationCause a owl:DatatypeProperty ;
+    rdfs:domain arqo:FragmentationEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has fragmentation cause"@en .
+
+# Disjointness
+arqo:PostDepositionalFragmentation owl:disjointWith arqo:ComponentAssemblyEvent .
