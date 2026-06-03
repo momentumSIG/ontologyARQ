@@ -1,0 +1,166 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern 2 State Transition
+# Strategy: memoryless | CQ: CQ-OBJ-44
+# Temperature: 0.3
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+
+# ======================= CLASSES ===========================
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "HumanMadeObject"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en .
+
+arqo:FragmentationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "FragmentationState"@en ;
+    rdfs:comment "Physical state where an object exists as multiple disconnected fragments"@en .
+
+arqo:PatinaState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "PatinaState"@en ;
+    rdfs:comment "Surface alteration connoting age and authenticity"@en .
+
+arqo:CorrosionState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "CorrosionState"@en ;
+    rdfs:comment "Chemical degradation state of metallic objects"@en .
+
+arqo:ConservationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "ConservationState"@en ;
+    rdfs:comment "Overall preservation condition of an object"@en .
+
+arqo:IntegrityState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "IntegrityState"@en ;
+    rdfs:comment "Degree of physical completeness of an object"@en .
+
+arqo:FunctionalState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "FunctionalState"@en ;
+    rdfs:comment "State of an object's functional capability"@en .
+
+arqo:ObjectTransformation a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "ObjectTransformation"@en ;
+    rdfs:comment "Deliberate or accidental change to an object's physical form, function, or meaning"@en .
+
+arqo:ConservationDecision a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ConservationDecision"@en ;
+    rdfs:comment "Decision-making process determining conservation treatment"@en .
+
+
+# =================== OBJECT PROPERTIES =====================
+arqo:hasConditionState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "hasConditionState"@en .
+
+arqo:underwentTransformation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ObjectTransformation ;
+    rdfs:label "underwentTransformation"@en .
+
+arqo:hasPreTransformationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectTransformation ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "hasPreTransformationState"@en .
+
+arqo:hasPostTransformationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectTransformation ;
+    rdfs:range crm:E3_Condition_State ;
+    rdfs:label "hasPostTransformationState"@en .
+
+arqo:isFragmentedInto a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "isFragmentedInto"@en .
+
+arqo:isConjoinableWith a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "isConjoinableWith"@en .
+
+arqo:hasConservationDecision a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ConservationDecision ;
+    rdfs:label "hasConservationDecision"@en .
+
+
+# ==================== DATA PROPERTIES =====================
+arqo:completenessRatio a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "completenessRatio"@en .
+
+arqo:fragmentCount a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:integer ;
+    rdfs:label "fragmentCount"@en .
+
+arqo:preservationRating a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "preservationRating"@en .
+
+arqo:hasTransformationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectTransformation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasTransformationDate"@en .
+
+arqo:decisionRationale a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "decisionRationale"@en .
+
+
+# CQ-specific: Reuse
+arqo:functionalTransformation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ReuseEvent ;
+    rdfs:label "functionalTransformation"@en .

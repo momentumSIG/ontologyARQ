@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="680" viewBox="0 0 700 680">
+<rect width="700" height="680" fill="#0d1117"/>
+<text x="350" y="30" fill="#ffffff" font-size="18" font-family="monospace" font-weight="bold" text-anchor="middle">Panel 3: Radar de Expresividad Ontologica</text>
+<text x="350" y="52" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Comparacion de modelos en 8 dimensiones | Temp 0.05</text>
+<polygon points="350.0,270.0 385.4,284.6 400.0,320.0 385.4,355.4 350.0,370.0 314.6,355.4 300.0,320.0 314.6,284.6" fill="none" stroke="#30363d" stroke-width="1"/>
+<polygon points="350.0,220.0 420.7,249.3 450.0,320.0 420.7,390.7 350.0,420.0 279.3,390.7 250.0,320.0 279.3,249.3" fill="none" stroke="#30363d" stroke-width="1"/>
+<polygon points="350.0,170.0 456.1,213.9 500.0,320.0 456.1,426.1 350.0,470.0 243.9,426.1 200.0,320.0 243.9,213.9" fill="none" stroke="#30363d" stroke-width="1"/>
+<polygon points="350.0,120.0 491.4,178.6 550.0,320.0 491.4,461.4 350.0,520.0 208.6,461.4 150.0,320.0 208.6,178.6" fill="none" stroke="#30363d" stroke-width="1"/>
+<polygon points="350.0,70.0 526.8,143.2 600.0,320.0 526.8,496.8 350.0,570.0 173.2,496.8 100.0,320.0 173.2,143.2" fill="none" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="350.0" y2="70.0" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="526.8" y2="143.2" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="600.0" y2="320.0" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="526.8" y2="496.8" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="350.0" y2="570.0" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="173.2" y2="496.8" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="100.0" y2="320.0" stroke="#30363d" stroke-width="1"/>
+<line x1="350" y1="320" x2="173.2" y2="143.2" stroke="#30363d" stroke-width="1"/>
+<text x="350.0" y="40.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Taxonomia</text>
+<text x="548.0" y="122.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Eventos</text>
+<text x="630.0" y="320.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Estados</text>
+<text x="548.0" y="518.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Asignaciones</text>
+<text x="350.0" y="600.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Disjoint</text>
+<text x="152.0" y="518.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Restricciones</text>
+<text x="70.0" y="320.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">Reificacion</text>
+<text x="152.0" y="122.0" fill="#8b949e" font-size="12" font-family="monospace" text-anchor="middle">CRMinf</text>
+<polygon points="350.0,145.0 456.1,213.9 475.0,320.0 438.4,408.4 350.0,420.0 261.6,408.4 225.0,320.0 297.0,267.0" fill="#f85149" fill-opacity="0.15" stroke="#f85149" stroke-width="2"/>
+<polygon points="350.0,120.0 491.4,178.6 525.0,320.0 473.7,443.7 350.0,470.0 226.3,443.7 175.0,320.0 226.3,196.3" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff" stroke-width="2"/>
+<polygon points="350.0,95.0 509.1,160.9 550.0,320.0 509.1,479.1 350.0,520.0 190.9,479.1 125.0,320.0 190.9,160.9" fill="#3fb950" fill-opacity="0.15" stroke="#3fb950" stroke-width="2"/>
+<circle cx="350.0" cy="145.0" r="4" fill="#f85149"/><circle cx="456.1" cy="213.9" r="4" fill="#f85149"/><circle cx="475.0" cy="320.0" r="4" fill="#f85149"/><circle cx="438.4" cy="408.4" r="4" fill="#f85149"/><circle cx="350.0" cy="420.0" r="4" fill="#f85149"/><circle cx="261.6" cy="408.4" r="4" fill="#f85149"/><circle cx="225.0" cy="320.0" r="4" fill="#f85149"/><circle cx="297.0" cy="267.0" r="4" fill="#f85149"/>
+<circle cx="350.0" cy="120.0" r="4" fill="#58a6ff"/><circle cx="491.4" cy="178.6" r="4" fill="#58a6ff"/><circle cx="525.0" cy="320.0" r="4" fill="#58a6ff"/><circle cx="473.7" cy="443.7" r="4" fill="#58a6ff"/><circle cx="350.0" cy="470.0" r="4" fill="#58a6ff"/><circle cx="226.3" cy="443.7" r="4" fill="#58a6ff"/><circle cx="175.0" cy="320.0" r="4" fill="#58a6ff"/><circle cx="226.3" cy="196.3" r="4" fill="#58a6ff"/>
+<circle cx="350.0" cy="95.0" r="4" fill="#3fb950"/><circle cx="509.1" cy="160.9" r="4" fill="#3fb950"/><circle cx="550.0" cy="320.0" r="4" fill="#3fb950"/><circle cx="509.1" cy="479.1" r="4" fill="#3fb950"/><circle cx="350.0" cy="520.0" r="4" fill="#3fb950"/><circle cx="190.9" cy="479.1" r="4" fill="#3fb950"/><circle cx="125.0" cy="320.0" r="4" fill="#3fb950"/><circle cx="190.9" cy="160.9" r="4" fill="#3fb950"/>
+<circle cx="120" cy="620" r="6" fill="#3fb950"/>
+<text x="135" y="624" fill="#3fb950" font-size="12" font-family="monospace">Qwen3.6 (maxima expresividad)</text>
+<circle cx="350" cy="620" r="6" fill="#58a6ff"/>
+<text x="365" y="624" fill="#58a6ff" font-size="12" font-family="monospace">Deepseek-v4-pro (equilibrado)</text>
+<circle cx="560" cy="620" r="6" fill="#f85149"/>
+<text x="575" y="624" fill="#f85149" font-size="12" font-family="monospace">Kimi-2.6 (conciso)</text>
+</svg>

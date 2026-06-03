@@ -1,0 +1,285 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern: Pattern 4 Assignment Intrinsic
+# Model: deepseek-v4-pro | Block-aware generation
+# Strategy: ontogenia | Step: 47/50 | Block: 7
+# CQ: CQ-OBJ-47 | Temperature: 0.3
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ======================= CLASSES ===========================
+
+# ─── Expert Taxonomy ───
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context (ecofact)"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, wood, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    owl:equivalentClass crm:E22_Human-Made_Object ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+# Blocks 6-8 — Conservation, Relations & Disputed as Assignment
+arqo:CulturalSignificanceAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "CulturalSignificanceAssignment"@en ;
+    rdfs:comment "Researcher assignment of cultural, symbolic, or ritual significance"@en .
+
+arqo:PastnessAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "PastnessAssignment"@en ;
+    rdfs:comment "Culturally constructed assessment of an object's perceived age-value"@en .
+
+arqo:AnalyticalObservation a owl:Class ;
+    rdfs:subClassOf crmsci:S4_Observation ;
+    rdfs:label "AnalyticalObservation"@en ;
+    rdfs:comment "Empirical measurement or observation of object properties"@en .
+
+arqo:InterpretiveConclusion a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "InterpretiveConclusion"@en ;
+    rdfs:comment "Researcher conclusion drawn from analytical observations"@en .
+
+arqo:CompetingInterpretation a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "CompetingInterpretation"@en ;
+    rdfs:comment "Rival hypothesis about object properties or meaning"@en .
+
+arqo:hasCulturalSignificanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CulturalSignificanceAssignment ;
+    rdfs:label "hasCulturalSignificanceAssignment"@en .
+
+arqo:assignmentEvidence a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range crmsci:S4_Observation ;
+    rdfs:label "assignmentEvidence"@en .
+
+arqo:basedOnObservation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range arqo:AnalyticalObservation ;
+    rdfs:label "basedOnObservation"@en .
+
+arqo:hasCompetingInterpretation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CompetingInterpretation ;
+    rdfs:label "hasCompetingInterpretation"@en .
+
+arqo:interpretationConfidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:CompetingInterpretation ; rdfs:range xsd:decimal ;
+    rdfs:label "interpretationConfidence"@en .
+
+# Block 1 — Taxonomy as Assignment
+arqo:ArchaeologicalAssignment a owl:Class ;
+    rdfs:subClassOf crm:E17_Type_Assignment ;
+    rdfs:label "ArchaeologicalAssignment"@en ;
+    rdfs:comment "Base class for all researcher assignments about archaeological objects"@en .
+
+arqo:TypologicalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "TypologicalAssignment"@en ;
+    rdfs:comment "Researcher assignment of object to typological category"@en .
+
+arqo:ClassificationAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ClassificationAssignment"@en ;
+    rdfs:comment "Assignment of an object to a general classification category"@en .
+
+arqo:hasAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ArchaeologicalAssignment ;
+    rdfs:label "hasAssignment"@en .
+
+arqo:hasTypologicalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:TypologicalAssignment ;
+    rdfs:label "hasTypologicalAssignment"@en .
+
+arqo:assignedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range crm:E39_Actor ;
+    rdfs:label "assignedBy"@en .
+
+arqo:assignmentDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:dateTime ;
+    rdfs:label "assignmentDate"@en .
+
+arqo:assignmentConfidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:decimal ;
+    rdfs:label "assignmentConfidence"@en .
+
+# Blocks 2-3 — Material & Lifecycle as Assignment
+arqo:MaterialAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "MaterialAssignment"@en ;
+    rdfs:comment "Researcher assertion about object material composition"@en .
+
+arqo:ChronologicalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ChronologicalAssignment"@en ;
+    rdfs:comment "Researcher assignment of object to temporal period"@en .
+
+arqo:hasMaterialAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:MaterialAssignment ;
+    rdfs:label "hasMaterialAssignment"@en .
+
+arqo:hasChronologicalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ChronologicalAssignment ;
+    rdfs:label "hasChronologicalAssignment"@en .
+
+arqo:assignmentMethod a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:string ;
+    rdfs:label "assignmentMethod"@en .
+
+arqo:assignmentRationale a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:string ;
+    rdfs:label "assignmentRationale"@en .
+
+# Blocks 2-3 — Material & Lifecycle as Assignment
+arqo:MaterialAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "MaterialAssignment"@en ;
+    rdfs:comment "Researcher assertion about object material composition"@en .
+
+arqo:ChronologicalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ChronologicalAssignment"@en ;
+    rdfs:comment "Researcher assignment of object to temporal period"@en .
+
+arqo:hasMaterialAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:MaterialAssignment ;
+    rdfs:label "hasMaterialAssignment"@en .
+
+arqo:hasChronologicalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ChronologicalAssignment ;
+    rdfs:label "hasChronologicalAssignment"@en .
+
+arqo:assignmentMethod a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:string ;
+    rdfs:label "assignmentMethod"@en .
+
+arqo:assignmentRationale a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range xsd:string ;
+    rdfs:label "assignmentRationale"@en .
+
+# Blocks 4-5 — Function & Physical State as Assignment
+arqo:FunctionalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "FunctionalAssignment"@en ;
+    rdfs:comment "Researcher assignment of functional role to object"@en .
+
+arqo:ProvenanceAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ProvenanceAssignment"@en ;
+    rdfs:comment "Researcher assignment of geographic origin to object or materials"@en .
+
+arqo:hasFunctionalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:FunctionalAssignment ;
+    rdfs:label "hasFunctionalAssignment"@en .
+
+arqo:hasProvenanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ProvenanceAssignment ;
+    rdfs:label "hasProvenanceAssignment"@en .
+
+# Blocks 4-5 — Function & Physical State as Assignment
+arqo:FunctionalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "FunctionalAssignment"@en ;
+    rdfs:comment "Researcher assignment of functional role to object"@en .
+
+arqo:ProvenanceAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ProvenanceAssignment"@en ;
+    rdfs:comment "Researcher assignment of geographic origin to object or materials"@en .
+
+arqo:hasFunctionalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:FunctionalAssignment ;
+    rdfs:label "hasFunctionalAssignment"@en .
+
+arqo:hasProvenanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ProvenanceAssignment ;
+    rdfs:label "hasProvenanceAssignment"@en .
+
+# Blocks 6-8 — Conservation, Relations & Disputed as Assignment
+arqo:CulturalSignificanceAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "CulturalSignificanceAssignment"@en ;
+    rdfs:comment "Researcher assignment of cultural, symbolic, or ritual significance"@en .
+
+arqo:PastnessAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "PastnessAssignment"@en ;
+    rdfs:comment "Culturally constructed assessment of an object's perceived age-value"@en .
+
+arqo:AnalyticalObservation a owl:Class ;
+    rdfs:subClassOf crmsci:S4_Observation ;
+    rdfs:label "AnalyticalObservation"@en ;
+    rdfs:comment "Empirical measurement or observation of object properties"@en .
+
+arqo:InterpretiveConclusion a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "InterpretiveConclusion"@en ;
+    rdfs:comment "Researcher conclusion drawn from analytical observations"@en .
+
+arqo:CompetingInterpretation a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "CompetingInterpretation"@en ;
+    rdfs:comment "Rival hypothesis about object properties or meaning"@en .
+
+arqo:hasCulturalSignificanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CulturalSignificanceAssignment ;
+    rdfs:label "hasCulturalSignificanceAssignment"@en .
+
+arqo:assignmentEvidence a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range crmsci:S4_Observation ;
+    rdfs:label "assignmentEvidence"@en .
+
+arqo:basedOnObservation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalAssignment ; rdfs:range arqo:AnalyticalObservation ;
+    rdfs:label "basedOnObservation"@en .
+
+arqo:hasCompetingInterpretation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CompetingInterpretation ;
+    rdfs:label "hasCompetingInterpretation"@en .
+
+arqo:interpretationConfidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:CompetingInterpretation ; rdfs:range xsd:decimal ;
+    rdfs:label "interpretationConfidence"@en .

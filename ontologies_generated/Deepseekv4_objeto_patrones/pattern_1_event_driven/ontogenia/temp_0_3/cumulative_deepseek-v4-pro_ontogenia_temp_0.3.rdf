@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:arqo="http://www.ontologyARQ.org/archaeological-object/"
+    xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/"
+    xmlns:crmarchaeo="http://www.cidoc-crm.org/crmarchaeo/"
+    xmlns:crmsci="http://www.cidoc-crm.org/crmsci/"
+    xmlns:crminf="http://www.cidoc-crm.org/crminf/"
+    xmlns:crmhs="http://www.cidoc-crm.org/crmhs/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:geo="http://www.opengis.net/ont/geosparql#"
+    xmlns:time="http://www.w3.org/2006/time#"
+    xmlns:prov="http://www.w3.org/ns/prov#"
+>
+
+    <owl:Ontology rdf:about="http://www.ontologyARQ.org/archaeological-object/">
+        <rdfs:label xml:lang="en">Archaeological Object Module</rdfs:label>
+        <rdfs:comment xml:lang="en">Ontology module for archaeological objects, extending CRMarchaeo</rdfs:comment>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.3</owl:versionInfo>
+        <rdfs:seeAlso rdf:resource="http://www.ontologyARQ.org/archaeological-object/"/>
+    </owl:Ontology>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E19_Physical_Object"/>
+        <rdfs:label xml:lang="en">ArchaeologicalObject</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical object recovered during archaeological investigation</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/NaturalObject">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:label xml:lang="en">NaturalObject</rdfs:label>
+        <rdfs:comment xml:lang="en">Object of natural origin found in archaeological context (ecofact)</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/AbioticObject">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/NaturalObject"/>
+        <rdfs:label xml:lang="en">AbioticObject</rdfs:label>
+        <rdfs:comment xml:lang="en">Non-living natural object (stone, mineral, sediment)</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/BioticObject">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/NaturalObject"/>
+        <rdfs:label xml:lang="en">BioticObject</rdfs:label>
+        <rdfs:comment xml:lang="en">Living or once-living natural object (bone, shell, wood, plant remains)</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <owl:equivalentClass rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E22_Human-Made_Object"/>
+        <rdfs:label xml:lang="en">HumanMadeObject</rdfs:label>
+        <rdfs:comment xml:lang="en">Object created or modified by human action</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/Artefact">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:label xml:lang="en">Artefact</rdfs:label>
+        <rdfs:comment xml:lang="en">Portable human-made object with functional purpose</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/Structure">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:label xml:lang="en">Structure</rdfs:label>
+        <rdfs:comment xml:lang="en">Non-portable human-made construction</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ArtisticExpression">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:label xml:lang="en">ArtisticExpression</rdfs:label>
+        <rdfs:comment xml:lang="en">Human-made object with aesthetic or symbolic function</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ObjectForm">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E54_Dimension"/>
+        <rdfs:label xml:lang="en">ObjectForm</rdfs:label>
+        <rdfs:comment xml:lang="en">Morphological configuration including dimensions, shape, surface characteristics</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ChaineOperatoire">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E29_Design_or_Procedure"/>
+        <rdfs:label xml:lang="en">ChaineOperatoire</rdfs:label>
+        <rdfs:comment xml:lang="en">Operational sequence of manufacturing steps from raw material to completion</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasForm">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectForm"/>
+        <rdfs:label xml:lang="en">hasForm</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/followsChaineOperatoire">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ChaineOperatoire"/>
+        <rdfs:label xml:lang="en">followsChaineOperatoire</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasLocalIdentifier">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasLocalIdentifier</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/RawMaterialSource">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:label xml:lang="en">RawMaterialSource</rdfs:label>
+        <rdfs:comment xml:lang="en">Geological or geographic source from which raw materials were extracted</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ProvenanceRegion">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:label xml:lang="en">ProvenanceRegion</rdfs:label>
+        <rdfs:comment xml:lang="en">Geographic origin region of an object or its constituent materials</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/MaterialAssignment">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E17_Type_Assignment"/>
+        <rdfs:label xml:lang="en">MaterialAssignment</rdfs:label>
+        <rdfs:comment xml:lang="en">Researcher assertion about material composition of an archaeological object</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasMaterial">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E57_Material"/>
+        <rdfs:label xml:lang="en">hasMaterial</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/derivesFromSource">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/RawMaterialSource"/>
+        <rdfs:label xml:lang="en">derivesFromSource</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasProvenance">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ProvenanceRegion"/>
+        <rdfs:label xml:lang="en">hasProvenance</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasMaterialAssignment">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/MaterialAssignment"/>
+        <rdfs:label xml:lang="en">hasMaterialAssignment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasManufacturingTechnique">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasManufacturingTechnique</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ManufacturingEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E12_Production"/>
+        <rdfs:label xml:lang="en">ManufacturingEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of object production through specific technological procedures</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/UseEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E7_Activity"/>
+        <rdfs:label xml:lang="en">UseEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of object utilization in its original or assigned functional role</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ReuseEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E7_Activity"/>
+        <rdfs:label xml:lang="en">ReuseEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Secondary use of an object for a function different from its original intended use</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/RepairEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E81_Transformation"/>
+        <rdfs:label xml:lang="en">RepairEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical modification of an object to restore function or extend use-life</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/DepositionEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/crmarchaeo/A4_Stratigraphic_Genesis"/>
+        <rdfs:label xml:lang="en">DepositionEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of an object entering the archaeological record through intentional or accidental discard</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/RecoveryEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/crmarchaeo/A1_Excavation_Process_Unit"/>
+        <rdfs:label xml:lang="en">RecoveryEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of object being excavated or recovered from depositional context</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/CirculationEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
+        <rdfs:label xml:lang="en">CirculationEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of an object moving between geographic locations or cultural zones during use-life</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/RepatriationEvent">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
+        <rdfs:label xml:lang="en">RepatriationEvent</rdfs:label>
+        <rdfs:comment xml:lang="en">Event of returning an archaeological object to its country or community of origin</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ObjectBiography">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E5_Event"/>
+        <rdfs:label xml:lang="en">ObjectBiography</rdfs:label>
+        <rdfs:comment xml:lang="en">Narrative sequence of events constituting the lifecycle of an archaeological object</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ObjectLifecycle">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E5_Event"/>
+        <rdfs:label xml:lang="en">ObjectLifecycle</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical sequence of states and transitions from manufacture through deposition</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ProvenanceChain">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E5_Event"/>
+        <rdfs:label xml:lang="en">ProvenanceChain</rdfs:label>
+        <rdfs:comment xml:lang="en">Traceable path from raw material source to findspot, reconstructed forensically</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasProducedBy">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/HumanMadeObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ManufacturingEvent"/>
+        <rdfs:label xml:lang="en">wasProducedBy</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasUsedIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/UseEvent"/>
+        <rdfs:label xml:lang="en">wasUsedIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasReusedIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ReuseEvent"/>
+        <rdfs:label xml:lang="en">wasReusedIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasRepairedIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/RepairEvent"/>
+        <rdfs:label xml:lang="en">wasRepairedIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasDepositedIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/DepositionEvent"/>
+        <rdfs:label xml:lang="en">wasDepositedIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasRecoveredIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/RecoveryEvent"/>
+        <rdfs:label xml:lang="en">wasRecoveredIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/circulatedThrough">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/CirculationEvent"/>
+        <rdfs:label xml:lang="en">circulatedThrough</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasRepatriatedIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/RepatriationEvent"/>
+        <rdfs:label xml:lang="en">wasRepatriatedIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasBiography">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectBiography"/>
+        <rdfs:label xml:lang="en">hasBiography</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasLifecycle">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectLifecycle"/>
+        <rdfs:label xml:lang="en">hasLifecycle</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/sharesProvenanceChain">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:label xml:lang="en">sharesProvenanceChain</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/associatedWithActor">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
+        <rdfs:label xml:lang="en">associatedWithActor</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasManufacturingDateStart">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ManufacturingEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasManufacturingDateStart</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasManufacturingDateEnd">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ManufacturingEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasManufacturingDateEnd</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasUseDateStart">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/UseEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasUseDateStart</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasUseDateEnd">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/UseEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasUseDateEnd</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasDepositionDate">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/DepositionEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasDepositionDate</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasTerminusPostQuem">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasTerminusPostQuem</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasTerminusAnteQuem">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">hasTerminusAnteQuem</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasLifespanDuration">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectLifecycle"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#duration"/>
+        <rdfs:label xml:lang="en">hasLifespanDuration</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/TypologicalAssignment">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E17_Type_Assignment"/>
+        <rdfs:label xml:lang="en">TypologicalAssignment</rdfs:label>
+        <rdfs:comment xml:lang="en">Researcher assignment of an object to a typological category based on diagnostic criteria</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ChronologicalAssignment">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E17_Type_Assignment"/>
+        <rdfs:label xml:lang="en">ChronologicalAssignment</rdfs:label>
+        <rdfs:comment xml:lang="en">Researcher assignment of an archaeological object or event to a temporal period</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/Pastness">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/crminf/I4_Proposition_Set"/>
+        <rdfs:label xml:lang="en">Pastness</rdfs:label>
+        <rdfs:comment xml:lang="en">Perceived quality of being from the past - culturally constructed aesthetic and cognitive experience</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ObjectAgency">
+        <rdfs:label xml:lang="en">ObjectAgency</rdfs:label>
+        <rdfs:comment xml:lang="en">Capacity of an object to affect human behavior, actions, or perceptions independently of human intention</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasTypologicalAssignment">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/TypologicalAssignment"/>
+        <rdfs:label xml:lang="en">hasTypologicalAssignment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasChronologicalAssignment">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ChronologicalAssignment"/>
+        <rdfs:label xml:lang="en">hasChronologicalAssignment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/exhibitsPastness">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/Pastness"/>
+        <rdfs:label xml:lang="en">exhibitsPastness</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/exertsAgency">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectAgency"/>
+        <rdfs:label xml:lang="en">exertsAgency</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasCulturalSignificance">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasCulturalSignificance</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ObjectTransformation">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E81_Transformation"/>
+        <rdfs:label xml:lang="en">ObjectTransformation</rdfs:label>
+        <rdfs:comment xml:lang="en">Deliberate or accidental change to an object&apos;s physical form, function, or meaning</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/Fragmentation">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E3_Condition_State"/>
+        <rdfs:label xml:lang="en">Fragmentation</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical state where an object exists as multiple disconnected fragments</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/Patina">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E3_Condition_State"/>
+        <rdfs:label xml:lang="en">Patina</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical surface alteration connoting age, valued culturally as authenticity evidence</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/underwentTransformation">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ObjectTransformation"/>
+        <rdfs:label xml:lang="en">underwentTransformation</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/isFragmentedInto">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:label xml:lang="en">isFragmentedInto</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasPatina">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/Patina"/>
+        <rdfs:label xml:lang="en">hasPatina</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasConservationState">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasConservationState</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasPreservationRating">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:label xml:lang="en">hasPreservationRating</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/AnalyticalEncounter">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/crmsci/S19_Encounter"/>
+        <rdfs:label xml:lang="en">AnalyticalEncounter</rdfs:label>
+        <rdfs:comment xml:lang="en">Scientific analysis event where physical or chemical properties of an object are measured</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ConservationTreatment">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E7_Activity"/>
+        <rdfs:label xml:lang="en">ConservationTreatment</rdfs:label>
+        <rdfs:comment xml:lang="en">Post-recovery preservation action applied to an archaeological object</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.ontologyARQ.org/archaeological-object/ConservationDecision">
+        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E5_Event"/>
+        <rdfs:label xml:lang="en">ConservationDecision</rdfs:label>
+        <rdfs:comment xml:lang="en">Decision-making process determining conservation treatment based on stakeholder values</rdfs:comment>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/wasSampledIn">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/AnalyticalEncounter"/>
+        <rdfs:label xml:lang="en">wasSampledIn</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/underwentTreatment">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ConservationTreatment"/>
+        <rdfs:label xml:lang="en">underwentTreatment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasConservationDecision">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.ontologyARQ.org/archaeological-object/ConservationDecision"/>
+        <rdfs:label xml:lang="en">hasConservationDecision</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasAnalyticalTechnique">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/AnalyticalEncounter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasAnalyticalTechnique</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasElementalComposition">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/MaterialAssignment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">hasElementalComposition</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasLeadIsotopeRatio">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/MaterialAssignment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:label xml:lang="en">hasLeadIsotopeRatio</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasCompetingInterpretation">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/ArchaeologicalObject"/>
+        <rdfs:range rdf:resource="http://www.cidoc-crm.org/crminf/I4_Proposition_Set"/>
+        <rdfs:label xml:lang="en">hasCompetingInterpretation</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologyARQ.org/archaeological-object/hasRepatriationDate">
+        <rdfs:domain rdf:resource="http://www.ontologyARQ.org/archaeological-object/RepatriationEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:label xml:lang="en">hasRepatriationDate</rdfs:label>
+    </owl:DatatypeProperty>
+
+</rdf:RDF>

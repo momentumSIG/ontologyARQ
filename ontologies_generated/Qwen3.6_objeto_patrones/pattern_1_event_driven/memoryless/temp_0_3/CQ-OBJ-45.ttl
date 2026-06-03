@@ -1,0 +1,204 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern: Pattern 1 Event Driven
+# Model: qwen3.6 | Block-aware generation
+# Strategy: memoryless | CQ: CQ-OBJ-45 | Block: 5
+# Temperature: 0.3
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ======================= CLASSES ===========================
+
+# ─── Expert Taxonomy ───
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context (ecofact)"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, wood, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    owl:equivalentClass crm:E22_Human-Made_Object ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+# Block 5 — Custodia, exhibición y patrimonialización
+# Qwen: CustodyEvent, CustodyChain, ConservationTreatment, ConservationDecision,
+# ExhibitionEvent, DigitalReplica, HeritageClaim, Pastness, Patina
+
+arqo:CustodyEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "CustodyEvent"@en ;
+    rdfs:comment "Event managing an archaeological object through excavation, storage, loan, or exhibition"@en .
+
+arqo:CustodyChain a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "CustodyChain"@en ;
+    rdfs:comment "Complete chain of custody from recovery to current institutional location"@en .
+
+arqo:ConservationTreatment a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationTreatment"@en ;
+    rdfs:comment "Post-recovery preservation action applied to an archaeological object"@en .
+
+arqo:ConservationDecision a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ConservationDecision"@en ;
+    rdfs:comment "Decision-making process determining conservation treatment based on stakeholder values"@en .
+
+arqo:ExhibitionEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ExhibitionEvent"@en ;
+    rdfs:comment "Event of publicly exhibiting an archaeological object"@en .
+
+arqo:DigitalReplica a owl:Class ;
+    rdfs:subClassOf crm:E73_Information_Object ;
+    rdfs:label "DigitalReplica"@en ;
+    rdfs:comment "Digital representation of an archaeological object (3D model, photogrammetry, etc.)"@en .
+
+arqo:HeritageClaim a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "HeritageClaim"@en ;
+    rdfs:comment "Claim over cultural heritage ownership or repatriation of an archaeological object"@en .
+
+arqo:Pastness a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Pastness"@en ;
+    rdfs:comment "Perceived quality of being from the past — culturally constructed aesthetic and cognitive experience"@en .
+
+arqo:Patina a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Patina"@en ;
+    rdfs:comment "Physical surface alteration connoting age, valued culturally as authenticity evidence"@en .
+
+arqo:managedByCustodyEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:CustodyEvent ;
+    rdfs:label "managedByCustodyEvent"@en .
+
+arqo:hasCustodyChain a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:CustodyChain ;
+    rdfs:label "hasCustodyChain"@en .
+
+arqo:underwentConservationTreatment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ConservationTreatment ;
+    rdfs:label "underwentConservationTreatment"@en .
+
+arqo:hasConservationDecision a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ConservationDecision ;
+    rdfs:label "hasConservationDecision"@en .
+
+arqo:exhibitedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ExhibitionEvent ;
+    rdfs:label "exhibitedIn"@en .
+
+arqo:hasDigitalReplica a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:DigitalReplica ;
+    rdfs:label "hasDigitalReplica"@en .
+
+arqo:subjectOfHeritageClaim a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:HeritageClaim ;
+    rdfs:label "subjectOfHeritageClaim"@en .
+
+arqo:wasRepatriatedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RepatriationEvent ;
+    rdfs:label "wasRepatriatedIn"@en .
+
+arqo:exhibitsPastness a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:Pastness ;
+    rdfs:label "exhibitsPastness"@en .
+
+arqo:hasPatina a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:Patina ;
+    rdfs:label "hasPatina"@en .
+
+arqo:hasCustodyDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:CustodyEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasCustodyDate"@en .
+
+arqo:hasConservationDecisionReason a owl:DatatypeProperty ;
+    rdfs:domain arqo:ConservationDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasConservationDecisionReason"@en .
+
+arqo:hasExhibitionDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ExhibitionEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasExhibitionDate"@en .
+
+arqo:hasDocumentationTechnique a owl:DatatypeProperty ;
+    rdfs:domain arqo:DigitalReplica ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasDocumentationTechnique"@en .
+
+arqo:hasHeritageClaimType a owl:DatatypeProperty ;
+    rdfs:domain arqo:HeritageClaim ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasHeritageClaimType"@en .
+
+arqo:hasRepatriationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:RepatriationEvent ;
+    rdfs:range xsd:date ;
+    rdfs:label "hasRepatriationDate"@en .
+
+arqo:hasObjectAgeValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:Pastness ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasObjectAgeValue"@en .
+
+arqo:hasCulturalSignificance a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasCulturalSignificance"@en .

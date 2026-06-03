@@ -1,0 +1,241 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern 1 Event Driven
+# Strategy: memoryless | CQ: CQ-OBJ-47
+# Temperature: 0.5
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+
+# ======================= CLASSES ===========================
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+arqo:ManufacturingEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "ManufacturingEvent"@en ;
+    rdfs:comment "Event of object production through specific technological procedures"@en .
+
+arqo:UseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "UseEvent"@en ;
+    rdfs:comment "Event of object utilization in its functional role"@en .
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en ;
+    rdfs:comment "Secondary use after original function ceased"@en .
+
+arqo:RepairEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RepairEvent"@en ;
+    rdfs:comment "Physical modification to restore function"@en .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "DepositionEvent"@en ;
+    rdfs:comment "Event of object entering the archaeological record"@en .
+
+arqo:RecoveryEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A1_Excavation_Process_Unit ;
+    rdfs:label "RecoveryEvent"@en ;
+    rdfs:comment "Event of object being excavated or recovered"@en .
+
+arqo:CirculationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "CirculationEvent"@en ;
+    rdfs:comment "Event of object moving between locations or cultural zones"@en .
+
+arqo:RepatriationEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "RepatriationEvent"@en ;
+    rdfs:comment "Event of returning object to country or community of origin"@en .
+
+arqo:ConservationTreatment a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ConservationTreatment"@en ;
+    rdfs:comment "Post-recovery preservation action applied to archaeological object"@en .
+
+arqo:AnalyticalEncounter a owl:Class ;
+    rdfs:subClassOf crmsci:S19_Encounter ;
+    rdfs:label "AnalyticalEncounter"@en ;
+    rdfs:comment "Scientific analysis event where object properties are measured"@en .
+
+arqo:ObjectBiography a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ObjectBiography"@en ;
+    rdfs:comment "Narrative sequence of events constituting object lifecycle"@en .
+
+arqo:ProvenanceChain a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ProvenanceChain"@en ;
+    rdfs:comment "Forensically reconstructed path from source to findspot"@en .
+
+
+# =================== OBJECT PROPERTIES =====================
+arqo:wasProducedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:HumanMadeObject ;
+    rdfs:range arqo:ManufacturingEvent ;
+    rdfs:label "wasProducedBy"@en .
+
+arqo:wasUsedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:UseEvent ;
+    rdfs:label "wasUsedIn"@en .
+
+arqo:wasReusedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ReuseEvent ;
+    rdfs:label "wasReusedIn"@en .
+
+arqo:wasRepairedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RepairEvent ;
+    rdfs:label "wasRepairedIn"@en .
+
+arqo:wasDepositedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:DepositionEvent ;
+    rdfs:label "wasDepositedIn"@en .
+
+arqo:wasRecoveredIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RecoveryEvent ;
+    rdfs:label "wasRecoveredIn"@en .
+
+arqo:circulatedThrough a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:CirculationEvent ;
+    rdfs:label "circulatedThrough"@en .
+
+arqo:wasRepatriatedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RepatriationEvent ;
+    rdfs:label "wasRepatriatedIn"@en .
+
+arqo:underwentTreatment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ConservationTreatment ;
+    rdfs:label "underwentTreatment"@en .
+
+arqo:wasSampledIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:AnalyticalEncounter ;
+    rdfs:label "wasSampledIn"@en .
+
+arqo:hasBiography a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ObjectBiography ;
+    rdfs:label "hasBiography"@en .
+
+arqo:associatedWithActor a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "associatedWithActor"@en .
+
+
+# ==================== DATA PROPERTIES =====================
+arqo:hasManufacturingDateStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasManufacturingDateStart"@en .
+
+arqo:hasManufacturingDateEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:ManufacturingEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasManufacturingDateEnd"@en .
+
+arqo:hasUseDateStart a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasUseDateStart"@en .
+
+arqo:hasUseDateEnd a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasUseDateEnd"@en .
+
+arqo:hasDepositionDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "hasDepositionDate"@en .
+
+arqo:hasAnalyticalTechnique a owl:DatatypeProperty ;
+    rdfs:domain arqo:AnalyticalEncounter ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasAnalyticalTechnique"@en .
+
+arqo:hasConservationState a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasConservationState"@en .
+
+
+# CQ-specific: Bibliography
+arqo:hasBibliographicReference a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range crm:E31_Document ;
+    rdfs:label "hasBibliographicReference"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:HumanMadeObject rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:wasProducedBy ;
+    owl:someValuesFrom arqo:ManufacturingEvent
+] .
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:hasBiography ;
+    owl:someValuesFrom arqo:ObjectBiography
+] .

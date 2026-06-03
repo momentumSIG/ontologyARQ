@@ -1,0 +1,129 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern: Pattern 1 Event Driven
+# Model: deepseek-v4-pro | Block-aware generation
+# Strategy: memoryless | CQ: CQ-OBJ-37 | Block: 5
+# Temperature: 0.7
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ======================= CLASSES ===========================
+
+# ─── Expert Taxonomy ───
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context (ecofact)"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, wood, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    owl:equivalentClass crm:E22_Human-Made_Object ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+# Block 5 — Physical States & Transformation
+# From DeepSeek analysis: ObjectTransformation, Fragmentation, Patina
+
+arqo:ObjectTransformation a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "ObjectTransformation"@en ;
+    rdfs:comment "Deliberate or accidental change to an object's physical form, function, or meaning"@en .
+
+arqo:Fragmentation a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Fragmentation"@en ;
+    rdfs:comment "Physical state where an object exists as multiple disconnected fragments"@en .
+
+arqo:Patina a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Patina"@en ;
+    rdfs:comment "Physical surface alteration connoting age, valued culturally as authenticity evidence"@en .
+
+arqo:underwentTransformation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ObjectTransformation ;
+    rdfs:label "underwentTransformation"@en .
+
+arqo:isFragmentedInto a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "isFragmentedInto"@en .
+
+arqo:hasPatina a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:Patina ;
+    rdfs:label "hasPatina"@en .
+
+arqo:hasConservationState a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasConservationState"@en .
+
+arqo:hasPreservationRating a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasPreservationRating"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:NaturalObject owl:disjointWith arqo:HumanMadeObject .
+arqo:AbioticObject owl:disjointWith arqo:BioticObject .
+arqo:Artefact owl:disjointWith arqo:Structure .
+
+arqo:HumanMadeObject rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:wasProducedBy ;
+    owl:someValuesFrom arqo:ManufacturingEvent ] .
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:hasBiography ;
+    owl:someValuesFrom arqo:ObjectBiography ] .
+
+arqo:DepositionEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:hasDepositionDate ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+
+arqo:ManufacturingEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:hasManufacturingDateStart ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger ] .

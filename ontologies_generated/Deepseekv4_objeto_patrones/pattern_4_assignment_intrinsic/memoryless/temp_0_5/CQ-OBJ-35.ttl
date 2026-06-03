@@ -1,0 +1,89 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern: Pattern 4 Assignment Intrinsic
+# Model: deepseek-v4-pro | Block-aware generation
+# Strategy: memoryless | CQ: CQ-OBJ-35 | Block: 5
+# Temperature: 0.5
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ======================= CLASSES ===========================
+
+# ─── Expert Taxonomy ───
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context (ecofact)"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, wood, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    owl:equivalentClass crm:E22_Human-Made_Object ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+# Blocks 4-5 — Function & Physical State as Assignment
+arqo:FunctionalAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "FunctionalAssignment"@en ;
+    rdfs:comment "Researcher assignment of functional role to object"@en .
+
+arqo:ProvenanceAssignment a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalAssignment ;
+    rdfs:label "ProvenanceAssignment"@en ;
+    rdfs:comment "Researcher assignment of geographic origin to object or materials"@en .
+
+arqo:hasFunctionalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:FunctionalAssignment ;
+    rdfs:label "hasFunctionalAssignment"@en .
+
+arqo:hasProvenanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ProvenanceAssignment ;
+    rdfs:label "hasProvenanceAssignment"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:hasAssignment ;
+    owl:someValuesFrom arqo:ArchaeologicalAssignment ] .

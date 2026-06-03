@@ -1,0 +1,158 @@
+# ============================================================
+# Ontology: Archaeological Object Module — Pattern: Pattern 2 State Transition
+# Model: qwen3.6 | Block-aware generation
+# Strategy: memoryless | CQ: CQ-OBJ-09 | Block: 1
+# Temperature: 0.5
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# ======================= CLASSES ===========================
+
+# ─── Expert Taxonomy ───
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:NaturalObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "NaturalObject"@en ;
+    rdfs:comment "Object of natural origin found in archaeological context (ecofact)"@en .
+
+arqo:AbioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "AbioticObject"@en ;
+    rdfs:comment "Non-living natural object (stone, mineral, sediment)"@en .
+
+arqo:BioticObject a owl:Class ;
+    rdfs:subClassOf arqo:NaturalObject ;
+    rdfs:label "BioticObject"@en ;
+    rdfs:comment "Living or once-living natural object (bone, shell, wood, plant remains)"@en .
+
+arqo:HumanMadeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    owl:equivalentClass crm:E22_Human-Made_Object ;
+    rdfs:label "HumanMadeObject"@en ;
+    rdfs:comment "Object created or modified by human action"@en .
+
+arqo:Artefact a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Artefact"@en ;
+    rdfs:comment "Portable human-made object with functional purpose"@en .
+
+arqo:Structure a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "Structure"@en ;
+    rdfs:comment "Non-portable human-made construction"@en .
+
+arqo:ArtisticExpression a owl:Class ;
+    rdfs:subClassOf arqo:HumanMadeObject ;
+    rdfs:label "ArtisticExpression"@en ;
+    rdfs:comment "Human-made object with aesthetic or symbolic function"@en .
+
+# Block 1 — Biografía como secuencia de estados
+arqo:ProductionState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "ProductionState"@en ;
+    rdfs:comment "State of an object during or immediately after production"@en .
+
+arqo:UseState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "UseState"@en ;
+    rdfs:comment "State of an object during active use"@en .
+
+arqo:ReuseState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "ReuseState"@en ;
+    rdfs:comment "State of an object during secondary use"@en .
+
+arqo:DepositedState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "DepositedState"@en ;
+    rdfs:comment "State of an object after entering the archaeological record"@en .
+
+arqo:RecoveredState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "RecoveredState"@en ;
+    rdfs:comment "State of an object after excavation recovery"@en .
+
+arqo:CirculationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "CirculationState"@en ;
+    rdfs:comment "State of an object during movement between locations"@en .
+
+arqo:ObjectTransformation a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "ObjectTransformation"@en ;
+    rdfs:comment "Deliberate or accidental change to an object's physical form, function, or meaning"@en .
+
+arqo:hasProductionState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ProductionState ;
+    rdfs:label "hasProductionState"@en .
+
+arqo:hasUseState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:UseState ;
+    rdfs:label "hasUseState"@en .
+
+arqo:hasReuseState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ReuseState ;
+    rdfs:label "hasReuseState"@en .
+
+arqo:hasDepositedState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:DepositedState ;
+    rdfs:label "hasDepositedState"@en .
+
+arqo:hasRecoveredState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:RecoveredState ;
+    rdfs:label "hasRecoveredState"@en .
+
+arqo:hasCirculationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CirculationState ;
+    rdfs:label "hasCirculationState"@en .
+
+arqo:underwentTransformation a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ObjectTransformation ;
+    rdfs:label "underwentTransformation"@en .
+
+arqo:hasPreTransformationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectTransformation ; rdfs:range crm:E3_Condition_State ;
+    rdfs:label "hasPreTransformationState"@en .
+
+arqo:hasPostTransformationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ObjectTransformation ; rdfs:range crm:E3_Condition_State ;
+    rdfs:label "hasPostTransformationState"@en .
+
+arqo:hasProductionStateDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ProductionState ; rdfs:range xsd:dateTime ;
+    rdfs:label "hasProductionStateDate"@en .
+
+arqo:hasUseStateDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:UseState ; rdfs:range xsd:dateTime ;
+    rdfs:label "hasUseStateDate"@en .
+
+arqo:hasDepositedStateDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:DepositedState ; rdfs:range xsd:dateTime ;
+    rdfs:label "hasDepositedStateDate"@en .
+
+arqo:hasTransformationDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ObjectTransformation ; rdfs:range xsd:dateTime ;
+    rdfs:label "hasTransformationDate"@en .
+
+# ===================== RESTRICTIONS =======================
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ; owl:onProperty arqo:hasProductionState ;
+    owl:someValuesFrom arqo:ProductionState ] .
