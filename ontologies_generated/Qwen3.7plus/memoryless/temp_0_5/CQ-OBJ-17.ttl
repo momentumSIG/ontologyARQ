@@ -1,0 +1,103 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-17>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-17" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-17: What is the fragmentation state of an archaeological object — complete, partially fragmented, or reduced to isolated sherds — and what proportion of the original object is preserved?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:FragmentationState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Fragmentation State"@en ;
+    rdfs:comment "The condition state of an archaeological object regarding its degree of completeness or fragmentation."@en .
+
+arqo:CompleteState a owl:Class ;
+    rdfs:subClassOf arqo:FragmentationState ;
+    rdfs:label "Complete State"@en ;
+    rdfs:comment "A fragmentation state in which the object is substantially intact with no significant loss of original material."@en .
+
+arqo:PartiallyFragmentedState a owl:Class ;
+    rdfs:subClassOf arqo:FragmentationState ;
+    rdfs:label "Partially Fragmented State"@en ;
+    rdfs:comment "A fragmentation state in which the object retains a significant portion of its original form but has lost some components or sections."@en .
+
+arqo:IsolatedSherdsState a owl:Class ;
+    rdfs:subClassOf arqo:FragmentationState ;
+    rdfs:label "Isolated Sherds State"@en ;
+    rdfs:comment "A fragmentation state in which the object is reduced to isolated fragments with no structural coherence."@en .
+
+arqo:Fragment a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Fragment"@en ;
+    rdfs:comment "A physical portion of a once-complete archaeological object, representing a part of the original entity."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasFragmentationState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:FragmentationState ;
+    rdfs:label "has fragmentation state"@en ;
+    rdfs:comment "Links an archaeological object to its fragmentation state."@en .
+
+arqo:hasFragment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:Fragment ;
+    rdfs:label "has fragment"@en ;
+    rdfs:comment "Links an archaeological object (or its group declaration) to a physical fragment."@en .
+
+arqo:fragmentOfObject a owl:ObjectProperty ;
+    rdfs:domain arqo:Fragment ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "fragment of object"@en ;
+    rdfs:comment "Links a fragment to the original archaeological object it belongs to."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasCompletenessPercentage a owl:DatatypeProperty ;
+    rdfs:domain arqo:FragmentationState ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has completeness percentage"@en ;
+    rdfs:comment "The estimated percentage of the original object that is preserved (0.0 to 100.0)."@en .
+
+arqo:hasFragmentCount a owl:DatatypeProperty ;
+    rdfs:domain arqo:FragmentationState ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "has fragment count"@en ;
+    rdfs:comment "The number of discrete fragments the object is divided into."@en .
+
+arqo:hasPreservationQuality a owl:DatatypeProperty ;
+    rdfs:domain arqo:FragmentationState ;
+    rdfs:range xsd:string ;
+    rdfs:label "has preservation quality"@en ;
+    rdfs:comment "Qualitative assessment of preservation: excellent, good, fair, poor, very poor."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:CompleteState owl:disjointWith arqo:PartiallyFragmentedState .
+arqo:CompleteState owl:disjointWith arqo:IsolatedSherdsState .
+arqo:PartiallyFragmentedState owl:disjointWith arqo:IsolatedSherdsState .
+
+arqo:FragmentationState rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasCompletenessPercentage ;
+    owl:allValuesFrom xsd:decimal
+] .

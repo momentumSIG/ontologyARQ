@@ -1,0 +1,112 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-10>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-10" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-10: Do two or more archaeological objects from different sites or stratigraphic contexts exhibit parallel biographical event sequences — similar sequences of procurement, manufacture, use, discard, and deposition — suggesting shared cultural practices or exchange connections?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:BiographySequence a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Biography Sequence"@en ;
+    rdfs:comment "An ordered chain of biographical events (procurement, manufacture, use, discard, deposition) associated with an archaeological object."@en .
+
+arqo:BiographicalEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Biographical Event"@en ;
+    rdfs:comment "A discrete event in the life of an archaeological object, such as procurement, manufacture, use, discard, or deposition."@en .
+
+arqo:BiographicalParallelism a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Biographical Parallelism"@en ;
+    rdfs:comment "A propositional entity asserting that two or more objects share similar biographical event sequences, suggesting shared cultural practices or exchange connections."@en .
+
+arqo:BiographicalStep a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Biographical Step"@en ;
+    rdfs:comment "A type of biographical event phase: procurement, manufacture, use, discard, deposition, recovery."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasBiographySequence a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:BiographySequence ;
+    rdfs:label "has biography sequence"@en ;
+    rdfs:comment "Links an archaeological object to its ordered biographical event sequence."@en .
+
+arqo:sequenceIncludesEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:BiographySequence ;
+    rdfs:range arqo:BiographicalEvent ;
+    rdfs:label "sequence includes event"@en ;
+    rdfs:comment "Links a biography sequence to one of its constituent biographical events."@en .
+
+arqo:eventPrecedes a owl:ObjectProperty ;
+    rdfs:domain arqo:BiographicalEvent ;
+    rdfs:range arqo:BiographicalEvent ;
+    rdfs:label "event precedes"@en ;
+    rdfs:comment "Establishes the temporal order between two biographical events within a sequence."@en .
+
+arqo:exhibitsParallelismWith a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "exhibits parallelism with"@en ;
+    rdfs:comment "Links two archaeological objects that exhibit parallel biographical event sequences."@en .
+
+arqo:parallelismAssertedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:BiographicalParallelism ;
+    rdfs:range arqo:BiographySequence ;
+    rdfs:label "parallelism asserted by"@en ;
+    rdfs:comment "Links a biographical parallelism assertion to the biography sequences being compared."@en .
+
+arqo:parallelEventStep a owl:ObjectProperty ;
+    rdfs:domain arqo:BiographicalParallelism ;
+    rdfs:range arqo:BiographicalStep ;
+    rdfs:label "parallel event step"@en ;
+    rdfs:comment "Links a parallelism assertion to the biographical step type that is shared between the compared sequences."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasParallelismDegree a owl:DatatypeProperty ;
+    rdfs:domain arqo:BiographicalParallelism ;
+    rdfs:range xsd:string ;
+    rdfs:label "has parallelism degree"@en ;
+    rdfs:comment "Indicates the degree of biographical parallelism: full_sequence, partial_sequence, or single_phase."@en .
+
+arqo:hasSequenceLength a owl:DatatypeProperty ;
+    rdfs:domain arqo:BiographySequence ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "has sequence length"@en ;
+    rdfs:comment "The number of biographical events in the sequence."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:BiographySequence rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:sequenceIncludesEvent ;
+    owl:minCardinality 2
+] .
+
+arqo:BiographicalParallelism rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:parallelismAssertedBy ;
+    owl:minCardinality 2
+] .

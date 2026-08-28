@@ -1,0 +1,108 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-13>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-13" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-13: Is an archaeological object currently experienced as an available tool (readiness-to-hand) or as a detached specimen under study (presence-at-hand), and what biographical events caused this ontological shift?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context, which can be experienced in different ontological modes."@en .
+
+arqo:OntologicalMode a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Ontological Mode"@en ;
+    rdfs:comment "The mode of being of an archaeological object: readiness-to-hand (experienced as an available tool) or presence-at-hand (experienced as a detached specimen under study)."@en .
+
+arqo:ReadinessToHand a owl:Class ;
+    rdfs:subClassOf arqo:OntologicalMode ;
+    rdfs:label "Readiness-to-Hand"@en ;
+    rdfs:comment "An ontological mode in which the object is experienced as a transparent, available tool — its materiality recedes in favor of its functionality."@en .
+
+arqo:PresenceAtHand a owl:Class ;
+    rdfs:subClassOf arqo:OntologicalMode ;
+    rdfs:label "Presence-at-Hand"@en ;
+    rdfs:comment "An ontological mode in which the object is experienced as a detached specimen under study — its materiality becomes the focus of attention."@en .
+
+arqo:OntologicalShiftEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Ontological Shift Event"@en ;
+    rdfs:comment "A biographical event that causes an archaeological object to transition between ontological modes (e.g., from readiness-to-hand to presence-at-hand through excavation, museum display, or scientific analysis)."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasCurrentOntologicalMode a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:OntologicalMode ;
+    rdfs:label "has current ontological mode"@en ;
+    rdfs:comment "Links an archaeological object to its current ontological mode of being."@en .
+
+arqo:underwentOntologicalShift a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:OntologicalShiftEvent ;
+    rdfs:label "underwent ontological shift"@en ;
+    rdfs:comment "Links an archaeological object to an event that caused a transition between ontological modes."@en .
+
+arqo:shiftFromMode a owl:ObjectProperty ;
+    rdfs:domain arqo:OntologicalShiftEvent ;
+    rdfs:range arqo:OntologicalMode ;
+    rdfs:label "shift from mode"@en ;
+    rdfs:comment "Links an ontological shift event to the mode the object was in before the transition."@en .
+
+arqo:shiftToMode a owl:ObjectProperty ;
+    rdfs:domain arqo:OntologicalShiftEvent ;
+    rdfs:range arqo:OntologicalMode ;
+    rdfs:label "shift to mode"@en ;
+    rdfs:comment "Links an ontological shift event to the mode the object entered after the transition."@en .
+
+arqo:shiftCausedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:OntologicalShiftEvent ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "shift caused by"@en ;
+    rdfs:comment "Links an ontological shift to the biographical event that triggered it (e.g., discard, excavation, museum acquisition)."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasOntologicalModeLabel a owl:DatatypeProperty ;
+    rdfs:domain arqo:OntologicalMode ;
+    rdfs:range xsd:string ;
+    rdfs:label "has ontological mode label"@en ;
+    rdfs:comment "A human-readable label for the ontological mode: readiness-to-hand or presence-at-hand."@en .
+
+arqo:hasShiftDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:OntologicalShiftEvent ;
+    rdfs:range xsd:date ;
+    rdfs:label "has shift date"@en ;
+    rdfs:comment "The date at which the ontological shift occurred."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:ReadinessToHand owl:disjointWith arqo:PresenceAtHand .
+
+arqo:OntologicalShiftEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:shiftFromMode ;
+    owl:someValuesFrom arqo:OntologicalMode
+] .
+
+arqo:OntologicalShiftEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:shiftToMode ;
+    owl:someValuesFrom arqo:OntologicalMode
+] .

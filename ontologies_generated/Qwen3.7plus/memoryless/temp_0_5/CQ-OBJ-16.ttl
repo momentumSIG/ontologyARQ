@@ -1,0 +1,101 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-16>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-16" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-16: What surface alterations — patina, corrosion layers, weathering rinds, use-wear polish, or oxidation films — are present on an archaeological object, and how do these alterations contribute to the culturally perceived quality of pastness?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:SurfaceAlteration a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Surface Alteration"@en ;
+    rdfs:comment "A physical feature on the surface of an archaeological object resulting from use, burial, or environmental exposure, including patina, corrosion, weathering, use-wear, and oxidation."@en .
+
+arqo:Patina a owl:Class ;
+    rdfs:subClassOf arqo:SurfaceAlteration ;
+    rdfs:label "Patina"@en ;
+    rdfs:comment "A surface alteration forming a thin layer through age and exposure, often contributing to perceived authenticity and pastness."@en .
+
+arqo:CorrosionLayer a owl:Class ;
+    rdfs:subClassOf arqo:SurfaceAlteration ;
+    rdfs:label "Corrosion Layer"@en ;
+    rdfs:comment "A surface alteration on metallic objects resulting from chemical reaction with the environment."@en .
+
+arqo:WeatheringRind a owl:Class ;
+    rdfs:subClassOf arqo:SurfaceAlteration ;
+    rdfs:label "Weathering Rind"@en ;
+    rdfs:comment "A surface alteration on stone or ceramic objects resulting from prolonged environmental exposure."@en .
+
+arqo:UseWearPolish a owl:Class ;
+    rdfs:subClassOf arqo:SurfaceAlteration ;
+    rdfs:label "Use-Wear Polish"@en ;
+    rdfs:comment "A surface alteration resulting from the mechanical action of use, visible as polish, striations, or edge damage."@en .
+
+arqo:OxidationFilm a owl:Class ;
+    rdfs:subClassOf arqo:SurfaceAlteration ;
+    rdfs:label "Oxidation Film"@en ;
+    rdfs:comment "A surface alteration resulting from oxidation of the object's material, forming a visible film or layer."@en .
+
+arqo:PastnessAssessment a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Pastness Assessment"@en ;
+    rdfs:comment "An interpretive propositional entity asserting the degree to which surface alterations contribute to the culturally perceived quality of pastness — the experiential sense that the object is authentically from the past."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasSurfaceAlteration a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SurfaceAlteration ;
+    rdfs:label "has surface alteration"@en ;
+    rdfs:comment "Links an archaeological object to a surface alteration present on it."@en .
+
+arqo:alterationContributesToPastness a owl:ObjectProperty ;
+    rdfs:domain arqo:SurfaceAlteration ;
+    rdfs:range arqo:PastnessAssessment ;
+    rdfs:label "alteration contributes to pastness"@en ;
+    rdfs:comment "Links a surface alteration to the pastness assessment it contributes to."@en .
+
+arqo:pastnessAssessedOn a owl:ObjectProperty ;
+    rdfs:domain arqo:PastnessAssessment ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "pastness assessed on"@en ;
+    rdfs:comment "Links a pastness assessment to the object whose pastness is being evaluated."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasAlterationExtent a owl:DatatypeProperty ;
+    rdfs:domain arqo:SurfaceAlteration ;
+    rdfs:range xsd:string ;
+    rdfs:label "has alteration extent"@en ;
+    rdfs:comment "Describes the spatial extent of the surface alteration: localized, partial, or covering."@en .
+
+arqo:hasPastnessDegree a owl:DatatypeProperty ;
+    rdfs:domain arqo:PastnessAssessment ;
+    rdfs:range xsd:string ;
+    rdfs:label "has pastness degree"@en ;
+    rdfs:comment "The assessed degree of pastness: strong, moderate, weak, or contested."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:Patina owl:disjointWith arqo:CorrosionLayer .
+arqo:WeatheringRind owl:disjointWith arqo:UseWearPolish .
+arqo:OxidationFilm owl:disjointWith arqo:UseWearPolish .

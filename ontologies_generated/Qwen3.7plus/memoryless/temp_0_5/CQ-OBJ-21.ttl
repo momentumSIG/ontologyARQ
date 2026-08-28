@@ -1,0 +1,114 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-21>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-21" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-21: Under which typological scheme — monothetic classification based on a single diagnostic attribute, or polythetic cluster analysis based on multiple attribute states — has an archaeological object been classified, and what criteria define the assigned type?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:TypologicalAssignment a owl:Class ;
+    rdfs:subClassOf crm:E17_Type_Assignment ;
+    rdfs:label "Typological Assignment"@en ;
+    rdfs:comment "An assignment of an archaeological object to a typological class, specifying the classification scheme and criteria used."@en .
+
+arqo:MonotheticClassification a owl:Class ;
+    rdfs:subClassOf arqo:TypologicalAssignment ;
+    rdfs:label "Monothetic Classification"@en ;
+    rdfs:comment "A typological assignment based on a single diagnostic attribute that defines group membership."@en .
+
+arqo:PolytheticClassification a owl:Class ;
+    rdfs:subClassOf arqo:TypologicalAssignment ;
+    rdfs:label "Polythetic Classification"@en ;
+    rdfs:comment "A typological assignment based on cluster analysis of multiple attribute states, where no single attribute is necessary or sufficient for group membership."@en .
+
+arqo:ClassificationCriterion a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Classification Criterion"@en ;
+    rdfs:comment "A specific attribute or feature used as a criterion for typological classification."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasTypologicalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:TypologicalAssignment ;
+    rdfs:label "has typological assignment"@en ;
+    rdfs:comment "Links an archaeological object to a typological assignment."@en .
+
+arqo:assignmentAssignedType a owl:ObjectProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "assignment assigned type"@en ;
+    rdfs:comment "Links a typological assignment to the type that was assigned. Corresponds to CRM P141."@en .
+
+arqo:assignmentUsedScheme a owl:ObjectProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "assignment used scheme"@en ;
+    rdfs:comment "Links a typological assignment to the classification scheme employed."@en .
+
+arqo:assignmentBasedOnCriterion a owl:ObjectProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range arqo:ClassificationCriterion ;
+    rdfs:label "assignment based on criterion"@en ;
+    rdfs:comment "Links a typological assignment to the criteria that define the assigned type."@en .
+
+arqo:assignmentMadeBy a owl:ObjectProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "assignment made by"@en ;
+    rdfs:comment "Links a typological assignment to the actor who made the classification."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasClassificationMethod a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range xsd:string ;
+    rdfs:label "has classification method"@en ;
+    rdfs:comment "The method of classification: monothetic or polythetic."@en .
+
+arqo:hasCriterionDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:ClassificationCriterion ;
+    rdfs:range xsd:string ;
+    rdfs:label "has criterion description"@en ;
+    rdfs:comment "A textual description of the classification criterion."@en .
+
+arqo:hasAssignmentDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypologicalAssignment ;
+    rdfs:range xsd:date ;
+    rdfs:label "has assignment date"@en ;
+    rdfs:comment "The date on which the typological assignment was made."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MonotheticClassification owl:disjointWith arqo:PolytheticClassification .
+
+arqo:TypologicalAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentAssignedType ;
+    owl:someValuesFrom crm:E55_Type
+] .
+
+arqo:TypologicalAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentBasedOnCriterion ;
+    owl:minCardinality 1
+] .

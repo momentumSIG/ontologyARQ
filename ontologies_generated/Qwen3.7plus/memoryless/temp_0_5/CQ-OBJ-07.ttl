@@ -1,0 +1,110 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-07>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-07" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-07: Which human actors, social groups, craft traditions, or cultural communities are documented as participants in the production, use, or deposition events of an archaeological object?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:ProductionEvent a owl:Class ;
+    rdfs:subClassOf crm:E12_Production ;
+    rdfs:label "Production Event"@en ;
+    rdfs:comment "An event in which an archaeological object was manufactured or created."@en .
+
+arqo:UseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "Use Event"@en ;
+    rdfs:comment "An event in which an archaeological object was actively used for its intended or acquired function."@en .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "Deposition Event"@en ;
+    rdfs:comment "An event in which an archaeological object was placed into the stratigraphic record."@en .
+
+arqo:CraftTradition a owl:Class ;
+    rdfs:subClassOf crm:E74_Group ;
+    rdfs:label "Craft Tradition"@en ;
+    rdfs:comment "A community of practice sharing manufacturing knowledge, techniques, and stylistic conventions."@en .
+
+arqo:CulturalCommunity a owl:Class ;
+    rdfs:subClassOf crm:E74_Group ;
+    rdfs:label "Cultural Community"@en ;
+    rdfs:comment "A social group sharing cultural practices, values, and material culture traditions."@en .
+
+arqo:ActorParticipation a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Actor Participation"@en ;
+    rdfs:comment "A reification of the participation of an actor (individual, group, tradition, or community) in a biographical event of an archaeological object."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasActorParticipation a owl:ObjectProperty ;
+    rdfs:domain crm:E5_Event ;
+    rdfs:range arqo:ActorParticipation ;
+    rdfs:label "has actor participation"@en ;
+    rdfs:comment "Links a biographical event to a reified actor participation record."@en .
+
+arqo:participatingActor a owl:ObjectProperty ;
+    rdfs:domain arqo:ActorParticipation ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "participating actor"@en ;
+    rdfs:comment "Links an actor participation to the individual actor involved."@en .
+
+arqo:participatingGroup a owl:ObjectProperty ;
+    rdfs:domain arqo:ActorParticipation ;
+    rdfs:range crm:E74_Group ;
+    rdfs:label "participating group"@en ;
+    rdfs:comment "Links an actor participation to the social group, craft tradition, or cultural community involved."@en .
+
+arqo:participationRole a owl:ObjectProperty ;
+    rdfs:domain arqo:ActorParticipation ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "participation role"@en ;
+    rdfs:comment "Links an actor participation to the role played by the actor (e.g., manufacturer, user, depositor, ritual specialist)."@en .
+
+arqo:participationInEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:ActorParticipation ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "participation in event"@en ;
+    rdfs:comment "Links an actor participation to the biographical event (production, use, deposition) in which the actor participated."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasActorScale a owl:DatatypeProperty ;
+    rdfs:domain arqo:ActorParticipation ;
+    rdfs:range xsd:string ;
+    rdfs:label "has actor scale"@en ;
+    rdfs:comment "The scale of the participating actor: individual, group, tradition, or community."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:ActorParticipation rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:participationInEvent ;
+    owl:someValuesFrom crm:E5_Event
+] .
+
+arqo:ActorParticipation rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:participationRole ;
+    owl:someValuesFrom crm:E55_Type
+] .

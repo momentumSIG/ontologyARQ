@@ -1,0 +1,106 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-08>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-08" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-08: What deposition events — intentional burial, emergency caching, ritual offering, or casual abandonment — placed an archaeological object into the stratigraphic record, and what behavioral motivations do these event types indicate?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:DepositionEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "Deposition Event"@en ;
+    rdfs:comment "An event that placed an archaeological object into the stratigraphic record, encompassing diverse behavioral motivations."@en .
+
+arqo:IntentionalBurial a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "Intentional Burial"@en ;
+    rdfs:comment "A deposition event involving the deliberate placement of an object in a prepared context, such as a grave or dedicatory deposit."@en .
+
+arqo:EmergencyCaching a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "Emergency Caching"@en ;
+    rdfs:comment "A deposition event involving the hasty concealment of objects for temporary safekeeping, often in response to threat or crisis."@en .
+
+arqo:RitualOffering a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "Ritual Offering"@en ;
+    rdfs:comment "A deposition event involving the deliberate placement of an object as a votive or ritual offering, often in a sacred context."@en .
+
+arqo:CasualAbandonment a owl:Class ;
+    rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "Casual Abandonment"@en ;
+    rdfs:comment "A deposition event involving the informal discard or abandonment of an object without deliberate burial or offering intent."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:wasDepositedThrough a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:DepositionEvent ;
+    rdfs:label "was deposited through"@en ;
+    rdfs:comment "Links an archaeological object to the deposition event that placed it into the stratigraphic record."@en .
+
+arqo:depositionIntoUnit a owl:ObjectProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "deposition into unit"@en ;
+    rdfs:comment "Links a deposition event to the stratigraphic unit that was created or received the object."@en .
+
+arqo:depositionWithinVolume a owl:ObjectProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range crmarchaeo:A2_Stratigraphic_Volume_Unit ;
+    rdfs:label "deposition within volume"@en ;
+    rdfs:comment "Links a deposition event to the stratigraphic volume unit in which the object was placed."@en .
+
+arqo:depositionMotivation a owl:ObjectProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "deposition motivation"@en ;
+    rdfs:comment "Links a deposition event to the behavioral motivation type (burial, caching, offering, abandonment)."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasBehavioralMotivation a owl:DatatypeProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has behavioral motivation"@en ;
+    rdfs:comment "Describes the behavioral motivation behind the deposition: intentional_burial, emergency_caching, ritual_offering, or casual_abandonment."@en .
+
+arqo:hasDepositionIntentionality a owl:DatatypeProperty ;
+    rdfs:domain arqo:DepositionEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has deposition intentionality"@en ;
+    rdfs:comment "Indicates the degree of intentionality: deliberate, hasty, or incidental."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:IntentionalBurial owl:disjointWith arqo:EmergencyCaching .
+arqo:IntentionalBurial owl:disjointWith arqo:RitualOffering .
+arqo:IntentionalBurial owl:disjointWith arqo:CasualAbandonment .
+arqo:EmergencyCaching owl:disjointWith arqo:RitualOffering .
+arqo:EmergencyCaching owl:disjointWith arqo:CasualAbandonment .
+arqo:RitualOffering owl:disjointWith arqo:CasualAbandonment .
+
+arqo:DepositionEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:depositionIntoUnit ;
+    owl:someValuesFrom crmarchaeo:A8_Stratigraphic_Unit
+] .

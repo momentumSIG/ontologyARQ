@@ -1,0 +1,118 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-12>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-12" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-12: What is the material composition of an archaeological object — including primary substance, secondary materials, inclusions, and surface treatments — and how are these materials related through dependency, codependency, and interdependency?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:MaterialComponent a owl:Class ;
+    rdfs:subClassOf crm:E57_Material ;
+    rdfs:label "Material Component"@en ;
+    rdfs:comment "A material that constitutes part of an archaeological object, including primary substance, secondary materials, inclusions, and surface treatments."@en .
+
+arqo:PrimarySubstance a owl:Class ;
+    rdfs:subClassOf arqo:MaterialComponent ;
+    rdfs:label "Primary Substance"@en ;
+    rdfs:comment "The main material constituting the bulk of an archaeological object."@en .
+
+arqo:SecondaryMaterial a owl:Class ;
+    rdfs:subClassOf arqo:MaterialComponent ;
+    rdfs:label "Secondary Material"@en ;
+    rdfs:comment "A material added to or combined with the primary substance, such as temper, alloying elements, or adhesives."@en .
+
+arqo:Inclusion a owl:Class ;
+    rdfs:subClassOf arqo:MaterialComponent ;
+    rdfs:label "Inclusion"@en ;
+    rdfs:comment "A material naturally or artificially embedded within the primary substance, such as mineral inclusions in metals or organic temper in ceramics."@en .
+
+arqo:SurfaceTreatment a owl:Class ;
+    rdfs:subClassOf arqo:MaterialComponent ;
+    rdfs:label "Surface Treatment"@en ;
+    rdfs:comment "A material applied to the surface of an object, such as slip, glaze, paint, patina, or coating."@en .
+
+arqo:MaterialRelation a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Material Relation"@en ;
+    rdfs:comment "The type of relationship between material components: dependency, codependency, independence, or interdependency (following Knappett's materiality properties)."@en .
+
+arqo:MaterialComposition a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Material Composition"@en ;
+    rdfs:comment "A propositional description of the complete material makeup of an archaeological object, including all components and their relationships."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasMaterialComposition a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MaterialComposition ;
+    rdfs:label "has material composition"@en ;
+    rdfs:comment "Links an archaeological object to its material composition description."@en .
+
+arqo:compositionIncludesComponent a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComposition ;
+    rdfs:range arqo:MaterialComponent ;
+    rdfs:label "composition includes component"@en ;
+    rdfs:comment "Links a material composition to one of its constituent material components."@en .
+
+arqo:componentRelatesTo a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range arqo:MaterialComponent ;
+    rdfs:label "component relates to"@en ;
+    rdfs:comment "Links one material component to another with which it has a material relationship."@en .
+
+arqo:hasMaterialRelationType a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range arqo:MaterialRelation ;
+    rdfs:label "has material relation type"@en ;
+    rdfs:comment "Links a material component to the type of material relationship it has with other components (dependency, codependency, interdependency)."@en .
+
+arqo:componentRole a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "component role"@en ;
+    rdfs:comment "Links a material component to its role: primary_substance, secondary_material, inclusion, or surface_treatment."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasComponentProportion a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has component proportion"@en ;
+    rdfs:comment "The proportional amount of this material component within the object (percentage or fraction)."@en .
+
+arqo:hasMaterialRelationDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has material relation description"@en ;
+    rdfs:comment "A textual description of how this material component relates to others (dependent, codependent, interdependent)."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MaterialComposition rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:compositionIncludesComponent ;
+    owl:someValuesFrom arqo:PrimarySubstance
+] .
+
+arqo:PrimarySubstance owl:disjointWith arqo:SecondaryMaterial .
+arqo:Inclusion owl:disjointWith arqo:SurfaceTreatment .

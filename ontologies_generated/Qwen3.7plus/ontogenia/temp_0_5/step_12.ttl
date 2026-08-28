@@ -1,0 +1,278 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Strategy: ontogenia | Step: 12/30
+# CQ: CQ-OBJ-12
+# ============================================================
+# CQ-OBJ-12: What is the material composition of an
+# archaeological object — including primary substance,
+# secondary materials, inclusions, and surface treatments —
+# and how are these materials related through dependency,
+# codependency, and interdependency?
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/> a owl:Ontology ;
+    rdfs:label "Archaeological Object Module"@en ;
+    rdfs:comment "Ontology extension for archaeological objects compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ; rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ; rdfs:comment "Physical object recovered during archaeological investigation"@en .
+arqo:ProcurementEvent a owl:Class ; rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "ProcurementEvent"@en ; rdfs:comment "Event of raw material extraction, acquisition, or collection"@en .
+arqo:RawMaterialSource a owl:Class ; rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "RawMaterialSource"@en ; rdfs:comment "Geological or geographic source of raw materials"@en .
+arqo:ReuseEvent a owl:Class ; rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en ; rdfs:comment "Event of object reuse after initial use phase"@en .
+arqo:LateralCyclingEvent a owl:Class ; rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "LateralCyclingEvent"@en ; rdfs:comment "Reuse in different social context without function change"@en .
+arqo:RecyclingEvent a owl:Class ; rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RecyclingEvent"@en ; rdfs:comment "Re-entry into manufacturing process"@en .
+arqo:DiscardEvent a owl:Class ; rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "DiscardEvent"@en ; rdfs:comment "Event of discard leading to archaeological record entry"@en .
+arqo:PrimaryRefuse a owl:Class ; rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "PrimaryRefuse"@en ; rdfs:comment "Discard at place of use"@en .
+arqo:SecondaryRefuse a owl:Class ; rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "SecondaryRefuse"@en ; rdfs:comment "Discard transported to refuse area"@en .
+arqo:DeFactoRefuse a owl:Class ; rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "DeFactoRefuse"@en ; rdfs:comment "Abandonment without intentional discard"@en .
+arqo:SocialPersona a owl:Class ; rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "SocialPersona"@en ; rdfs:comment "Culturally attributed identity of an object"@en .
+arqo:SocialPersonaTransition a owl:Class ; rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "SocialPersonaTransition"@en ; rdfs:comment "Change of object social persona"@en .
+arqo:ChaineOperatoire a owl:Class ; rdfs:subClassOf crm:E29_Design_or_Procedure ;
+    rdfs:label "ChaineOperatoire"@en ; rdfs:comment "Complete ordered sequence of technical actions"@en .
+arqo:TechnicalAction a owl:Class ; rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "TechnicalAction"@en ; rdfs:comment "Individual step within a chaîne opératoire"@en .
+arqo:MaintenanceEvent a owl:Class ; rdfs:subClassOf crm:E11_Modification ;
+    rdfs:label "MaintenanceEvent"@en ; rdfs:comment "Preventive care or repair during active use-life"@en .
+arqo:CraftTradition a owl:Class ; rdfs:subClassOf crm:E74_Group ;
+    rdfs:label "CraftTradition"@en ; rdfs:comment "Community of practice sharing technical knowledge"@en .
+arqo:CulturalCommunity a owl:Class ; rdfs:subClassOf crm:E74_Group ;
+    rdfs:label "CulturalCommunity"@en ; rdfs:comment "Social group sharing cultural practices and material traditions"@en .
+arqo:DepositionEvent a owl:Class ; rdfs:subClassOf crmarchaeo:A4_Stratigraphic_Genesis ;
+    rdfs:label "DepositionEvent"@en ; rdfs:comment "Event placing object into stratigraphic record"@en .
+arqo:IntentionalBurial a owl:Class ; rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "IntentionalBurial"@en ; rdfs:comment "Deliberate burial of an object"@en .
+arqo:EmergencyCaching a owl:Class ; rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "EmergencyCaching"@en ; rdfs:comment "Hasty concealment in response to threat"@en .
+arqo:RitualOffering a owl:Class ; rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "RitualOffering"@en ; rdfs:comment "Votive or ritual placement"@en .
+arqo:CasualAbandonment a owl:Class ; rdfs:subClassOf arqo:DepositionEvent ;
+    rdfs:label "CasualAbandonment"@en ; rdfs:comment "Unstructured loss or abandonment"@en .
+arqo:RecoveryEvent a owl:Class ; rdfs:subClassOf crmarchaeo:A1_Excavation_Process_Unit ;
+    rdfs:label "RecoveryEvent"@en ; rdfs:comment "Excavation unit that recovered the object"@en .
+arqo:RecoveryDocumentation a owl:Class ; rdfs:subClassOf crm:E31_Document ;
+    rdfs:label "RecoveryDocumentation"@en ; rdfs:comment "Documentation produced during recovery"@en .
+arqo:RecoveryObservation a owl:Class ; rdfs:subClassOf crmsci:S4_Observation ;
+    rdfs:label "RecoveryObservation"@en ; rdfs:comment "Observation during recovery"@en .
+arqo:ObjectBiography a owl:Class ; rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "ObjectBiography"@en ; rdfs:comment "Ordered sequence of biographical events"@en .
+arqo:BiographicalParallelism a owl:Class ; rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "BiographicalParallelism"@en ; rdfs:comment "Assertion that objects share similar biographical sequences"@en .
+arqo:InternalClockIndicator a owl:Class ; rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "InternalClockIndicator"@en ; rdfs:comment "Measurable physical-chemical property serving as age indicator"@en .
+arqo:InternalClockMeasurement a owl:Class ; rdfs:subClassOf crmsci:S21_Measurement ;
+    rdfs:label "InternalClockMeasurement"@en ; rdfs:comment "Scientific measurement of an internal clock indicator"@en .
+
+# --- New in Step 12 (CQ-OBJ-12) ---
+
+arqo:MaterialComponent a owl:Class ;
+    rdfs:subClassOf crm:E57_Material ;
+    rdfs:label "MaterialComponent"@en ;
+    rdfs:comment "A material constituent of an archaeological object, including primary substance, secondary materials, inclusions, and surface treatments"@en .
+
+arqo:MaterialRelation a owl:Class ;
+    rdfs:subClassOf crm:E1_CRM_Entity ;
+    rdfs:label "MaterialRelation"@en ;
+    rdfs:comment "Reified relationship between material components of an object, capturing Knappett's materiality properties: dependency, codependency, independence, and interdependency"@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:wasProcuredBy a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ProcurementEvent ;
+    rdfs:label "wasProcuredBy"@en ; rdfs:comment "Links object to procurement event"@en .
+arqo:derivesFromSource a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "derivesFromSource"@en ; rdfs:comment "Links object to raw material source"@en .
+arqo:procurementOccurredAt a owl:ObjectProperty ; rdfs:domain arqo:ProcurementEvent ; rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "procurementOccurredAt"@en ; rdfs:comment "Links procurement to source location"@en .
+arqo:wasSubjectToReuse a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ReuseEvent ;
+    rdfs:label "wasSubjectToReuse"@en ; rdfs:comment "Links object to reuse event"@en .
+arqo:wasLateralCycled a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:LateralCyclingEvent ;
+    rdfs:label "wasLateralCycled"@en ; rdfs:comment "Links object to lateral cycling"@en .
+arqo:wasRecycled a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:RecyclingEvent ;
+    rdfs:label "wasRecycled"@en ; rdfs:comment "Links object to recycling"@en .
+arqo:recyclingProducedObject a owl:ObjectProperty ; rdfs:domain arqo:RecyclingEvent ; rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "recyclingProducedObject"@en ; rdfs:comment "Links recycling to new object"@en .
+arqo:wasDiscardedBy a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:DiscardEvent ;
+    rdfs:label "wasDiscardedBy"@en ; rdfs:comment "Links object to discard event"@en .
+arqo:discardOccurredAt a owl:ObjectProperty ; rdfs:domain arqo:DiscardEvent ; rdfs:range crm:E53_Place ;
+    rdfs:label "discardOccurredAt"@en ; rdfs:comment "Links discard to place"@en .
+arqo:discardMovedTo a owl:ObjectProperty ; rdfs:domain arqo:SecondaryRefuse ; rdfs:range crm:E53_Place ;
+    rdfs:label "discardMovedTo"@en ; rdfs:comment "Links secondary refuse to disposal area"@en .
+arqo:hasSocialPersona a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:SocialPersona ;
+    rdfs:label "hasSocialPersona"@en ; rdfs:comment "Links object to social persona"@en .
+arqo:transitionFromPersona a owl:ObjectProperty ; rdfs:domain arqo:SocialPersonaTransition ; rdfs:range arqo:SocialPersona ;
+    rdfs:label "transitionFromPersona"@en ; rdfs:comment "Previous persona in transition"@en .
+arqo:transitionToPersona a owl:ObjectProperty ; rdfs:domain arqo:SocialPersonaTransition ; rdfs:range arqo:SocialPersona ;
+    rdfs:label "transitionToPersona"@en ; rdfs:comment "New persona in transition"@en .
+arqo:transitionTriggeredBy a owl:ObjectProperty ; rdfs:domain arqo:SocialPersonaTransition ; rdfs:range crm:E5_Event ;
+    rdfs:label "transitionTriggeredBy"@en ; rdfs:comment "Event triggering persona change"@en .
+arqo:transitionAppliedTo a owl:ObjectProperty ; rdfs:domain arqo:SocialPersonaTransition ; rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "transitionAppliedTo"@en ; rdfs:comment "Object affected by persona transition"@en .
+arqo:hasChaineOperatoire a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ChaineOperatoire ;
+    rdfs:label "hasChaineOperatoire"@en ; rdfs:comment "Links object to chaîne opératoire"@en .
+arqo:comprisesTechnicalAction a owl:ObjectProperty ; rdfs:domain arqo:ChaineOperatoire ; rdfs:range arqo:TechnicalAction ;
+    rdfs:label "comprisesTechnicalAction"@en ; rdfs:comment "Links chaîne to technical actions"@en .
+arqo:actionPrecedes a owl:ObjectProperty , owl:TransitiveProperty ; rdfs:domain arqo:TechnicalAction ; rdfs:range arqo:TechnicalAction ;
+    rdfs:label "actionPrecedes"@en ; rdfs:comment "Orders actions in sequence"@en .
+arqo:actionFollows a owl:ObjectProperty , owl:TransitiveProperty ; owl:inverseOf arqo:actionPrecedes ;
+    rdfs:domain arqo:TechnicalAction ; rdfs:range arqo:TechnicalAction ;
+    rdfs:label "actionFollows"@en ; rdfs:comment "Inverse of actionPrecedes"@en .
+arqo:actionTransformsMaterial a owl:ObjectProperty ; rdfs:domain arqo:TechnicalAction ; rdfs:range crm:E57_Material ;
+    rdfs:label "actionTransformsMaterial"@en ; rdfs:comment "Links action to material transformed"@en .
+arqo:wasMaintainedBy a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:MaintenanceEvent ;
+    rdfs:label "wasMaintainedBy"@en ; rdfs:comment "Links object to maintenance event"@en .
+arqo:maintenanceModified a owl:ObjectProperty ; rdfs:domain arqo:MaintenanceEvent ; rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "maintenanceModified"@en ; rdfs:comment "Links maintenance to modified object"@en .
+arqo:associatedWithActor a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range crm:E39_Actor ;
+    rdfs:label "associatedWithActor"@en ; rdfs:comment "Links object to human actor"@en .
+arqo:associatedWithGroup a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range crm:E74_Group ;
+    rdfs:label "associatedWithGroup"@en ; rdfs:comment "Links object to social group"@en .
+arqo:associatedWithCraftTradition a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:CraftTradition ;
+    rdfs:label "associatedWithCraftTradition"@en ; rdfs:comment "Links object to craft tradition"@en .
+arqo:eventCarriedOutBy a owl:ObjectProperty ; rdfs:domain crm:E5_Event ; rdfs:range crm:E39_Actor ;
+    rdfs:label "eventCarriedOutBy"@en ; rdfs:comment "Links event to carrying actor"@en .
+arqo:craftTraditionBelongsToCommunity a owl:ObjectProperty ; rdfs:domain arqo:CraftTradition ; rdfs:range arqo:CulturalCommunity ;
+    rdfs:label "craftTraditionBelongsToCommunity"@en ; rdfs:comment "Links tradition to community"@en .
+arqo:wasDepositedBy a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:DepositionEvent ;
+    rdfs:label "wasDepositedBy"@en ; rdfs:comment "Links object to deposition event"@en .
+arqo:depositedIntoUnit a owl:ObjectProperty ; rdfs:domain arqo:DepositionEvent ; rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "depositedIntoUnit"@en ; rdfs:comment "Links deposition to stratigraphic unit"@en .
+arqo:wasRecoveredBy a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:RecoveryEvent ;
+    rdfs:label "wasRecoveredBy"@en ; rdfs:comment "Links object to recovery event"@en .
+arqo:recoveryProducedDocumentation a owl:ObjectProperty ; rdfs:domain arqo:RecoveryEvent ; rdfs:range arqo:RecoveryDocumentation ;
+    rdfs:label "recoveryProducedDocumentation"@en ; rdfs:comment "Links recovery to documentation"@en .
+arqo:recoveryIncludedObservation a owl:ObjectProperty ; rdfs:domain arqo:RecoveryEvent ; rdfs:range arqo:RecoveryObservation ;
+    rdfs:label "recoveryIncludedObservation"@en ; rdfs:comment "Links recovery to observations"@en .
+arqo:recoveryExcavatedFrom a owl:ObjectProperty ; rdfs:domain arqo:RecoveryEvent ; rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "recoveryExcavatedFrom"@en ; rdfs:comment "Links recovery to source stratigraphic unit"@en .
+arqo:hasBiography a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:ObjectBiography ;
+    rdfs:label "hasBiography"@en ; rdfs:comment "Links object to its biography"@en .
+arqo:biographyComprisesEvent a owl:ObjectProperty ; rdfs:domain arqo:ObjectBiography ; rdfs:range crm:E5_Event ;
+    rdfs:label "biographyComprisesEvent"@en ; rdfs:comment "Links biography to constituent events"@en .
+arqo:biographicalEventOrder a owl:ObjectProperty , owl:TransitiveProperty ; rdfs:domain crm:E5_Event ; rdfs:range crm:E5_Event ;
+    rdfs:label "biographicalEventOrder"@en ; rdfs:comment "Orders biographical events"@en .
+arqo:parallelBiographyOf a owl:ObjectProperty ; rdfs:domain arqo:BiographicalParallelism ; rdfs:range arqo:ObjectBiography ;
+    rdfs:label "parallelBiographyOf"@en ; rdfs:comment "Links parallelism to parallel biographies"@en .
+arqo:parallelismSuggests a owl:ObjectProperty ; rdfs:domain arqo:BiographicalParallelism ; rdfs:range crm:E55_Type ;
+    rdfs:label "parallelismSuggests"@en ; rdfs:comment "Cultural practice suggested by parallelism"@en .
+arqo:hasInternalClockIndicator a owl:ObjectProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range arqo:InternalClockIndicator ;
+    rdfs:label "hasInternalClockIndicator"@en ; rdfs:comment "Links object to internal clock indicator"@en .
+arqo:indicatorMeasuredBy a owl:ObjectProperty ; rdfs:domain arqo:InternalClockIndicator ; rdfs:range arqo:InternalClockMeasurement ;
+    rdfs:label "indicatorMeasuredBy"@en ; rdfs:comment "Links indicator to its measurement"@en .
+arqo:measurementSuggestsTimeSpan a owl:ObjectProperty ; rdfs:domain arqo:InternalClockMeasurement ; rdfs:range crm:E52_Time-Span ;
+    rdfs:label "measurementSuggestsTimeSpan"@en ; rdfs:comment "Links measurement to suggested time-span"@en .
+
+# --- New in Step 12 (CQ-OBJ-12) ---
+
+arqo:hasMaterialComponent a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MaterialComponent ;
+    rdfs:label "hasMaterialComponent"@en ;
+    rdfs:comment "Links an object to one of its material constituents (primary substance, secondary material, inclusion, or surface treatment)"@en .
+
+arqo:hasMaterialRole a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "hasMaterialRole"@en ;
+    rdfs:comment "Role of the material component within the object: primary substance, secondary material, inclusion, or surface treatment"@en .
+
+arqo:hasMaterialRelation a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range arqo:MaterialRelation ;
+    rdfs:label "hasMaterialRelation"@en ;
+    rdfs:comment "Links a material component to its relational property with other components"@en .
+
+arqo:materialRelationLinksTo a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialRelation ;
+    rdfs:range arqo:MaterialComponent ;
+    rdfs:label "materialRelationLinksTo"@en ;
+    rdfs:comment "Links a material relation to the second material component it relates"@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasProcurementType a owl:DatatypeProperty ; rdfs:domain arqo:ProcurementEvent ; rdfs:range xsd:string ; rdfs:label "hasProcurementType"@en ; rdfs:comment "Type of procurement"@en .
+arqo:hasRawMaterialProvenance a owl:DatatypeProperty ; rdfs:domain arqo:ArchaeologicalObject ; rdfs:range xsd:string ; rdfs:label "hasRawMaterialProvenance"@en ; rdfs:comment "Provenance of raw materials"@en .
+arqo:hasReuseContext a owl:DatatypeProperty ; rdfs:domain arqo:LateralCyclingEvent ; rdfs:range xsd:string ; rdfs:label "hasReuseContext"@en ; rdfs:comment "Social context of reuse"@en .
+arqo:hasDiscardIntentionality a owl:DatatypeProperty ; rdfs:domain arqo:DiscardEvent ; rdfs:range xsd:string ; rdfs:label "hasDiscardIntentionality"@en ; rdfs:comment "Motivation behind discard"@en .
+arqo:hasPersonaLabel a owl:DatatypeProperty ; rdfs:domain arqo:SocialPersona ; rdfs:range xsd:string ; rdfs:label "hasPersonaLabel"@en ; rdfs:comment "Label for social persona"@en .
+arqo:hasActionSequenceOrder a owl:DatatypeProperty ; rdfs:domain arqo:TechnicalAction ; rdfs:range xsd:nonNegativeInteger ; rdfs:label "hasActionSequenceOrder"@en ; rdfs:comment "Position in chaîne opératoire"@en .
+arqo:hasActionDescription a owl:DatatypeProperty ; rdfs:domain arqo:TechnicalAction ; rdfs:range xsd:string ; rdfs:label "hasActionDescription"@en ; rdfs:comment "Description of technical action"@en .
+arqo:hasManufacturingTradition a owl:DatatypeProperty ; rdfs:domain arqo:ChaineOperatoire ; rdfs:range xsd:string ; rdfs:label "hasManufacturingTradition"@en ; rdfs:comment "Manufacturing tradition name"@en .
+arqo:hasMaintenanceType a owl:DatatypeProperty ; rdfs:domain arqo:MaintenanceEvent ; rdfs:range xsd:string ; rdfs:label "hasMaintenanceType"@en ; rdfs:comment "Type of maintenance"@en .
+arqo:hasMaintenanceDescription a owl:DatatypeProperty ; rdfs:domain arqo:MaintenanceEvent ; rdfs:range xsd:string ; rdfs:label "hasMaintenanceDescription"@en ; rdfs:comment "Description of maintenance"@en .
+arqo:hasDepositionMotivation a owl:DatatypeProperty ; rdfs:domain arqo:DepositionEvent ; rdfs:range xsd:string ; rdfs:label "hasDepositionMotivation"@en ; rdfs:comment "Motivation behind deposition"@en .
+arqo:hasDepositionDate a owl:DatatypeProperty ; rdfs:domain arqo:DepositionEvent ; rdfs:range xsd:string ; rdfs:label "hasDepositionDate"@en ; rdfs:comment "Date of deposition"@en .
+arqo:hasRecoveryDate a owl:DatatypeProperty ; rdfs:domain arqo:RecoveryEvent ; rdfs:range xsd:string ; rdfs:label "hasRecoveryDate"@en ; rdfs:comment "Date of recovery"@en .
+arqo:hasRecoveryMethod a owl:DatatypeProperty ; rdfs:domain arqo:RecoveryEvent ; rdfs:range xsd:string ; rdfs:label "hasRecoveryMethod"@en ; rdfs:comment "Recovery method employed"@en .
+arqo:hasParallelismConfidence a owl:DatatypeProperty ; rdfs:domain arqo:BiographicalParallelism ; rdfs:range xsd:string ; rdfs:label "hasParallelismConfidence"@en ; rdfs:comment "Confidence level of parallelism"@en .
+arqo:hasIndicatorType a owl:DatatypeProperty ; rdfs:domain arqo:InternalClockIndicator ; rdfs:range xsd:string ; rdfs:label "hasIndicatorType"@en ; rdfs:comment "Type of internal clock indicator"@en .
+arqo:hasMeasuredValue a owl:DatatypeProperty ; rdfs:domain arqo:InternalClockMeasurement ; rdfs:range xsd:decimal ; rdfs:label "hasMeasuredValue"@en ; rdfs:comment "Numeric measured value"@en .
+arqo:hasMeasurementUnit a owl:DatatypeProperty ; rdfs:domain arqo:InternalClockMeasurement ; rdfs:range xsd:string ; rdfs:label "hasMeasurementUnit"@en ; rdfs:comment "Unit of measurement"@en .
+arqo:hasSuggestedAge a owl:DatatypeProperty ; rdfs:domain arqo:InternalClockMeasurement ; rdfs:range xsd:string ; rdfs:label "hasSuggestedAge"@en ; rdfs:comment "Age suggested by measurement"@en .
+
+# --- New in Step 12 (CQ-OBJ-12) ---
+
+arqo:hasMaterialRelationType a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialRelation ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasMaterialRelationType"@en ;
+    rdfs:comment "Type of material relation: dependency, codependency, independence, or interdependency (Knappett 2012)"@en .
+
+arqo:hasMaterialProportion a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialComponent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "hasMaterialProportion"@en ;
+    rdfs:comment "Proportion of this material component relative to the whole object (0.0 to 1.0)"@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:ProcurementEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:procurementOccurredAt ; owl:someValuesFrom arqo:RawMaterialSource ] .
+arqo:LateralCyclingEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty crm:P12_occurred_in_the_presence_of ; owl:someValuesFrom arqo:ArchaeologicalObject ] .
+arqo:RecyclingEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:recyclingProducedObject ; owl:someValuesFrom arqo:ArchaeologicalObject ] .
+arqo:DiscardEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:discardOccurredAt ; owl:someValuesFrom crm:E53_Place ] .
+arqo:SecondaryRefuse rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:discardMovedTo ; owl:someValuesFrom crm:E53_Place ] .
+arqo:SocialPersonaTransition rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:transitionFromPersona ; owl:someValuesFrom arqo:SocialPersona ] .
+arqo:SocialPersonaTransition rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:transitionToPersona ; owl:someValuesFrom arqo:SocialPersona ] .
+arqo:SocialPersonaTransition rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:transitionAppliedTo ; owl:someValuesFrom arqo:ArchaeologicalObject ] .
+arqo:ChaineOperatoire rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:comprisesTechnicalAction ; owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+arqo:TechnicalAction rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:hasActionSequenceOrder ; owl:cardinality "1"^^xsd:nonNegativeInteger ] .
+arqo:MaintenanceEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:maintenanceModified ; owl:someValuesFrom arqo:ArchaeologicalObject ] .
+arqo:DepositionEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:depositedIntoUnit ; owl:someValuesFrom crmarchaeo:A8_Stratigraphic_Unit ] .
+arqo:RecoveryEvent rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:recoveryExcavatedFrom ; owl:someValuesFrom crmarchaeo:A8_Stratigraphic_Unit ] .
+arqo:ObjectBiography rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:biographyComprisesEvent ; owl:minCardinality "1"^^xsd:nonNegativeInteger ] .
+arqo:BiographicalParallelism rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:parallelBiographyOf ; owl:minCardinality "2"^^xsd:nonNegativeInteger ] .
+arqo:InternalClockMeasurement rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty arqo:measurementSuggestsTimeSpan ; owl:someValuesFrom crm:E52_Time-Span ] .
+
+# --- New in Step 12 (CQ-OBJ-12) ---
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:hasMaterialComponent ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .

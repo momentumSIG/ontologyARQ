@@ -1,0 +1,113 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-11>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-11" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-11: What internal clock indicators — measurable physical or chemical properties such as isotopic decay, elemental loss, oxidation degree, or crystallization changes — does an archaeological object contain, and what relative or absolute age do these indicators suggest?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context, potentially containing internal clock indicators."@en .
+
+arqo:InternalClockIndicator a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Internal Clock Indicator"@en ;
+    rdfs:comment "A measurable physical or chemical property within an archaeological object that serves as a relative or absolute age indicator, such as isotopic decay, elemental loss, oxidation degree, or crystallization changes."@en .
+
+arqo:IsotopicDecayIndicator a owl:Class ;
+    rdfs:subClassOf arqo:InternalClockIndicator ;
+    rdfs:label "Isotopic Decay Indicator"@en ;
+    rdfs:comment "An internal clock indicator based on the measurable decay of radioactive isotopes within the object's material."@en .
+
+arqo:ElementalLossIndicator a owl:Class ;
+    rdfs:subClassOf arqo:InternalClockIndicator ;
+    rdfs:label "Elemental Loss Indicator"@en ;
+    rdfs:comment "An internal clock indicator based on the progressive loss of volatile elements (e.g., arsenic loss in copper alloys) over time."@en .
+
+arqo:OxidationDegreeIndicator a owl:Class ;
+    rdfs:subClassOf arqo:InternalClockIndicator ;
+    rdfs:label "Oxidation Degree Indicator"@en ;
+    rdfs:comment "An internal clock indicator based on the degree of oxidation or corrosion observed on or within the object."@en .
+
+arqo:CrystallizationChangeIndicator a owl:Class ;
+    rdfs:subClassOf arqo:InternalClockIndicator ;
+    rdfs:label "Crystallization Change Indicator"@en ;
+    rdfs:comment "An internal clock indicator based on measurable changes in crystalline structure over time."@en .
+
+arqo:InternalClockAssessment a owl:Class ;
+    rdfs:subClassOf crmsci:S21_Measurement ;
+    rdfs:label "Internal Clock Assessment"@en ;
+    rdfs:comment "A measurement event that quantifies an internal clock indicator and derives a relative or absolute age estimate."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasInternalClockIndicator a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:InternalClockIndicator ;
+    rdfs:label "has internal clock indicator"@en ;
+    rdfs:comment "Links an archaeological object to an internal clock indicator it contains."@en .
+
+arqo:indicatorMeasuredBy a owl:ObjectProperty ;
+    rdfs:domain arqo:InternalClockIndicator ;
+    rdfs:range arqo:InternalClockAssessment ;
+    rdfs:label "indicator measured by"@en ;
+    rdfs:comment "Links an internal clock indicator to the measurement event that quantified it."@en .
+
+arqo:indicatorSuggestsTimeSpan a owl:ObjectProperty ;
+    rdfs:domain arqo:InternalClockIndicator ;
+    rdfs:range crm:E52_Time-Span ;
+    rdfs:label "indicator suggests time span"@en ;
+    rdfs:comment "Links an internal clock indicator to the relative or absolute time span it suggests."@en .
+
+arqo:assessmentUsedTechnique a owl:ObjectProperty ;
+    rdfs:domain arqo:InternalClockAssessment ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "assessment used technique"@en ;
+    rdfs:comment "Links an internal clock assessment to the analytical technique employed."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasIndicatorValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:InternalClockIndicator ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has indicator value"@en ;
+    rdfs:comment "The measured numerical value of the internal clock indicator."@en .
+
+arqo:hasIndicatorUnit a owl:DatatypeProperty ;
+    rdfs:domain arqo:InternalClockIndicator ;
+    rdfs:range xsd:string ;
+    rdfs:label "has indicator unit"@en ;
+    rdfs:comment "The unit of measurement for the internal clock indicator value."@en .
+
+arqo:hasSuggestedAge a owl:DatatypeProperty ;
+    rdfs:domain arqo:InternalClockAssessment ;
+    rdfs:range xsd:string ;
+    rdfs:label "has suggested age"@en ;
+    rdfs:comment "The relative or absolute age suggested by the internal clock assessment."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:InternalClockAssessment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assessmentUsedTechnique ;
+    owl:someValuesFrom crm:E55_Type
+] .
+
+arqo:IsotopicDecayIndicator owl:disjointWith arqo:ElementalLossIndicator .
+arqo:OxidationDegreeIndicator owl:disjointWith arqo:CrystallizationChangeIndicator .

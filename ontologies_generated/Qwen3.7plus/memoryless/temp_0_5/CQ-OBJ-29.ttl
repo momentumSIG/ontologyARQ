@@ -1,0 +1,113 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-29>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-29" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-29: To which stylistic universe — a corpus of objects sharing formal rules, decorative conventions, and cultural associations — has an archaeological object been assigned, and what stylistic attributes justify this membership?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:StylisticUniverseAssignment a owl:Class ;
+    rdfs:subClassOf crm:E17_Type_Assignment ;
+    rdfs:label "Stylistic Universe Assignment"@en ;
+    rdfs:comment "An assignment of an archaeological object to a stylistic universe — a corpus of objects sharing formal rules, decorative conventions, and cultural associations."@en .
+
+arqo:StylisticUniverse a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Stylistic Universe"@en ;
+    rdfs:comment "A coherent aesthetic-cultural system defined by shared formal rules, decorative conventions, and cultural associations that govern a corpus of objects."@en .
+
+arqo:StylisticAttribute a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Stylistic Attribute"@en ;
+    rdfs:comment "A physical feature of an object that serves as evidence for membership in a stylistic universe, including formal rules, decorative motifs, and manufacturing conventions."@en .
+
+arqo:FormalRule a owl:Class ;
+    rdfs:subClassOf arqo:StylisticAttribute ;
+    rdfs:label "Formal Rule"@en ;
+    rdfs:comment "A stylistic attribute governing the overall form, proportions, or morphology of objects within a stylistic universe."@en .
+
+arqo:DecorativeConvention a owl:Class ;
+    rdfs:subClassOf arqo:StylisticAttribute ;
+    rdfs:label "Decorative Convention"@en ;
+    rdfs:comment "A stylistic attribute governing the decorative motifs, patterns, or surface treatments characteristic of a stylistic universe."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasStylisticUniverseAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:StylisticUniverseAssignment ;
+    rdfs:label "has stylistic universe assignment"@en ;
+    rdfs:comment "Links an archaeological object to its stylistic universe assignment."@en .
+
+arqo:assignmentAssignedUniverse a owl:ObjectProperty ;
+    rdfs:domain arqo:StylisticUniverseAssignment ;
+    rdfs:range arqo:StylisticUniverse ;
+    rdfs:label "assignment assigned universe"@en ;
+    rdfs:comment "Links a stylistic universe assignment to the stylistic universe assigned."@en .
+
+arqo:assignmentJustifiedByAttribute a owl:ObjectProperty ;
+    rdfs:domain arqo:StylisticUniverseAssignment ;
+    rdfs:range arqo:StylisticAttribute ;
+    rdfs:label "assignment justified by attribute"@en ;
+    rdfs:comment "Links a stylistic universe assignment to the stylistic attributes that justify the membership."@en .
+
+arqo:attributeCharacteristicOfUniverse a owl:ObjectProperty ;
+    rdfs:domain arqo:StylisticAttribute ;
+    rdfs:range arqo:StylisticUniverse ;
+    rdfs:label "attribute characteristic of universe"@en ;
+    rdfs:comment "Links a stylistic attribute to the stylistic universe it is characteristic of."@en .
+
+arqo:assignmentMadeBy a owl:ObjectProperty ;
+    rdfs:domain arqo:StylisticUniverseAssignment ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "assignment made by"@en ;
+    rdfs:comment "Links a stylistic universe assignment to the actor who made the assignment."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasUniverseName a owl:DatatypeProperty ;
+    rdfs:domain arqo:StylisticUniverse ;
+    rdfs:range xsd:string ;
+    rdfs:label "has universe name"@en ;
+    rdfs:comment "The name or label of the stylistic universe."@en .
+
+arqo:hasAttributeDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:StylisticAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has attribute description"@en ;
+    rdfs:comment "A textual description of the stylistic attribute."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:FormalRule owl:disjointWith arqo:DecorativeConvention .
+
+arqo:StylisticUniverseAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentAssignedUniverse ;
+    owl:someValuesFrom arqo:StylisticUniverse
+] .
+
+arqo:StylisticUniverseAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentJustifiedByAttribute ;
+    owl:minCardinality 1
+] .

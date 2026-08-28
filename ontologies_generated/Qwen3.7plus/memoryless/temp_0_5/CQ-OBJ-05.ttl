@@ -1,0 +1,128 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-05>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-05" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-05: What is the complete chaîne opératoire — the ordered sequence of technical actions from raw material preparation to finished object — documented for a given manufacturing tradition?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:ChaineOperatoire a owl:Class ;
+    rdfs:subClassOf crm:E29_Design_or_Procedure ;
+    rdfs:label "Chaîne Opératoire"@en ;
+    rdfs:comment "The complete ordered sequence of technical actions from raw material preparation to finished object, documenting a manufacturing tradition."@en .
+
+arqo:TechnicalStep a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Technical Step"@en ;
+    rdfs:comment "A single step within a chaîne opératoire, representing a discrete technical action in the manufacturing sequence."@en .
+
+arqo:RawMaterialPreparation a owl:Class ;
+    rdfs:subClassOf arqo:TechnicalStep ;
+    rdfs:label "Raw Material Preparation"@en ;
+    rdfs:comment "A technical step involving the preparation and processing of raw materials before shaping."@en .
+
+arqo:ShapingStep a owl:Class ;
+    rdfs:subClassOf arqo:TechnicalStep ;
+    rdfs:label "Shaping Step"@en ;
+    rdfs:comment "A technical step involving the forming, shaping, or molding of the object."@en .
+
+arqo:FinishingStep a owl:Class ;
+    rdfs:subClassOf arqo:TechnicalStep ;
+    rdfs:label "Finishing Step"@en ;
+    rdfs:comment "A technical step involving surface treatment, polishing, firing, or other finishing operations."@en .
+
+arqo:ManufacturingTradition a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Manufacturing Tradition"@en ;
+    rdfs:comment "A cultural or craft tradition that defines a shared chaîne opératoire across multiple objects or producers."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasChaineOperatoire a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ChaineOperatoire ;
+    rdfs:label "has chaîne opératoire"@en ;
+    rdfs:comment "Links an archaeological object to the chaîne opératoire that documents its manufacturing sequence."@en .
+
+arqo:includesTechnicalStep a owl:ObjectProperty ;
+    rdfs:domain arqo:ChaineOperatoire ;
+    rdfs:range arqo:TechnicalStep ;
+    rdfs:label "includes technical step"@en ;
+    rdfs:comment "Links a chaîne opératoire to one of its constituent technical steps."@en .
+
+arqo:stepPrecedes a owl:ObjectProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range arqo:TechnicalStep ;
+    rdfs:label "step precedes"@en ;
+    rdfs:comment "Establishes the sequential order between two technical steps within a chaîne opératoire."@en .
+
+arqo:belongsToTradition a owl:ObjectProperty ;
+    rdfs:domain arqo:ChaineOperatoire ;
+    rdfs:range arqo:ManufacturingTradition ;
+    rdfs:label "belongs to tradition"@en ;
+    rdfs:comment "Links a chaîne opératoire to the manufacturing tradition it exemplifies."@en .
+
+arqo:stepProducesIntermediate a owl:ObjectProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "step produces intermediate"@en ;
+    rdfs:comment "Links a technical step to the intermediate product it produces (e.g., preform, blank,半成品)."@en .
+
+arqo:stepUsesMaterial a owl:ObjectProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range crm:E57_Material ;
+    rdfs:label "step uses material"@en ;
+    rdfs:comment "Links a technical step to the material it operates on."@en .
+
+arqo:stepUsesTechnique a owl:ObjectProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "step uses technique"@en ;
+    rdfs:comment "Links a technical step to the technique or method employed."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasStepOrder a owl:DatatypeProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "has step order"@en ;
+    rdfs:comment "The ordinal position of this technical step within the chaîne opératoire sequence."@en .
+
+arqo:hasStepDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:TechnicalStep ;
+    rdfs:range xsd:string ;
+    rdfs:label "has step description"@en ;
+    rdfs:comment "A textual description of the technical action performed in this step."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:ChaineOperatoire rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:includesTechnicalStep ;
+    owl:minCardinality 2
+] .
+
+arqo:TechnicalStep rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:stepUsesMaterial ;
+    owl:someValuesFrom crm:E57_Material
+] .

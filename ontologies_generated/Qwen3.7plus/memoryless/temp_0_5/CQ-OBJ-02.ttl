@@ -1,0 +1,108 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-02>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-02" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-02: Which archaeological objects were subject to lateral cycling — reuse in a different social context without change of function — as opposed to recycling, which re-enters the object into a manufacturing process?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:LateralCyclingEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "Lateral Cycling Event"@en ;
+    rdfs:comment "A reuse event in which an object circulates into a different social context without change of its original function."@en .
+
+arqo:RecyclingEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "Recycling Event"@en ;
+    rdfs:comment "A transformation event in which an object is re-entered into a manufacturing process, either for the same or a different product."@en .
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "Reuse Event"@en ;
+    rdfs:comment "An activity in which an archaeological object is used again after its initial use-life, encompassing both lateral cycling and functional transformation."@en .
+
+arqo:SocialContext a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Social Context"@en ;
+    rdfs:comment "The social setting or cultural sphere in which an object is used, such as domestic, ritual, economic, or funerary."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:underwentLateralCycling a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:LateralCyclingEvent ;
+    rdfs:label "underwent lateral cycling"@en ;
+    rdfs:comment "Links an archaeological object to a lateral cycling event in which it was reused in a different social context without functional change."@en .
+
+arqo:underwentRecycling a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RecyclingEvent ;
+    rdfs:label "underwent recycling"@en ;
+    rdfs:comment "Links an archaeological object to a recycling event in which it was re-entered into a manufacturing process."@en .
+
+arqo:reusePreservesFunction a owl:DatatypeProperty ;
+    rdfs:domain arqo:LateralCyclingEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "reuse preserves function"@en ;
+    rdfs:comment "Indicates whether the reuse event preserves the original function of the object (true for lateral cycling, false for recycling with functional change)."@en .
+
+arqo:cycledFromContext a owl:ObjectProperty ;
+    rdfs:domain arqo:LateralCyclingEvent ;
+    rdfs:range arqo:SocialContext ;
+    rdfs:label "cycled from context"@en ;
+    rdfs:comment "Links a lateral cycling event to the original social context from which the object departed."@en .
+
+arqo:cycledToContext a owl:ObjectProperty ;
+    rdfs:domain arqo:LateralCyclingEvent ;
+    rdfs:range arqo:SocialContext ;
+    rdfs:label "cycled to context"@en ;
+    rdfs:comment "Links a lateral cycling event to the new social context into which the object entered."@en .
+
+arqo:recyclingProducesObject a owl:ObjectProperty ;
+    rdfs:domain arqo:RecyclingEvent ;
+    rdfs:range crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "recycling produces object"@en ;
+    rdfs:comment "Links a recycling event to the new object produced from the recycled material."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasReuseType a owl:DatatypeProperty ;
+    rdfs:domain arqo:ReuseEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has reuse type"@en ;
+    rdfs:comment "Specifies the type of reuse: lateral_cycling or recycling."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:LateralCyclingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:cycledFromContext ;
+    owl:someValuesFrom arqo:SocialContext
+] .
+
+arqo:LateralCyclingEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:cycledToContext ;
+    owl:someValuesFrom arqo:SocialContext
+] .
+
+arqo:LateralCyclingEvent owl:disjointWith arqo:RecyclingEvent .

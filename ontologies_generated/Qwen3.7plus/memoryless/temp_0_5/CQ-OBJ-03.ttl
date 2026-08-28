@@ -1,0 +1,114 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-03>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-03" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-03: What discard events led to an object entering the archaeological record as primary refuse (discarded at place of use), secondary refuse (transported to a refuse area), or de facto refuse (abandoned without intentional discard)?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:DiscardEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Discard Event"@en ;
+    rdfs:comment "An event in which an object was abandoned or discarded, leading to its entry into the archaeological record."@en .
+
+arqo:PrimaryRefuseDeposit a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "Primary Refuse Deposit"@en ;
+    rdfs:comment "A discard event in which an object was discarded at its place of use, producing primary refuse."@en .
+
+arqo:SecondaryRefuseDeposit a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "Secondary Refuse Deposit"@en ;
+    rdfs:comment "A discard event in which an object was transported from its place of use to a designated refuse disposal area."@en .
+
+arqo:DeFactoRefuseDeposit a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "De Facto Refuse Deposit"@en ;
+    rdfs:comment "A discard event in which an object was abandoned in situ without intentional discard, remaining at its location of last use."@en .
+
+arqo:RefuseArea a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "Refuse Area"@en ;
+    rdfs:comment "A designated place for refuse disposal, where secondary refuse accumulates."@en .
+
+arqo:PlaceOfUse a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "Place of Use"@en ;
+    rdfs:comment "The location where an object was actively used before discard."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:enteredArchaeologicalRecordThrough a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:DiscardEvent ;
+    rdfs:label "entered archaeological record through"@en ;
+    rdfs:comment "Links an archaeological object to the discard event that led to its entry into the archaeological record."@en .
+
+arqo:discardOccurredAt a owl:ObjectProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "discard occurred at"@en ;
+    rdfs:comment "Links a discard event to the place where the discard occurred."@en .
+
+arqo:discardTransportedTo a owl:ObjectProperty ;
+    rdfs:domain arqo:SecondaryRefuseDeposit ;
+    rdfs:range arqo:RefuseArea ;
+    rdfs:label "discard transported to"@en ;
+    rdfs:comment "Links a secondary refuse deposit event to the refuse area where the object was transported."@en .
+
+arqo:discardResultedInStratigraphicUnit a owl:ObjectProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "discard resulted in stratigraphic unit"@en ;
+    rdfs:comment "Links a discard event to the stratigraphic unit that was formed as a result of the deposition."@en .
+
+arqo:discardWithinVolume a owl:ObjectProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range crmarchaeo:A2_Stratigraphic_Volume_Unit ;
+    rdfs:label "discard within volume"@en ;
+    rdfs:comment "Links a discard event to the stratigraphic volume unit in which the object was deposited."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasDiscardIntentionality a owl:DatatypeProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has discard intentionality"@en ;
+    rdfs:comment "Describes the intentionality behind the discard: intentional (primary/secondary refuse) or non-intentional (de facto refuse)."@en .
+
+arqo:hasRefuseType a owl:DatatypeProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has refuse type"@en ;
+    rdfs:comment "Classifies the refuse type: primary_refuse, secondary_refuse, or de_facto_refuse."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:PrimaryRefuseDeposit owl:disjointWith arqo:SecondaryRefuseDeposit .
+arqo:PrimaryRefuseDeposit owl:disjointWith arqo:DeFactoRefuseDeposit .
+arqo:SecondaryRefuseDeposit owl:disjointWith arqo:DeFactoRefuseDeposit .
+
+arqo:SecondaryRefuseDeposit rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:discardTransportedTo ;
+    owl:someValuesFrom arqo:RefuseArea
+] .

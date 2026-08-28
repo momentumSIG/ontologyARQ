@@ -1,0 +1,98 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-23>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-23" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-23: What is the strength of the typological-to-period relationship for an archaeological object — weak (the type appears in the period, AP29), moderate (the type is typical for the period, AP31), or strong (the type is restricted exclusively to the period, AP30)?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:TypeToPeriodRelationship a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Type-to-Period Relationship"@en ;
+    rdfs:comment "A reification of the relationship between a typological class and a chronological period, with an explicit strength level corresponding to CRMarchaeo properties AP29, AP31, or AP30."@en .
+
+arqo:WeakTypePeriodRelation a owl:Class ;
+    rdfs:subClassOf arqo:TypeToPeriodRelationship ;
+    rdfs:label "Weak Type-Period Relation"@en ;
+    rdfs:comment "A type-to-period relationship where the type merely appears in the period (corresponds to CRMarchaeo AP29_appears_in). This is the weakest evidential level."@en .
+
+arqo:ModerateTypePeriodRelation a owl:Class ;
+    rdfs:subClassOf arqo:TypeToPeriodRelationship ;
+    rdfs:label "Moderate Type-Period Relation"@en ;
+    rdfs:comment "A type-to-period relationship where the type is typical for or characteristic of the period (corresponds to CRMarchaeo AP31_typical_for). This is a moderate evidential level."@en .
+
+arqo:StrongTypePeriodRelation a owl:Class ;
+    rdfs:subClassOf arqo:TypeToPeriodRelationship ;
+    rdfs:label "Strong Type-Period Relation"@en ;
+    rdfs:comment "A type-to-period relationship where the type is restricted exclusively to the period (corresponds to CRMarchaeo AP30_restricted_to). This is the strongest evidential level."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasTypeToPeriodRelationship a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:TypeToPeriodRelationship ;
+    rdfs:label "has type-to-period relationship"@en ;
+    rdfs:comment "Links an archaeological object to a type-to-period relationship that qualifies its chronological assignment."@en .
+
+arqo:relationLinksType a owl:ObjectProperty ;
+    rdfs:domain arqo:TypeToPeriodRelationship ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "relation links type"@en ;
+    rdfs:comment "Links a type-to-period relationship to the typological class involved."@en .
+
+arqo:relationLinksPeriod a owl:ObjectProperty ;
+    rdfs:domain arqo:TypeToPeriodRelationship ;
+    rdfs:range crm:E4_Period ;
+    rdfs:label "relation links period"@en ;
+    rdfs:comment "Links a type-to-period relationship to the chronological period involved."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasRelationshipStrength a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypeToPeriodRelationship ;
+    rdfs:range xsd:string ;
+    rdfs:label "has relationship strength"@en ;
+    rdfs:comment "The strength of the type-to-period relationship: weak (appears_in), moderate (typical_for), or strong (restricted_to)."@en .
+
+arqo:hasCRMarchaeoPropertyReference a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypeToPeriodRelationship ;
+    rdfs:range xsd:string ;
+    rdfs:label "has CRMarchaeo property reference"@en ;
+    rdfs:comment "The CRMarchaeo property corresponding to this relationship strength: AP29, AP31, or AP30."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:WeakTypePeriodRelation owl:disjointWith arqo:ModerateTypePeriodRelation .
+arqo:WeakTypePeriodRelation owl:disjointWith arqo:StrongTypePeriodRelation .
+arqo:ModerateTypePeriodRelation owl:disjointWith arqo:StrongTypePeriodRelation .
+
+arqo:TypeToPeriodRelationship rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:relationLinksType ;
+    owl:someValuesFrom crm:E55_Type
+] .
+
+arqo:TypeToPeriodRelationship rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:relationLinksPeriod ;
+    owl:someValuesFrom crm:E4_Period
+] .

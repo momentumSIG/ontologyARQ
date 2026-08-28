@@ -1,0 +1,124 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-25>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-25" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-25: What archaeological archive records — field notebooks, digital databases, photographic archives, drawing collections, or published reports — document an archaeological object, and how do these records function as archaeological objects in their own right?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:ArchiveRecord a owl:Class ;
+    rdfs:subClassOf crm:E73_Information_Object ;
+    rdfs:label "Archive Record"@en ;
+    rdfs:comment "A record within the archaeological archive that documents an archaeological object, functioning as an archaeological object in its own right."@en .
+
+arqo:FieldNotebook a owl:Class ;
+    rdfs:subClassOf arqo:ArchiveRecord ;
+    rdfs:label "Field Notebook"@en ;
+    rdfs:comment "An archive record consisting of handwritten or typed field notes documenting excavation observations and object descriptions."@en .
+
+arqo:DigitalDatabase a owl:Class ;
+    rdfs:subClassOf arqo:ArchiveRecord ;
+    rdfs:label "Digital Database"@en ;
+    rdfs:comment "An archive record consisting of structured digital data entries documenting archaeological objects and contexts."@en .
+
+arqo:PhotographicArchive a owl:Class ;
+    rdfs:subClassOf arqo:ArchiveRecord ;
+    rdfs:label "Photographic Archive"@en ;
+    rdfs:comment "An archive record consisting of photographic images documenting archaeological objects in situ and in the laboratory."@en .
+
+arqo:DrawingCollection a owl:Class ;
+    rdfs:subClassOf arqo:ArchiveRecord ;
+    rdfs:label "Drawing Collection"@en ;
+    rdfs:comment "An archive record consisting of technical drawings, plans, and illustrations of archaeological objects."@en .
+
+arqo:PublishedReport a owl:Class ;
+    rdfs:subClassOf arqo:ArchiveRecord ;
+    rdfs:label "Published Report"@en ;
+    rdfs:comment "An archive record consisting of a published excavation report or scientific publication documenting archaeological objects."@en .
+
+arqo:ArchiveCollection a owl:Class ;
+    rdfs:subClassOf crm:E78_Curated_Holding ;
+    rdfs:label "Archive Collection"@en ;
+    rdfs:comment "A curated collection of archive records forming the archaeological archive for a site, project, or institution."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:documentedByArchiveRecord a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ArchiveRecord ;
+    rdfs:label "documented by archive record"@en ;
+    rdfs:comment "Links an archaeological object to an archive record that documents it."@en .
+
+arqo:recordDocumentsObject a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "record documents object"@en ;
+    rdfs:comment "Links an archive record to the archaeological object it documents."@en .
+
+arqo:recordBelongsToCollection a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range arqo:ArchiveCollection ;
+    rdfs:label "record belongs to collection"@en ;
+    rdfs:comment "Links an archive record to the archive collection it is part of."@en .
+
+arqo:collectionCuratedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchiveCollection ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "collection curated by"@en ;
+    rdfs:comment "Links an archive collection to the actor responsible for its curation."@en .
+
+arqo:recordCreatedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "record created by"@en ;
+    rdfs:comment "Links an archive record to the actor who created it."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasRecordType a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "has record type"@en ;
+    rdfs:comment "The type of archive record: field_notebook, digital_database, photographic_archive, drawing_collection, or published_report."@en .
+
+arqo:hasRecordDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range xsd:date ;
+    rdfs:label "has record date"@en ;
+    rdfs:comment "The date the archive record was created."@en .
+
+arqo:hasArchiveReference a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchiveRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "has archive reference"@en ;
+    rdfs:comment "The reference code or identifier for the archive record within its collection."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:FieldNotebook owl:disjointWith arqo:DigitalDatabase .
+arqo:PhotographicArchive owl:disjointWith arqo:DrawingCollection .
+
+arqo:ArchiveRecord rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:recordBelongsToCollection ;
+    owl:someValuesFrom arqo:ArchiveCollection
+] .

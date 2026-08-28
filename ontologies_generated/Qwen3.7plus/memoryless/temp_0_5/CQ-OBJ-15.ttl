@@ -1,0 +1,102 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-15>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-15" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-15: In which stratigraphic volume unit is an archaeological object embedded, and what is the stability and physical nature of that embedding relationship?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:EmbeddingRelationship a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A7_Embedding ;
+    rdfs:label "Embedding Relationship"@en ;
+    rdfs:comment "The physical containment of an archaeological object within a stratigraphic volume unit, with a specific degree of relative stability."@en .
+
+arqo:StableEmbedding a owl:Class ;
+    rdfs:subClassOf arqo:EmbeddingRelationship ;
+    rdfs:label "Stable Embedding"@en ;
+    rdfs:comment "An embedding relationship in which the object has remained in its original position since deposition, with no evidence of post-depositional displacement."@en .
+
+arqo:UnstableEmbedding a owl:Class ;
+    rdfs:subClassOf arqo:EmbeddingRelationship ;
+    rdfs:label "Unstable Embedding"@en ;
+    rdfs:comment "An embedding relationship in which the object shows evidence of post-depositional movement, such as bioturbation, water action, or human disturbance."@en .
+
+arqo:EmbeddingMatrix a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Embedding Matrix"@en ;
+    rdfs:comment "The physical nature of the sediment or matrix surrounding the embedded object (e.g., clay, sand, gravel, compacted earth)."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:isEmbeddedIn a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:EmbeddingRelationship ;
+    rdfs:label "is embedded in"@en ;
+    rdfs:comment "Links an archaeological object to its embedding relationship within a stratigraphic volume unit."@en .
+
+arqo:embeddingContainsObject a owl:ObjectProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "embedding contains object"@en ;
+    rdfs:comment "Links an embedding relationship to the physical object it contains (inverse of isEmbeddedIn). Corresponds to CRMarchaeo AP18."@en .
+
+arqo:embeddingWithinVolume a owl:ObjectProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range crmarchaeo:A2_Stratigraphic_Volume_Unit ;
+    rdfs:label "embedding within volume"@en ;
+    rdfs:comment "Links an embedding relationship to the stratigraphic volume unit in which the embedding occurs. Corresponds to CRMarchaeo AP19."@en .
+
+arqo:embeddingHasMatrix a owl:ObjectProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range arqo:EmbeddingMatrix ;
+    rdfs:label "embedding has matrix"@en ;
+    rdfs:comment "Links an embedding relationship to the type of sediment or matrix surrounding the object."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasEmbeddingStability a owl:DatatypeProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range xsd:string ;
+    rdfs:label "has embedding stability"@en ;
+    rdfs:comment "Describes the stability of the embedding: stable, unstable, or uncertain."@en .
+
+arqo:hasEmbeddingOrientation a owl:DatatypeProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range xsd:string ;
+    rdfs:label "has embedding orientation"@en ;
+    rdfs:comment "Describes the spatial orientation of the object within the embedding (e.g., horizontal, vertical, inclined)."@en .
+
+arqo:hasDisplacementEvidence a owl:DatatypeProperty ;
+    rdfs:domain arqo:EmbeddingRelationship ;
+    rdfs:range xsd:string ;
+    rdfs:label "has displacement evidence"@en ;
+    rdfs:comment "Describes evidence of post-depositional displacement: bioturbation, water transport, human disturbance, or none observed."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:EmbeddingRelationship rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:embeddingWithinVolume ;
+    owl:someValuesFrom crmarchaeo:A2_Stratigraphic_Volume_Unit
+] .
+
+arqo:StableEmbedding owl:disjointWith arqo:UnstableEmbedding .

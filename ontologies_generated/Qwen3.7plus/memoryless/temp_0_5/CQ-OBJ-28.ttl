@@ -1,0 +1,112 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-28>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-28" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-28: What material agency — the capacity of an object's form, material properties, or cultural associations to channel, constrain, or enable human actions — has been attributed to an archaeological object, and what theoretical framework underlies this attribution?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:MaterialAgencyAttribution a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Material Agency Attribution"@en ;
+    rdfs:comment "A propositional entity representing the attribution of material agency to an archaeological object — the capacity of its form, material properties, or cultural associations to channel, constrain, or enable human actions."@en .
+
+arqo:Affordance a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Affordance"@en ;
+    rdfs:comment "A perceived property of an archaeological object that posibilitates or constrains a specific action, following Gibson's concept of affordances."@en .
+
+arqo:EntanglementRelation a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Entanglement Relation"@en ;
+    rdfs:comment "A propositional entity representing the entanglement of an object with other objects and humans, following Hodder's concept of material entanglement."@en .
+
+arqo:TheoreticalFramework a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Theoretical Framework"@en ;
+    rdfs:comment "A theoretical framework underlying the attribution of material agency, such as Gibson's affordance theory, Hodder's entanglement theory, or Actor-Network Theory."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasMaterialAgencyAttribution a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MaterialAgencyAttribution ;
+    rdfs:label "has material agency attribution"@en ;
+    rdfs:comment "Links an archaeological object to a material agency attribution."@en .
+
+arqo:agencyBasedOnAffordance a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialAgencyAttribution ;
+    rdfs:range arqo:Affordance ;
+    rdfs:label "agency based on affordance"@en ;
+    rdfs:comment "Links a material agency attribution to the affordance that grounds it."@en .
+
+arqo:agencyBasedOnEntanglement a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialAgencyAttribution ;
+    rdfs:range arqo:EntanglementRelation ;
+    rdfs:label "agency based on entanglement"@en ;
+    rdfs:comment "Links a material agency attribution to the entanglement relation that grounds it."@en .
+
+arqo:attributionGroundedInFramework a owl:ObjectProperty ;
+    rdfs:domain arqo:MaterialAgencyAttribution ;
+    rdfs:range arqo:TheoreticalFramework ;
+    rdfs:label "attribution grounded in framework"@en ;
+    rdfs:comment "Links a material agency attribution to the theoretical framework underlying it."@en .
+
+arqo:affordanceChannelsAction a owl:ObjectProperty ;
+    rdfs:domain arqo:Affordance ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "affordance channels action"@en ;
+    rdfs:comment "Links an affordance to the type of action it channels, constrains, or enables."@en .
+
+arqo:affordanceDerivesFromFeature a owl:ObjectProperty ;
+    rdfs:domain arqo:Affordance ;
+    rdfs:range crm:E26_Physical_Feature ;
+    rdfs:label "affordance derives from feature"@en ;
+    rdfs:comment "Links an affordance to the physical feature from which it derives."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasAgencyDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialAgencyAttribution ;
+    rdfs:range xsd:string ;
+    rdfs:label "has agency description"@en ;
+    rdfs:comment "A textual description of the attributed material agency."@en .
+
+arqo:hasAgencyType a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaterialAgencyAttribution ;
+    rdfs:range xsd:string ;
+    rdfs:label "has agency type"@en ;
+    rdfs:comment "The type of agency attributed: channels_action, constrains_action, or enables_action."@en .
+
+arqo:hasFrameworkName a owl:DatatypeProperty ;
+    rdfs:domain arqo:TheoreticalFramework ;
+    rdfs:range xsd:string ;
+    rdfs:label "has framework name"@en ;
+    rdfs:comment "The name of the theoretical framework (e.g., affordance theory, entanglement theory, actor-network theory)."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MaterialAgencyAttribution rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:attributionGroundedInFramework ;
+    owl:someValuesFrom arqo:TheoreticalFramework
+] .

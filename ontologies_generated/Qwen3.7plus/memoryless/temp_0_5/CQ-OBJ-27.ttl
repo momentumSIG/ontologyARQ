@@ -1,0 +1,119 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-27>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-27" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-27: What cultural, symbolic, or ritual significance has been attributed to an archaeological object by different researchers, descendant communities, or institutional narratives, and how do these attributed meanings conflict or converge?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:SignificanceAssignment a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Significance Assignment"@en ;
+    rdfs:comment "An assignment of cultural, symbolic, or ritual significance to an archaeological object by a researcher, descendant community, or institution."@en .
+
+arqo:AttributedSignificance a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Attributed Significance"@en ;
+    rdfs:comment "A propositional entity representing the cultural, symbolic, or ritual meaning attributed to an archaeological object by a specific actor or community."@en .
+
+arqo:CulturalSignificance a owl:Class ;
+    rdfs:subClassOf arqo:AttributedSignificance ;
+    rdfs:label "Cultural Significance"@en ;
+    rdfs:comment "An attributed significance relating to the cultural identity, heritage value, or social meaning of an object."@en .
+
+arqo:SymbolicSignificance a owl:Class ;
+    rdfs:subClassOf arqo:AttributedSignificance ;
+    rdfs:label "Symbolic Significance"@en ;
+    rdfs:comment "An attributed significance relating to the symbolic or representational meaning of an object."@en .
+
+arqo:RitualSignificance a owl:Class ;
+    rdfs:subClassOf arqo:AttributedSignificance ;
+    rdfs:label "Ritual Significance"@en ;
+    rdfs:comment "An attributed significance relating to the ritual, ceremonial, or religious meaning of an object."@en .
+
+arqo:SignificanceConflict a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Significance Conflict"@en ;
+    rdfs:comment "A propositional entity representing a conflict or divergence between two or more attributed significances for the same object."@en .
+
+arqo:SignificanceConvergence a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Significance Convergence"@en ;
+    rdfs:comment "A propositional entity representing convergence or agreement between two or more attributed significances for the same object."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasSignificanceAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SignificanceAssignment ;
+    rdfs:label "has significance assignment"@en ;
+    rdfs:comment "Links an archaeological object to a significance assignment."@en .
+
+arqo:assignmentAttributedSignificance a owl:ObjectProperty ;
+    rdfs:domain arqo:SignificanceAssignment ;
+    rdfs:range arqo:AttributedSignificance ;
+    rdfs:label "assignment attributed significance"@en ;
+    rdfs:comment "Links a significance assignment to the propositional significance it attributes."@en .
+
+arqo:significanceAttributedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:AttributedSignificance ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "significance attributed by"@en ;
+    rdfs:comment "Links an attributed significance to the actor (researcher, community, institution) who proposed it."@en .
+
+arqo:conflictBetweenSignificances a owl:ObjectProperty ;
+    rdfs:domain arqo:SignificanceConflict ;
+    rdfs:range arqo:AttributedSignificance ;
+    rdfs:label "conflict between significances"@en ;
+    rdfs:comment "Links a significance conflict to the attributed significances that are in conflict."@en .
+
+arqo:convergenceBetweenSignificances a owl:ObjectProperty ;
+    rdfs:domain arqo:SignificanceConvergence ;
+    rdfs:range arqo:AttributedSignificance ;
+    rdfs:label "convergence between significances"@en ;
+    rdfs:comment "Links a significance convergence to the attributed significances that converge."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasSignificanceDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:AttributedSignificance ;
+    rdfs:range xsd:string ;
+    rdfs:label "has significance description"@en ;
+    rdfs:comment "A textual description of the attributed significance."@en .
+
+arqo:hasConflictDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:SignificanceConflict ;
+    rdfs:range xsd:string ;
+    rdfs:label "has conflict description"@en ;
+    rdfs:comment "A textual description of the nature of the conflict between significances."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:CulturalSignificance owl:disjointWith arqo:SymbolicSignificance .
+arqo:CulturalSignificance owl:disjointWith arqo:RitualSignificance .
+arqo:SymbolicSignificance owl:disjointWith arqo:RitualSignificance .
+
+arqo:SignificanceConflict rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:conflictBetweenSignificances ;
+    owl:minCardinality 2
+] .

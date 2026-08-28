@@ -1,0 +1,135 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-30>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-30" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-30: What competing or contradictory interpretive hypotheses exist regarding the identity, chronology, function, or cultural meaning of an archaeological object, and what confidence levels are assigned to each hypothesis by their proponents?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:InterpretiveHypothesis a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Interpretive Hypothesis"@en ;
+    rdfs:comment "A propositional entity representing an interpretive claim about the identity, chronology, function, or cultural meaning of an archaeological object."@en .
+
+arqo:IdentityHypothesis a owl:Class ;
+    rdfs:subClassOf arqo:InterpretiveHypothesis ;
+    rdfs:label "Identity Hypothesis"@en ;
+    rdfs:comment "An interpretive hypothesis regarding the identity or typological classification of an archaeological object."@en .
+
+arqo:ChronologyHypothesis a owl:Class ;
+    rdfs:subClassOf arqo:InterpretiveHypothesis ;
+    rdfs:label "Chronology Hypothesis"@en ;
+    rdfs:comment "An interpretive hypothesis regarding the chronological placement of an archaeological object."@en .
+
+arqo:FunctionHypothesis a owl:Class ;
+    rdfs:subClassOf arqo:InterpretiveHypothesis ;
+    rdfs:label "Function Hypothesis"@en ;
+    rdfs:comment "An interpretive hypothesis regarding the function of an archaeological object."@en .
+
+arqo:CulturalMeaningHypothesis a owl:Class ;
+    rdfs:subClassOf arqo:InterpretiveHypothesis ;
+    rdfs:label "Cultural Meaning Hypothesis"@en ;
+    rdfs:comment "An interpretive hypothesis regarding the cultural meaning or significance of an archaeological object."@en .
+
+arqo:HypothesisConflict a owl:Class ;
+    rdfs:subClassOf crminf:I4_Proposition_Set ;
+    rdfs:label "Hypothesis Conflict"@en ;
+    rdfs:comment "A propositional entity representing a conflict or contradiction between two or more interpretive hypotheses about the same object."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasInterpretiveHypothesis a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:InterpretiveHypothesis ;
+    rdfs:label "has interpretive hypothesis"@en ;
+    rdfs:comment "Links an archaeological object to an interpretive hypothesis about it."@en .
+
+arqo:hypothesisProposedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "hypothesis proposed by"@en ;
+    rdfs:comment "Links an interpretive hypothesis to the actor who proposed it."@en .
+
+arqo:hypothesisBasedOnEvidence a owl:ObjectProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range crmsci:S4_Observation ;
+    rdfs:label "hypothesis based on evidence"@en ;
+    rdfs:comment "Links an interpretive hypothesis to the observation or evidence it is based on."@en .
+
+arqo:conflictBetweenHypotheses a owl:ObjectProperty ;
+    rdfs:domain arqo:HypothesisConflict ;
+    rdfs:range arqo:InterpretiveHypothesis ;
+    rdfs:label "conflict between hypotheses"@en ;
+    rdfs:comment "Links a hypothesis conflict to the competing hypotheses involved."@en .
+
+arqo:hypothesisInferredThrough a owl:ObjectProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range crmsci:S5_Inference_Making ;
+    rdfs:label "hypothesis inferred through"@en ;
+    rdfs:comment "Links an interpretive hypothesis to the inference-making process that produced it."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasConfidenceLevel a owl:DatatypeProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range xsd:string ;
+    rdfs:label "has confidence level"@en ;
+    rdfs:comment "The confidence level assigned to the hypothesis by its proponent: high, moderate, low, or speculative."@en .
+
+arqo:hasConfidenceScore a owl:DatatypeProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has confidence score"@en ;
+    rdfs:comment "A numerical confidence score (0.0 to 1.0) assigned to the hypothesis by its proponent."@en .
+
+arqo:hasHypothesisContent a owl:DatatypeProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range xsd:string ;
+    rdfs:label "has hypothesis content"@en ;
+    rdfs:comment "The textual content of the interpretive hypothesis."@en .
+
+arqo:hasHypothesisDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:InterpretiveHypothesis ;
+    rdfs:range xsd:date ;
+    rdfs:label "has hypothesis date"@en ;
+    rdfs:comment "The date the hypothesis was proposed."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:IdentityHypothesis owl:disjointWith arqo:ChronologyHypothesis .
+arqo:IdentityHypothesis owl:disjointWith arqo:FunctionHypothesis .
+arqo:IdentityHypothesis owl:disjointWith arqo:CulturalMeaningHypothesis .
+arqo:ChronologyHypothesis owl:disjointWith arqo:FunctionHypothesis .
+arqo:ChronologyHypothesis owl:disjointWith arqo:CulturalMeaningHypothesis .
+arqo:FunctionHypothesis owl:disjointWith arqo:CulturalMeaningHypothesis .
+
+arqo:HypothesisConflict rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:conflictBetweenHypotheses ;
+    owl:minCardinality 2
+] .
+
+arqo:InterpretiveHypothesis rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hypothesisProposedBy ;
+    owl:someValuesFrom crm:E39_Actor
+] .

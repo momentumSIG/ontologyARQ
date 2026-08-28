@@ -1,0 +1,123 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-19>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-19" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-19: What component parts — handles, lids, blades, shafts, inlays, or attachments — are physically assembled into a composite archaeological object, and what joining techniques connect them?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:CompositeObject a owl:Class ;
+    rdfs:subClassOf arqo:ArchaeologicalObject ;
+    rdfs:label "Composite Object"@en ;
+    rdfs:comment "An archaeological object assembled from multiple component parts using various joining techniques."@en .
+
+arqo:ComponentPart a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Component Part"@en ;
+    rdfs:comment "A physical part of a composite archaeological object, such as a handle, lid, blade, shaft, inlay, or attachment."@en .
+
+arqo:HandlePart a owl:Class ;
+    rdfs:subClassOf arqo:ComponentPart ;
+    rdfs:label "Handle Part"@en ;
+    rdfs:comment "A component part serving as a handle for gripping or holding the object."@en .
+
+arqo:LidPart a owl:Class ;
+    rdfs:subClassOf arqo:ComponentPart ;
+    rdfs:label "Lid Part"@en ;
+    rdfs:comment "A component part serving as a cover or closure."@en .
+
+arqo:BladePart a owl:Class ;
+    rdfs:subClassOf arqo:ComponentPart ;
+    rdfs:label "Blade Part"@en ;
+    rdfs:comment "A component part forming the cutting or working edge of a tool or weapon."@en .
+
+arqo:ShaftPart a owl:Class ;
+    rdfs:subClassOf arqo:ComponentPart ;
+    rdfs:label "Shaft Part"@en ;
+    rdfs:comment "A component part forming the elongated handle or shaft of a tool or weapon."@en .
+
+arqo:JoiningTechnique a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Joining Technique"@en ;
+    rdfs:comment "The method by which component parts are physically connected, such as riveting, soldering, adhesion, mortise-and-tenon, or mechanical interlocking."@en .
+
+arqo:PartonomyRelation a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Partonomy Relation"@en ;
+    rdfs:comment "A reification of the part-whole relationship between a composite object and its component parts, including the joining technique used."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasComponentPart a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositeObject ;
+    rdfs:range arqo:ComponentPart ;
+    rdfs:label "has component part"@en ;
+    rdfs:comment "Links a composite archaeological object to one of its component parts. Corresponds to CRM P46 is composed of."@en .
+
+arqo:componentPartOf a owl:ObjectProperty ;
+    rdfs:domain arqo:ComponentPart ;
+    rdfs:range arqo:CompositeObject ;
+    rdfs:label "component part of"@en ;
+    rdfs:comment "Links a component part to the composite object it belongs to."@en .
+
+arqo:joinedByTechnique a owl:ObjectProperty ;
+    rdfs:domain arqo:PartonomyRelation ;
+    rdfs:range arqo:JoiningTechnique ;
+    rdfs:label "joined by technique"@en ;
+    rdfs:comment "Links a partonomy relation to the joining technique used to connect the parts."@en .
+
+arqo:partonomyRelatesPart a owl:ObjectProperty ;
+    rdfs:domain arqo:PartonomyRelation ;
+    rdfs:range arqo:ComponentPart ;
+    rdfs:label "partonomy relates part"@en ;
+    rdfs:comment "Links a partonomy relation to the component part it describes."@en .
+
+arqo:partonomyRelatesWhole a owl:ObjectProperty ;
+    rdfs:domain arqo:PartonomyRelation ;
+    rdfs:range arqo:CompositeObject ;
+    rdfs:label "partonomy relates whole"@en ;
+    rdfs:comment "Links a partonomy relation to the composite object it describes."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasJoiningTechniqueLabel a owl:DatatypeProperty ;
+    rdfs:domain arqo:JoiningTechnique ;
+    rdfs:range xsd:string ;
+    rdfs:label "has joining technique label"@en ;
+    rdfs:comment "A human-readable label for the joining technique: riveted, soldered, adhered, interlocked, etc."@en .
+
+arqo:hasPartPosition a owl:DatatypeProperty ;
+    rdfs:domain arqo:ComponentPart ;
+    rdfs:range xsd:string ;
+    rdfs:label "has part position"@en ;
+    rdfs:comment "Describes the spatial position of the component part on the composite object."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:CompositeObject rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasComponentPart ;
+    owl:minCardinality 2
+] .
+
+arqo:HandlePart owl:disjointWith arqo:LidPart .
+arqo:BladePart owl:disjointWith arqo:ShaftPart .

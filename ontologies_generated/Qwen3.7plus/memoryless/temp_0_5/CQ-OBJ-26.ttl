@@ -1,0 +1,109 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-26>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-26" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-26: What functional interpretation has been assigned to an archaeological object — primary intended function, secondary acquired function, or researcher-attributed function — and what evidence supports each functional assignment?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:FunctionalAssignment a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Functional Assignment"@en ;
+    rdfs:comment "An interpretive assignment of function to an archaeological object, distinguishing between primary intended function, secondary acquired function, and researcher-attributed function."@en .
+
+arqo:PrimaryFunctionAssignment a owl:Class ;
+    rdfs:subClassOf arqo:FunctionalAssignment ;
+    rdfs:label "Primary Function Assignment"@en ;
+    rdfs:comment "A functional assignment identifying the original intended function for which the object was manufactured."@en .
+
+arqo:SecondaryFunctionAssignment a owl:Class ;
+    rdfs:subClassOf arqo:FunctionalAssignment ;
+    rdfs:label "Secondary Function Assignment"@en ;
+    rdfs:comment "A functional assignment identifying a function acquired by the object after its manufacture, through reuse or adaptation."@en .
+
+arqo:AttributedFunctionAssignment a owl:Class ;
+    rdfs:subClassOf arqo:FunctionalAssignment ;
+    rdfs:label "Attributed Function Assignment"@en ;
+    rdfs:comment "A functional assignment proposed by a researcher based on morphological, contextual, or comparative evidence, which may differ from both primary and secondary functions."@en .
+
+arqo:FunctionalEvidence a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Functional Evidence"@en ;
+    rdfs:comment "Evidence supporting a functional assignment, including use-wear patterns, residue analysis, contextual associations, and ethnographic parallels."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasFunctionalAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:FunctionalAssignment ;
+    rdfs:label "has functional assignment"@en ;
+    rdfs:comment "Links an archaeological object to a functional assignment."@en .
+
+arqo:assignmentAssignedFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:FunctionalAssignment ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "assignment assigned function"@en ;
+    rdfs:comment "Links a functional assignment to the function type assigned. Corresponds to CRM P141."@en .
+
+arqo:assignmentSupportedByEvidence a owl:ObjectProperty ;
+    rdfs:domain arqo:FunctionalAssignment ;
+    rdfs:range arqo:FunctionalEvidence ;
+    rdfs:label "assignment supported by evidence"@en ;
+    rdfs:comment "Links a functional assignment to the evidence supporting it."@en .
+
+arqo:assignmentMadeBy a owl:ObjectProperty ;
+    rdfs:domain arqo:FunctionalAssignment ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "assignment made by"@en ;
+    rdfs:comment "Links a functional assignment to the actor who proposed it."@en .
+
+arqo:evidenceDerivedFrom a owl:ObjectProperty ;
+    rdfs:domain arqo:FunctionalEvidence ;
+    rdfs:range crmsci:S4_Observation ;
+    rdfs:label "evidence derived from"@en ;
+    rdfs:comment "Links functional evidence to the observation from which it was derived."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasFunctionType a owl:DatatypeProperty ;
+    rdfs:domain arqo:FunctionalAssignment ;
+    rdfs:range xsd:string ;
+    rdfs:label "has function type"@en ;
+    rdfs:comment "The type of functional assignment: primary_intended, secondary_acquired, or researcher_attributed."@en .
+
+arqo:hasEvidenceType a owl:DatatypeProperty ;
+    rdfs:domain arqo:FunctionalEvidence ;
+    rdfs:range xsd:string ;
+    rdfs:label "has evidence type"@en ;
+    rdfs:comment "The type of evidence: use_wear, residue_analysis, contextual_association, ethnographic_parallel, or morphological_comparison."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:PrimaryFunctionAssignment owl:disjointWith arqo:SecondaryFunctionAssignment .
+arqo:PrimaryFunctionAssignment owl:disjointWith arqo:AttributedFunctionAssignment .
+arqo:SecondaryFunctionAssignment owl:disjointWith arqo:AttributedFunctionAssignment .
+
+arqo:FunctionalAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentAssignedFunction ;
+    owl:someValuesFrom crm:E55_Type
+] .

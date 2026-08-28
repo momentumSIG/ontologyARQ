@@ -1,0 +1,106 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-09>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-09" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-09: Which excavation process units recovered a given archaeological object, and what documentation, observation, and material preservation events were associated with that recovery?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:RecoveryEvent a owl:Class ;
+    rdfs:subClassOf crmarchaeo:A1_Excavation_Processing_Unit ;
+    rdfs:label "Recovery Event"@en ;
+    rdfs:comment "An excavation process unit that recovered an archaeological object, combining removement, observation, and documentation."@en .
+
+arqo:DocumentationEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "Documentation Event"@en ;
+    rdfs:comment "An activity of recording information about an archaeological object during or after recovery, including photography, drawing, and written description."@en .
+
+arqo:ObservationEvent a owl:Class ;
+    rdfs:subClassOf crmsci:S4_Observation ;
+    rdfs:label "Observation Event"@en ;
+    rdfs:comment "A scientific observation made during the recovery of an archaeological object, recording its in-situ condition and contextual relationships."@en .
+
+arqo:PreservationEvent a owl:Class ;
+    rdfs:subClassOf crm:E11_Modification ;
+    rdfs:label "Preservation Event"@en ;
+    rdfs:comment "An activity of stabilizing or preserving an archaeological object during or immediately after recovery to prevent further deterioration."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:wasRecoveredBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RecoveryEvent ;
+    rdfs:label "was recovered by"@en ;
+    rdfs:comment "Links an archaeological object to the excavation process unit that recovered it."@en .
+
+arqo:recoveryIncludedDocumentation a owl:ObjectProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range arqo:DocumentationEvent ;
+    rdfs:label "recovery included documentation"@en ;
+    rdfs:comment "Links a recovery event to a documentation event that was part of the recovery process."@en .
+
+arqo:recoveryIncludedObservation a owl:ObjectProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range arqo:ObservationEvent ;
+    rdfs:label "recovery included observation"@en ;
+    rdfs:comment "Links a recovery event to an observation event that was part of the recovery process."@en .
+
+arqo:recoveryIncludedPreservation a owl:ObjectProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range arqo:PreservationEvent ;
+    rdfs:label "recovery included preservation"@en ;
+    rdfs:comment "Links a recovery event to a preservation event that was part of the recovery process."@en .
+
+arqo:recoveryFromStratigraphicUnit a owl:ObjectProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range crmarchaeo:A8_Stratigraphic_Unit ;
+    rdfs:label "recovery from stratigraphic unit"@en ;
+    rdfs:comment "Links a recovery event to the stratigraphic unit from which the object was recovered."@en .
+
+arqo:recoveryProducedRecord a owl:ObjectProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range crm:E73_Information_Object ;
+    rdfs:label "recovery produced record"@en ;
+    rdfs:comment "Links a recovery event to the information object (field notebook, database entry, photograph) it produced."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasRecoveryMethod a owl:DatatypeProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has recovery method"@en ;
+    rdfs:comment "Describes the method of recovery: hand excavation, sieving, flotation, block lifting, etc."@en .
+
+arqo:hasRecoveryDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:RecoveryEvent ;
+    rdfs:range xsd:date ;
+    rdfs:label "has recovery date"@en ;
+    rdfs:comment "The date on which the object was recovered."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:RecoveryEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:recoveryFromStratigraphicUnit ;
+    owl:someValuesFrom crmarchaeo:A8_Stratigraphic_Unit
+] .

@@ -1,0 +1,118 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-24>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-24" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-24: To which compositional group (Leitlegierung) — defined by diagnostic elemental ratios or alloy signatures — has a metallic archaeological object been assigned, and what analytical technique produced the compositional data supporting this assignment?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:CompositionalGroupAssignment a owl:Class ;
+    rdfs:subClassOf crm:E17_Type_Assignment ;
+    rdfs:label "Compositional Group Assignment"@en ;
+    rdfs:comment "An assignment of a metallic archaeological object to a compositional group (Leitlegierung) defined by diagnostic elemental ratios or alloy signatures."@en .
+
+arqo:CompositionalGroup a owl:Class ;
+    rdfs:subClassOf crm:E55_Type ;
+    rdfs:label "Compositional Group"@en ;
+    rdfs:comment "A group of metallic objects sharing characteristic elemental ratios or alloy signatures, also known as Leitlegierung."@en .
+
+arqo:CompositionalAnalysis a owl:Class ;
+    rdfs:subClassOf crmsci:S21_Measurement ;
+    rdfs:label "Compositional Analysis"@en ;
+    rdfs:comment "A measurement event that produced compositional data for a metallic object, supporting assignment to a compositional group."@en .
+
+arqo:ElementalRatio a owl:Class ;
+    rdfs:subClassOf crm:E54_Dimension ;
+    rdfs:label "Elemental Ratio"@en ;
+    rdfs:comment "A dimension representing the ratio between two chemical elements in a metallic object's composition."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasCompositionalGroupAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:CompositionalGroupAssignment ;
+    rdfs:label "has compositional group assignment"@en ;
+    rdfs:comment "Links a metallic archaeological object to its compositional group assignment."@en .
+
+arqo:assignmentAssignedGroup a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositionalGroupAssignment ;
+    rdfs:range arqo:CompositionalGroup ;
+    rdfs:label "assignment assigned group"@en ;
+    rdfs:comment "Links a compositional group assignment to the compositional group assigned."@en .
+
+arqo:assignmentBasedOnAnalysis a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositionalGroupAssignment ;
+    rdfs:range arqo:CompositionalAnalysis ;
+    rdfs:label "assignment based on analysis"@en ;
+    rdfs:comment "Links a compositional group assignment to the compositional analysis that produced the supporting data."@en .
+
+arqo:analysisUsedTechnique a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositionalAnalysis ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "analysis used technique"@en ;
+    rdfs:comment "Links a compositional analysis to the analytical technique employed (e.g., XRF, ICP-MS, NAA, OES)."@en .
+
+arqo:analysisProducedRatio a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositionalAnalysis ;
+    rdfs:range arqo:ElementalRatio ;
+    rdfs:label "analysis produced ratio"@en ;
+    rdfs:comment "Links a compositional analysis to an elemental ratio it measured."@en .
+
+arqo:groupDefinedByRatio a owl:ObjectProperty ;
+    rdfs:domain arqo:CompositionalGroup ;
+    rdfs:range arqo:ElementalRatio ;
+    rdfs:label "group defined by ratio"@en ;
+    rdfs:comment "Links a compositional group to the diagnostic elemental ratios that define it."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasRatioValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:ElementalRatio ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has ratio value"@en ;
+    rdfs:comment "The numerical value of the elemental ratio."@en .
+
+arqo:hasRatioElements a owl:DatatypeProperty ;
+    rdfs:domain arqo:ElementalRatio ;
+    rdfs:range xsd:string ;
+    rdfs:label "has ratio elements"@en ;
+    rdfs:comment "The elements involved in the ratio (e.g., 'Sn/Cu', 'Pb/Cu', 'Zn/Cu')."@en .
+
+arqo:hasAnalyticalTechniqueLabel a owl:DatatypeProperty ;
+    rdfs:domain arqo:CompositionalAnalysis ;
+    rdfs:range xsd:string ;
+    rdfs:label "has analytical technique label"@en ;
+    rdfs:comment "The name of the analytical technique used (e.g., XRF, ICP-MS, NAA)."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:CompositionalGroupAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentAssignedGroup ;
+    owl:someValuesFrom arqo:CompositionalGroup
+] .
+
+arqo:CompositionalGroupAssignment rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:assignmentBasedOnAnalysis ;
+    owl:someValuesFrom arqo:CompositionalAnalysis
+] .

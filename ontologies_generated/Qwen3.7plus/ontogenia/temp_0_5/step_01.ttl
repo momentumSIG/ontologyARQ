@@ -1,0 +1,94 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Strategy: ontogenia | Step: 1/30
+# CQ: CQ-OBJ-01
+# ============================================================
+# CQ-OBJ-01: What procurement events — raw material extraction,
+# acquisition, or collection — supplied the geological or
+# biological substances later transformed into archaeological
+# objects recovered at a given site?
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/> a owl:Ontology ;
+    rdfs:label "Archaeological Object Module"@en ;
+    rdfs:comment "Ontology extension for archaeological objects compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:ProcurementEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "ProcurementEvent"@en ;
+    rdfs:comment "Event of raw material extraction, acquisition, or collection that supplied geological or biological substances for object manufacture"@en .
+
+arqo:RawMaterialSource a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "RawMaterialSource"@en ;
+    rdfs:comment "Geological or geographic source of raw materials used in object manufacture"@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:wasProcuredBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ProcurementEvent ;
+    rdfs:label "wasProcuredBy"@en ;
+    rdfs:comment "Links an archaeological object to the procurement event that supplied its raw materials"@en .
+
+arqo:derivesFromSource a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "derivesFromSource"@en ;
+    rdfs:comment "Links an object to the geological or biological source of its raw materials"@en .
+
+arqo:procurementOccurredAt a owl:ObjectProperty ;
+    rdfs:domain arqo:ProcurementEvent ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "procurementOccurredAt"@en ;
+    rdfs:comment "Links a procurement event to the source location where raw materials were extracted or collected"@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasProcurementType a owl:DatatypeProperty ;
+    rdfs:domain arqo:ProcurementEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasProcurementType"@en ;
+    rdfs:comment "Type of procurement: extraction, acquisition, or collection"@en .
+
+arqo:hasRawMaterialProvenance a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasRawMaterialProvenance"@en ;
+    rdfs:comment "Description of the geological or biological provenance of raw materials"@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:wasProcuredBy ;
+    owl:minCardinality "0"^^xsd:nonNegativeInteger
+] .
+
+arqo:ProcurementEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:procurementOccurredAt ;
+    owl:someValuesFrom arqo:RawMaterialSource
+] .

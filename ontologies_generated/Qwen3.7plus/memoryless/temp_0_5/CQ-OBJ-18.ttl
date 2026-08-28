@@ -1,0 +1,125 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-18>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-18" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-18: What morphometric attributes — dimensions, weight, volume, surface area, and shape descriptors — characterize an archaeological object, and how do these attributes compare with the expected range for its assigned typological class?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:MorphometricAttribute a owl:Class ;
+    rdfs:subClassOf crm:E54_Dimension ;
+    rdfs:label "Morphometric Attribute"@en ;
+    rdfs:comment "A measurable physical dimension or attribute of an archaeological object, including length, width, height, weight, volume, surface area, and shape descriptors."@en .
+
+arqo:DimensionalMeasurement a owl:Class ;
+    rdfs:subClassOf arqo:MorphometricAttribute ;
+    rdfs:label "Dimensional Measurement"@en ;
+    rdfs:comment "A morphometric attribute representing a linear measurement: length, width, height, thickness, or diameter."@en .
+
+arqo:WeightMeasurement a owl:Class ;
+    rdfs:subClassOf arqo:MorphometricAttribute ;
+    rdfs:label "Weight Measurement"@en ;
+    rdfs:comment "A morphometric attribute representing the mass of the archaeological object."@en .
+
+arqo:VolumeMeasurement a owl:Class ;
+    rdfs:subClassOf arqo:MorphometricAttribute ;
+    rdfs:label "Volume Measurement"@en ;
+    rdfs:comment "A morphometric attribute representing the volume of the archaeological object."@en .
+
+arqo:ShapeDescriptor a owl:Class ;
+    rdfs:subClassOf arqo:MorphometricAttribute ;
+    rdfs:label "Shape Descriptor"@en ;
+    rdfs:comment "A morphometric attribute describing the overall shape or profile of the object (e.g., spherical, biconvex, plano-convex)."@en .
+
+arqo:TypologicalRange a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Typological Range"@en ;
+    rdfs:comment "The expected range of morphometric values for a given typological class, used for comparison with individual object measurements."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasMorphometricAttribute a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MorphometricAttribute ;
+    rdfs:label "has morphometric attribute"@en ;
+    rdfs:comment "Links an archaeological object to a morphometric attribute that characterizes it."@en .
+
+arqo:comparedWithTypologicalRange a owl:ObjectProperty ;
+    rdfs:domain arqo:MorphometricAttribute ;
+    rdfs:range arqo:TypologicalRange ;
+    rdfs:label "compared with typological range"@en ;
+    rdfs:comment "Links a morphometric attribute to the typological range it is compared against."@en .
+
+arqo:rangeForType a owl:ObjectProperty ;
+    rdfs:domain arqo:TypologicalRange ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "range for type"@en ;
+    rdfs:comment "Links a typological range to the typological class it defines expected values for."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasMeasurementValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:MorphometricAttribute ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has measurement value"@en ;
+    rdfs:comment "The numerical value of the morphometric measurement."@en .
+
+arqo:hasMeasurementUnit a owl:DatatypeProperty ;
+    rdfs:domain arqo:MorphometricAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has measurement unit"@en ;
+    rdfs:comment "The unit of measurement (e.g., mm, cm, g, ml)."@en .
+
+arqo:hasRangeMin a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypologicalRange ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has range minimum"@en ;
+    rdfs:comment "The minimum expected value for this attribute within the typological class."@en .
+
+arqo:hasRangeMax a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypologicalRange ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has range maximum"@en ;
+    rdfs:comment "The maximum expected value for this attribute within the typological class."@en .
+
+arqo:hasRangeMean a owl:DatatypeProperty ;
+    rdfs:domain arqo:TypologicalRange ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has range mean"@en ;
+    rdfs:comment "The mean expected value for this attribute within the typological class."@en .
+
+arqo:isWithinTypologicalRange a owl:DatatypeProperty ;
+    rdfs:domain arqo:MorphometricAttribute ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is within typological range"@en ;
+    rdfs:comment "Indicates whether the measured value falls within the expected range for the assigned typological class."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MorphometricAttribute rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasMeasurementValue ;
+    owl:someValuesFrom xsd:decimal
+] .
+
+arqo:DimensionalMeasurement owl:disjointWith arqo:WeightMeasurement .
+arqo:DimensionalMeasurement owl:disjointWith arqo:VolumeMeasurement .

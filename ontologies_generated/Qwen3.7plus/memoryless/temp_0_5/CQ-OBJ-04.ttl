@@ -1,0 +1,123 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-04>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-04" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-04: Through which social persona transitions did an archaeological object pass during its biography — for example, from utilitarian tool to ritual offering to museum specimen — and what events triggered each identity change?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context, serving as the material carrier of multiple social personas."@en .
+
+arqo:SocialPersonaTransition a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "Social Persona Transition"@en ;
+    rdfs:comment "An event in which an archaeological object transitions from one social identity (persona) to another, such as from utilitarian tool to ritual offering to museum specimen."@en .
+
+arqo:SocialPersona a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Social Persona"@en ;
+    rdfs:comment "A propositional identity attributed to an archaeological object at a given point in its biography, representing its social role or cultural meaning."@en .
+
+arqo:UtilitarianPersona a owl:Class ;
+    rdfs:subClassOf arqo:SocialPersona ;
+    rdfs:label "Utilitarian Persona"@en ;
+    rdfs:comment "A social persona in which the object is identified and used as a functional tool or utilitarian item."@en .
+
+arqo:RitualPersona a owl:Class ;
+    rdfs:subClassOf arqo:SocialPersona ;
+    rdfs:label "Ritual Persona"@en ;
+    rdfs:comment "A social persona in which the object is identified and used as a ritual offering, votive, or ceremonial item."@en .
+
+arqo:MuseumSpecimenPersona a owl:Class ;
+    rdfs:subClassOf arqo:SocialPersona ;
+    rdfs:label "Museum Specimen Persona"@en ;
+    rdfs:comment "A social persona in which the object is identified and curated as a museum specimen or heritage object."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:underwentPersonaTransition a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SocialPersonaTransition ;
+    rdfs:label "underwent persona transition"@en ;
+    rdfs:comment "Links an archaeological object to a social persona transition event in its biography."@en .
+
+arqo:transitionFromPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "transition from persona"@en ;
+    rdfs:comment "Links a persona transition event to the social persona the object held before the transition."@en .
+
+arqo:transitionToPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "transition to persona"@en ;
+    rdfs:comment "Links a persona transition event to the new social persona attributed to the object after the transition."@en .
+
+arqo:triggeringEvent a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "triggering event"@en ;
+    rdfs:comment "Links a persona transition to the event that triggered the identity change (e.g., deposition, consecration, acquisition by museum)."@en .
+
+arqo:carriesPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "carries persona"@en ;
+    rdfs:comment "Links an archaeological object to a social persona it currently or historically embodied."@en .
+
+arqo:personaAttributedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersona ;
+    rdfs:range crm:E39_Actor ;
+    rdfs:label "persona attributed by"@en ;
+    rdfs:comment "Links a social persona to the actor (individual or group) who attributed that identity to the object."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasTransitionDate a owl:DatatypeProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range xsd:date ;
+    rdfs:label "has transition date"@en ;
+    rdfs:comment "The date at which the social persona transition occurred."@en .
+
+arqo:hasPersonaLabel a owl:DatatypeProperty ;
+    rdfs:domain arqo:SocialPersona ;
+    rdfs:range xsd:string ;
+    rdfs:label "has persona label"@en ;
+    rdfs:comment "A human-readable label for the social persona (e.g., 'utilitarian tool', 'ritual offering', 'museum specimen')."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:transitionFromPersona ;
+    owl:someValuesFrom arqo:SocialPersona
+] .
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:transitionToPersona ;
+    owl:someValuesFrom arqo:SocialPersona
+] .
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:triggeringEvent ;
+    owl:someValuesFrom crm:E5_Event
+] .

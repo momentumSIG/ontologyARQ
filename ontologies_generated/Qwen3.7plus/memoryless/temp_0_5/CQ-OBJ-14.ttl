@@ -1,0 +1,109 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-14>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-14" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-14: In what refuse distribution state is an archaeological object — primary refuse (at place of use), secondary refuse (transported to disposal area), or de facto refuse (abandoned in situ without intentional discard) — and what spatial evidence supports this classification?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:RefuseDistributionState a owl:Class ;
+    rdfs:subClassOf crm:E3_Condition_State ;
+    rdfs:label "Refuse Distribution State"@en ;
+    rdfs:comment "The physical-spatial condition of an archaeological object in the archaeological record, classified as primary refuse, secondary refuse, or de facto refuse."@en .
+
+arqo:PrimaryRefuseState a owl:Class ;
+    rdfs:subClassOf arqo:RefuseDistributionState ;
+    rdfs:label "Primary Refuse State"@en ;
+    rdfs:comment "A refuse distribution state in which the object was discarded at its place of use, with spatial evidence showing co-location of use and discard."@en .
+
+arqo:SecondaryRefuseState a owl:Class ;
+    rdfs:subClassOf arqo:RefuseDistributionState ;
+    rdfs:label "Secondary Refuse State"@en ;
+    rdfs:comment "A refuse distribution state in which the object was transported from its place of use to a designated disposal area, with spatial evidence showing displacement."@en .
+
+arqo:DeFactoRefuseState a owl:Class ;
+    rdfs:subClassOf arqo:RefuseDistributionState ;
+    rdfs:label "De Facto Refuse State"@en ;
+    rdfs:comment "A refuse distribution state in which the object was abandoned in situ without intentional discard, remaining at its location of last use."@en .
+
+arqo:SpatialEvidence a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Spatial Evidence"@en ;
+    rdfs:comment "Spatial data supporting the classification of an object's refuse distribution state, including positional relationships with features, other objects, and stratigraphic units."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasRefuseDistributionState a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RefuseDistributionState ;
+    rdfs:label "has refuse distribution state"@en ;
+    rdfs:comment "Links an archaeological object to its refuse distribution state in the archaeological record."@en .
+
+arqo:stateSupportedByEvidence a owl:ObjectProperty ;
+    rdfs:domain arqo:RefuseDistributionState ;
+    rdfs:range arqo:SpatialEvidence ;
+    rdfs:label "state supported by evidence"@en ;
+    rdfs:comment "Links a refuse distribution state to the spatial evidence supporting its classification."@en .
+
+arqo:objectPositionRelativeToUseArea a owl:ObjectProperty ;
+    rdfs:domain arqo:RefuseDistributionState ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "object position relative to use area"@en ;
+    rdfs:comment "Links a refuse distribution state to the place representing the area of use, establishing spatial relationship."@en .
+
+arqo:objectPositionRelativeToDisposalArea a owl:ObjectProperty ;
+    rdfs:domain arqo:SecondaryRefuseState ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "object position relative to disposal area"@en ;
+    rdfs:comment "Links a secondary refuse state to the disposal area where the object was found."@en .
+
+arqo:stateWithinStratigraphicVolume a owl:ObjectProperty ;
+    rdfs:domain arqo:RefuseDistributionState ;
+    rdfs:range crmarchaeo:A2_Stratigraphic_Volume_Unit ;
+    rdfs:label "state within stratigraphic volume"@en ;
+    rdfs:comment "Links a refuse distribution state to the stratigraphic volume unit containing the object."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasSpatialAssociationDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:SpatialEvidence ;
+    rdfs:range xsd:string ;
+    rdfs:label "has spatial association description"@en ;
+    rdfs:comment "A textual description of the spatial associations supporting the refuse classification."@en .
+
+arqo:hasDisplacementIndicator a owl:DatatypeProperty ;
+    rdfs:domain arqo:RefuseDistributionState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "has displacement indicator"@en ;
+    rdfs:comment "Indicates whether spatial evidence suggests the object was displaced from its place of use (true for secondary refuse, false for primary and de facto)."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:PrimaryRefuseState owl:disjointWith arqo:SecondaryRefuseState .
+arqo:PrimaryRefuseState owl:disjointWith arqo:DeFactoRefuseState .
+arqo:SecondaryRefuseState owl:disjointWith arqo:DeFactoRefuseState .
+
+arqo:RefuseDistributionState rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:stateSupportedByEvidence ;
+    owl:someValuesFrom arqo:SpatialEvidence
+] .

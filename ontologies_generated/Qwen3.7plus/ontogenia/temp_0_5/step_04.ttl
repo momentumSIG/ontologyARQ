@@ -1,0 +1,304 @@
+# ============================================================
+# Ontology: Archaeological Object Module
+# Strategy: ontogenia | Step: 4/30
+# CQ: CQ-OBJ-04
+# ============================================================
+# CQ-OBJ-04: What social persona transitions did an
+# archaeological object pass through during its biography —
+# for example, from utilitarian tool to ritual offering to
+# museum specimen — and what events triggered each identity
+# change?
+# ============================================================
+
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/> a owl:Ontology ;
+    rdfs:label "Archaeological Object Module"@en ;
+    rdfs:comment "Ontology extension for archaeological objects compatible with CIDOC CRM v7.3.2 and CRMarchaeo v2.1.1"@en .
+
+# ======================= CLASSES ===========================
+
+# --- From Step 1 (CQ-OBJ-01) ---
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "ArchaeologicalObject"@en ;
+    rdfs:comment "Physical object recovered during archaeological investigation"@en .
+
+arqo:ProcurementEvent a owl:Class ;
+    rdfs:subClassOf crm:E9_Move ;
+    rdfs:label "ProcurementEvent"@en ;
+    rdfs:comment "Event of raw material extraction, acquisition, or collection that supplied geological or biological substances for object manufacture"@en .
+
+arqo:RawMaterialSource a owl:Class ;
+    rdfs:subClassOf crm:E53_Place ;
+    rdfs:label "RawMaterialSource"@en ;
+    rdfs:comment "Geological or geographic source of raw materials used in object manufacture"@en .
+
+# --- From Step 2 (CQ-OBJ-02) ---
+
+arqo:ReuseEvent a owl:Class ;
+    rdfs:subClassOf crm:E7_Activity ;
+    rdfs:label "ReuseEvent"@en ;
+    rdfs:comment "Event in which an object is used again after its initial use phase, encompassing both lateral cycling and recycling"@en .
+
+arqo:LateralCyclingEvent a owl:Class ;
+    rdfs:subClassOf arqo:ReuseEvent ;
+    rdfs:label "LateralCyclingEvent"@en ;
+    rdfs:comment "Reuse of an object in a different social context without change of function; the object circulates laterally between social spheres while maintaining its original functional role"@en .
+
+arqo:RecyclingEvent a owl:Class ;
+    rdfs:subClassOf crm:E81_Transformation ;
+    rdfs:label "RecyclingEvent"@en ;
+    rdfs:comment "Event in which an object is re-entered into a manufacturing process, either to produce a new object or to be transformed into raw material"@en .
+
+# --- From Step 3 (CQ-OBJ-03) ---
+
+arqo:DiscardEvent a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "DiscardEvent"@en ;
+    rdfs:comment "Event of object abandonment or discard that led to its entry into the archaeological record; encompasses primary, secondary, and de facto refuse"@en .
+
+arqo:PrimaryRefuse a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "PrimaryRefuse"@en ;
+    rdfs:comment "Discard event in which an object was abandoned at its place of use, producing a spatial association between the object and its functional context"@en .
+
+arqo:SecondaryRefuse a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "SecondaryRefuse"@en ;
+    rdfs:comment "Discard event in which an object was transported from its place of use to a designated refuse disposal area"@en .
+
+arqo:DeFactoRefuse a owl:Class ;
+    rdfs:subClassOf arqo:DiscardEvent ;
+    rdfs:label "DeFactoRefuse"@en ;
+    rdfs:comment "Abandonment of an object in situ without intentional discard, typically associated with site abandonment or emergency evacuation"@en .
+
+# --- New in Step 4 (CQ-OBJ-04) ---
+
+arqo:SocialPersona a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "SocialPersona"@en ;
+    rdfs:comment "A culturally attributed identity or social role assigned to an archaeological object at a given point in its biography (e.g., utilitarian tool, ritual offering, museum specimen)"@en .
+
+arqo:SocialPersonaTransition a owl:Class ;
+    rdfs:subClassOf crm:E5_Event ;
+    rdfs:label "SocialPersonaTransition"@en ;
+    rdfs:comment "Event that marks the change of an object's social persona from one identity to another, triggered by a specific biographical event"@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+# --- From Step 1 (CQ-OBJ-01) ---
+
+arqo:wasProcuredBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ProcurementEvent ;
+    rdfs:label "wasProcuredBy"@en ;
+    rdfs:comment "Links an archaeological object to the procurement event that supplied its raw materials"@en .
+
+arqo:derivesFromSource a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "derivesFromSource"@en ;
+    rdfs:comment "Links an object to the geological or biological source of its raw materials"@en .
+
+arqo:procurementOccurredAt a owl:ObjectProperty ;
+    rdfs:domain arqo:ProcurementEvent ;
+    rdfs:range arqo:RawMaterialSource ;
+    rdfs:label "procurementOccurredAt"@en ;
+    rdfs:comment "Links a procurement event to the source location where raw materials were extracted or collected"@en .
+
+# --- From Step 2 (CQ-OBJ-02) ---
+
+arqo:wasSubjectToReuse a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:ReuseEvent ;
+    rdfs:label "wasSubjectToReuse"@en ;
+    rdfs:comment "Links an object to a reuse event (lateral cycling or recycling) in its biography"@en .
+
+arqo:wasLateralCycled a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:LateralCyclingEvent ;
+    rdfs:label "wasLateralCycled"@en ;
+    rdfs:comment "Links an object to a lateral cycling event where it was reused in a different social context without functional change"@en .
+
+arqo:wasRecycled a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:RecyclingEvent ;
+    rdfs:label "wasRecycled"@en ;
+    rdfs:comment "Links an object to a recycling event where it was re-entered into a manufacturing process"@en .
+
+arqo:recyclingProducedObject a owl:ObjectProperty ;
+    rdfs:domain arqo:RecyclingEvent ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "recyclingProducedObject"@en ;
+    rdfs:comment "Links a recycling event to the new object produced from the recycled material"@en .
+
+# --- From Step 3 (CQ-OBJ-03) ---
+
+arqo:wasDiscardedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:DiscardEvent ;
+    rdfs:label "wasDiscardedBy"@en ;
+    rdfs:comment "Links an object to the discard event that led to its entry into the archaeological record"@en .
+
+arqo:discardOccurredAt a owl:ObjectProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "discardOccurredAt"@en ;
+    rdfs:comment "Links a discard event to the place where the object was abandoned or discarded"@en .
+
+arqo:discardMovedTo a owl:ObjectProperty ;
+    rdfs:domain arqo:SecondaryRefuse ;
+    rdfs:range crm:E53_Place ;
+    rdfs:label "discardMovedTo"@en ;
+    rdfs:comment "Links a secondary refuse event to the refuse disposal area where the object was transported"@en .
+
+# --- New in Step 4 (CQ-OBJ-04) ---
+
+arqo:hasSocialPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "hasSocialPersona"@en ;
+    rdfs:comment "Links an object to a social persona (culturally attributed identity) that it held during a phase of its biography"@en .
+
+arqo:transitionFromPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "transitionFromPersona"@en ;
+    rdfs:comment "Links a persona transition event to the social persona held before the transition"@en .
+
+arqo:transitionToPersona a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range arqo:SocialPersona ;
+    rdfs:label "transitionToPersona"@en ;
+    rdfs:comment "Links a persona transition event to the new social persona acquired after the transition"@en .
+
+arqo:transitionTriggeredBy a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "transitionTriggeredBy"@en ;
+    rdfs:comment "Links a persona transition to the biographical event that triggered the identity change"@en .
+
+arqo:transitionAppliedTo a owl:ObjectProperty ;
+    rdfs:domain arqo:SocialPersonaTransition ;
+    rdfs:range arqo:ArchaeologicalObject ;
+    rdfs:label "transitionAppliedTo"@en ;
+    rdfs:comment "Links a persona transition to the object whose identity changed"@en .
+
+# ==================== DATA PROPERTIES =====================
+
+# --- From Step 1 (CQ-OBJ-01) ---
+
+arqo:hasProcurementType a owl:DatatypeProperty ;
+    rdfs:domain arqo:ProcurementEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasProcurementType"@en ;
+    rdfs:comment "Type of procurement: extraction, acquisition, or collection"@en .
+
+arqo:hasRawMaterialProvenance a owl:DatatypeProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasRawMaterialProvenance"@en ;
+    rdfs:comment "Description of the geological or biological provenance of raw materials"@en .
+
+# --- From Step 2 (CQ-OBJ-02) ---
+
+arqo:hasReuseContext a owl:DatatypeProperty ;
+    rdfs:domain arqo:LateralCyclingEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasReuseContext"@en ;
+    rdfs:comment "Description of the new social context in which the object was laterally cycled"@en .
+
+# --- From Step 3 (CQ-OBJ-03) ---
+
+arqo:hasDiscardIntentionality a owl:DatatypeProperty ;
+    rdfs:domain arqo:DiscardEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasDiscardIntentionality"@en ;
+    rdfs:comment "Behavioral motivation behind the discard: intentional discard, transport to refuse area, or abandonment without intentional discard"@en .
+
+# --- New in Step 4 (CQ-OBJ-04) ---
+
+arqo:hasPersonaLabel a owl:DatatypeProperty ;
+    rdfs:domain arqo:SocialPersona ;
+    rdfs:range xsd:string ;
+    rdfs:label "hasPersonaLabel"@en ;
+    rdfs:comment "Human-readable label for the social persona (e.g., 'utilitarian tool', 'ritual offering', 'museum specimen')"@en .
+
+# ===================== RESTRICTIONS =======================
+
+# --- From Step 1 (CQ-OBJ-01) ---
+
+arqo:ArchaeologicalObject rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:wasProcuredBy ;
+    owl:minCardinality "0"^^xsd:nonNegativeInteger
+] .
+
+arqo:ProcurementEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:procurementOccurredAt ;
+    owl:someValuesFrom arqo:RawMaterialSource
+] .
+
+# --- From Step 2 (CQ-OBJ-02) ---
+
+arqo:LateralCyclingEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty crm:P12_occurred_in_the_presence_of ;
+    owl:someValuesFrom arqo:ArchaeologicalObject
+] .
+
+arqo:RecyclingEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:recyclingProducedObject ;
+    owl:someValuesFrom arqo:ArchaeologicalObject
+] .
+
+# --- From Step 3 (CQ-OBJ-03) ---
+
+arqo:DiscardEvent rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:discardOccurredAt ;
+    owl:someValuesFrom crm:E53_Place
+] .
+
+arqo:SecondaryRefuse rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:discardMovedTo ;
+    owl:someValuesFrom crm:E53_Place
+] .
+
+# --- New in Step 4 (CQ-OBJ-04) ---
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:transitionFromPersona ;
+    owl:someValuesFrom arqo:SocialPersona
+] .
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:transitionToPersona ;
+    owl:someValuesFrom arqo:SocialPersona
+] .
+
+arqo:SocialPersonaTransition rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty arqo:transitionAppliedTo ;
+    owl:someValuesFrom arqo:ArchaeologicalObject
+] .

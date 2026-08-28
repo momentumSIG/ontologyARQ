@@ -1,0 +1,114 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-20>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-20" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-20: What Munsell color values, surface texture descriptions, and visual appearance attributes does an archaeological object exhibit in its current state of preservation?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:VisualAttribute a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Visual Attribute"@en ;
+    rdfs:comment "A physical feature of an archaeological object pertaining to its visual appearance in the current state of preservation."@en .
+
+arqo:MunsellColorAttribute a owl:Class ;
+    rdfs:subClassOf arqo:VisualAttribute ;
+    rdfs:label "Munsell Color Attribute"@en ;
+    rdfs:comment "A visual attribute recording the Munsell color value of the object's surface, including hue, value, and chroma."@en .
+
+arqo:SurfaceTextureAttribute a owl:Class ;
+    rdfs:subClassOf arqo:VisualAttribute ;
+    rdfs:label "Surface Texture Attribute"@en ;
+    rdfs:comment "A visual attribute describing the tactile and visual texture of the object's surface (e.g., smooth, rough, gritty, polished)."@en .
+
+arqo:VisualAppearanceAttribute a owl:Class ;
+    rdfs:subClassOf arqo:VisualAttribute ;
+    rdfs:label "Visual Appearance Attribute"@en ;
+    rdfs:comment "A visual attribute describing the overall visual appearance, including luster, opacity, translucency, and surface reflectance."@en .
+
+arqo:ColorMeasurement a owl:Class ;
+    rdfs:subClassOf crmsci:S21_Measurement ;
+    rdfs:label "Color Measurement"@en ;
+    rdfs:comment "A measurement event that determined the Munsell color values of an archaeological object."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasVisualAttribute a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:VisualAttribute ;
+    rdfs:label "has visual attribute"@en ;
+    rdfs:comment "Links an archaeological object to a visual attribute characterizing its appearance."@en .
+
+arqo:colorDeterminedBy a owl:ObjectProperty ;
+    rdfs:domain arqo:MunsellColorAttribute ;
+    rdfs:range arqo:ColorMeasurement ;
+    rdfs:label "color determined by"@en ;
+    rdfs:comment "Links a Munsell color attribute to the measurement event that determined it."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasMunsellHue a owl:DatatypeProperty ;
+    rdfs:domain arqo:MunsellColorAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has Munsell hue"@en ;
+    rdfs:comment "The Munsell hue component (e.g., 10R, 5Y, 7.5YR)."@en .
+
+arqo:hasMunsellValue a owl:DatatypeProperty ;
+    rdfs:domain arqo:MunsellColorAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has Munsell value"@en ;
+    rdfs:comment "The Munsell value (lightness) component (e.g., 3, 5, 7)."@en .
+
+arqo:hasMunsellChroma a owl:DatatypeProperty ;
+    rdfs:domain arqo:MunsellColorAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has Munsell chroma"@en ;
+    rdfs:comment "The Munsell chroma (saturation) component (e.g., 2, 4, 6)."@en .
+
+arqo:hasMunsellNotation a owl:DatatypeProperty ;
+    rdfs:domain arqo:MunsellColorAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has Munsell notation"@en ;
+    rdfs:comment "The complete Munsell notation (e.g., 10R 4/6, 5Y 5/2)."@en .
+
+arqo:hasSurfaceTextureDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:SurfaceTextureAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has surface texture description"@en ;
+    rdfs:comment "A textual description of the surface texture (e.g., smooth, rough, gritty, polished, corroded)."@en .
+
+arqo:hasLusterDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:VisualAppearanceAttribute ;
+    rdfs:range xsd:string ;
+    rdfs:label "has luster description"@en ;
+    rdfs:comment "A textual description of the surface luster (e.g., metallic, vitreous, matte, silky)."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MunsellColorAttribute owl:disjointWith arqo:SurfaceTextureAttribute .
+arqo:SurfaceTextureAttribute owl:disjointWith arqo:VisualAppearanceAttribute .
+
+arqo:MunsellColorAttribute rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:hasMunsellNotation ;
+    owl:maxCardinality 1
+] .

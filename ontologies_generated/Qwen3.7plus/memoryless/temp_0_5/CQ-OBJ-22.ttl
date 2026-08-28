@@ -1,0 +1,100 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-22>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-22" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-22: Which significant features — diagnostically relevant attributes identified through systematic analysis — support the chronological or cultural assignment of an archaeological object, and how strong is the evidential link between each feature and the assigned period?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:SignificantFeature a owl:Class ;
+    rdfs:subClassOf crm:E26_Physical_Feature ;
+    rdfs:label "Significant Feature"@en ;
+    rdfs:comment "A diagnostically relevant physical feature of an archaeological object identified through systematic analysis that supports chronological or cultural assignment."@en .
+
+arqo:FeatureEvidenceLink a owl:Class ;
+    rdfs:subClassOf crm:E89_Propositional_Object ;
+    rdfs:label "Feature Evidence Link"@en ;
+    rdfs:comment "A reification of the evidential link between a significant feature and the chronological or cultural assignment it supports, including the strength of the evidence."@en .
+
+arqo:ChronologicalAssignment a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Chronological Assignment"@en ;
+    rdfs:comment "An assignment of a chronological period or date to an archaeological object based on significant features."@en .
+
+arqo:CulturalAssignment a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Cultural Assignment"@en ;
+    rdfs:comment "An assignment of a cultural affiliation or tradition to an archaeological object based on significant features."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:hasSignificantFeature a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:SignificantFeature ;
+    rdfs:label "has significant feature"@en ;
+    rdfs:comment "Links an archaeological object to a significant feature that supports its chronological or cultural assignment."@en .
+
+arqo:featureSupportsAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:SignificantFeature ;
+    rdfs:range arqo:FeatureEvidenceLink ;
+    rdfs:label "feature supports assignment"@en ;
+    rdfs:comment "Links a significant feature to the evidence link connecting it to a chronological or cultural assignment."@en .
+
+arqo:evidenceLinkSupportsAssignment a owl:ObjectProperty ;
+    rdfs:domain arqo:FeatureEvidenceLink ;
+    rdfs:range crm:E13_Attribute_Assignment ;
+    rdfs:label "evidence link supports assignment"@en ;
+    rdfs:comment "Links a feature evidence link to the chronological or cultural assignment it supports."@en .
+
+arqo:featureCorrespondsToCRMarchaeoProperty a owl:ObjectProperty ;
+    rdfs:domain arqo:SignificantFeature ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "feature corresponds to CRMarchaeo property"@en ;
+    rdfs:comment "Links a significant feature to the CRMarchaeo property level it exhibits: AP29 (appears in), AP31 (typical for), or AP30 (restricted to)."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasEvidentialStrength a owl:DatatypeProperty ;
+    rdfs:domain arqo:FeatureEvidenceLink ;
+    rdfs:range xsd:string ;
+    rdfs:label "has evidential strength"@en ;
+    rdfs:comment "The strength of the evidential link: weak (appears_in/AP29), moderate (typical_for/AP31), or strong (restricted_to/AP30)."@en .
+
+arqo:hasFeatureDescription a owl:DatatypeProperty ;
+    rdfs:domain arqo:SignificantFeature ;
+    rdfs:range xsd:string ;
+    rdfs:label "has feature description"@en ;
+    rdfs:comment "A textual description of the significant feature."@en .
+
+arqo:hasFeatureDiagnosticity a owl:DatatypeProperty ;
+    rdfs:domain arqo:SignificantFeature ;
+    rdfs:range xsd:string ;
+    rdfs:label "has feature diagnosticity"@en ;
+    rdfs:comment "The diagnostic value of the feature: highly_diagnostic, moderately_diagnostic, or weakly_diagnostic."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:FeatureEvidenceLink rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:evidenceLinkSupportsAssignment ;
+    owl:someValuesFrom crm:E13_Attribute_Assignment
+] .

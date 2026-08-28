@@ -1,0 +1,102 @@
+@prefix arqo: <http://www.ontologyARQ.org/archaeological-object/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmarchaeo: <http://www.cidoc-crm.org/crmarchaeo/> .
+@prefix crmsci: <http://www.cidoc-crm.org/crmsci/> .
+@prefix crminf: <http://www.cidoc-crm.org/crminf/> .
+@prefix crmhs: <http://www.cidoc-crm.org/crmhs/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<http://www.ontologyARQ.org/archaeological-object/CQ-OBJ-06>
+    a owl:Ontology ;
+    rdfs:label "Archaeological Object Ontology — CQ-OBJ-06" ;
+    rdfs:comment "OWL fragment answering CQ-OBJ-06: What maintenance events — preventive care, minor repairs, surface treatments, or functional adjustments — were performed on an object during its active use-life to sustain its original function?"@en .
+
+# ======================= CLASSES ===========================
+
+arqo:ArchaeologicalObject a owl:Class ;
+    rdfs:subClassOf crm:E19_Physical_Object ;
+    rdfs:label "Archaeological Object"@en ;
+    rdfs:comment "A physical object recovered from an archaeological context."@en .
+
+arqo:MaintenanceEvent a owl:Class ;
+    rdfs:subClassOf crm:E11_Modification ;
+    rdfs:label "Maintenance Event"@en ;
+    rdfs:comment "A modification event performed on an object during its active use-life to sustain its original function, including preventive care, minor repairs, surface treatments, and functional adjustments."@en .
+
+arqo:PreventiveCare a owl:Class ;
+    rdfs:subClassOf arqo:MaintenanceEvent ;
+    rdfs:label "Preventive Care"@en ;
+    rdfs:comment "A maintenance event involving proactive measures to prevent deterioration or damage to an object during use."@en .
+
+arqo:MinorRepair a owl:Class ;
+    rdfs:subClassOf arqo:MaintenanceEvent ;
+    rdfs:label "Minor Repair"@en ;
+    rdfs:comment "A maintenance event involving small-scale repairs that restore an object's functionality without transforming its essential form."@en .
+
+arqo:SurfaceTreatment a owl:Class ;
+    rdfs:subClassOf arqo:MaintenanceEvent ;
+    rdfs:label "Surface Treatment"@en ;
+    rdfs:comment "A maintenance event involving the application of coatings, polishing, or other surface modifications to protect or enhance the object."@en .
+
+arqo:FunctionalAdjustment a owl:Class ;
+    rdfs:subClassOf arqo:MaintenanceEvent ;
+    rdfs:label "Functional Adjustment"@en ;
+    rdfs:comment "A maintenance event involving minor modifications to adapt the object's performance while preserving its primary function."@en .
+
+# =================== OBJECT PROPERTIES =====================
+
+arqo:underwentMaintenance a owl:ObjectProperty ;
+    rdfs:domain arqo:ArchaeologicalObject ;
+    rdfs:range arqo:MaintenanceEvent ;
+    rdfs:label "underwent maintenance"@en ;
+    rdfs:comment "Links an archaeological object to a maintenance event performed during its active use-life."@en .
+
+arqo:maintenanceSustainsFunction a owl:ObjectProperty ;
+    rdfs:domain arqo:MaintenanceEvent ;
+    rdfs:range crm:E55_Type ;
+    rdfs:label "maintenance sustains function"@en ;
+    rdfs:comment "Links a maintenance event to the function type that was sustained through the maintenance activity."@en .
+
+arqo:maintenancePrecedesDiscard a owl:ObjectProperty ;
+    rdfs:domain arqo:MaintenanceEvent ;
+    rdfs:range crm:E5_Event ;
+    rdfs:label "maintenance precedes discard"@en ;
+    rdfs:comment "Links a maintenance event to the subsequent discard event, establishing the maintenance occurred during active use-life."@en .
+
+arqo:maintenanceFollowsUse a owl:ObjectProperty ;
+    rdfs:domain arqo:MaintenanceEvent ;
+    rdfs:range crm:E7_Activity ;
+    rdfs:label "maintenance follows use"@en ;
+    rdfs:comment "Links a maintenance event to the use activity that revealed the need for maintenance."@en .
+
+# ==================== DATA PROPERTIES =====================
+
+arqo:hasMaintenanceTechnique a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaintenanceEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has maintenance technique"@en ;
+    rdfs:comment "Describes the specific technique or method used in the maintenance event."@en .
+
+arqo:hasMaintenanceFrequency a owl:DatatypeProperty ;
+    rdfs:domain arqo:MaintenanceEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "has maintenance frequency"@en ;
+    rdfs:comment "Indicates whether the maintenance was routine, episodic, or one-time."@en .
+
+# ===================== RESTRICTIONS =======================
+
+arqo:MaintenanceEvent rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty arqo:maintenanceSustainsFunction ;
+    owl:someValuesFrom crm:E55_Type
+] .
+
+arqo:MinorRepair owl:disjointWith arqo:PreventiveCare .
+arqo:SurfaceTreatment owl:disjointWith arqo:FunctionalAdjustment .
