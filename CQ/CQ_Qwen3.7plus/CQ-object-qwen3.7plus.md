@@ -493,3 +493,135 @@
 **Pattern:** P4
 
 **Rationale:** Multivocality (brief §6, glossary) is the coexistence of rival interpretations about the same object. The brief (§1.1, §3.3 in analisis.docx) emphasizes that archaeological classification is always provisional and often contested. Modeling competing hypotheses with confidence levels and provenance enables transparent reasoning about interpretive uncertainty and supports evidence-based adjudication.
+
+---
+
+## Additional CQs — Extension concepts (CQ-OBJ-31 to CQ-OBJ-38)
+
+> **Note:** These 8 additional CQs explicitly target the concepts listed in brief §7 ("Conceptos que requieren extensión arqo:"). They reinforce coverage of archaeologically specific concepts that require `arqo:` extensions beyond CIDOC CRM/CRMarchaeo.
+
+### CQ-OBJ-31
+
+**Question:** What relational material properties — following Knappett's four properties (dependent, codependent, independent, interdependent) — characterize an archaeological object beyond its physical composition, and how do these relational properties reflect social and cultural connections?
+
+**Ontology modules required:** Archaeological Object Module, Materiality Module
+
+**Possible ontology reuse:** CIDOC CRM (`E19_Physical_Object`, `E57_Material`, `E1_CRM_Entity`), CRMarchaeo (`A8_Stratigraphic_Unit`)
+
+**Complexity:** advanced
+
+**Pattern:** P2
+
+**Rationale:** Brief §7.1 emphasizes that materiality is not just physical composition but relational. Knappett's four properties capture how materials mediate social relationships. CRM's E57_Material only captures physical substance, not relational properties. This CQ requires creating `arqo:MaterialRelation` to reify these relational properties.
+
+---
+
+### CQ-OBJ-32
+
+**Question:** What affordances — perceived properties that enable or constrain specific actions — does an archaeological object exhibit, and how do these affordances relate to its material agency in shaping human behavior according to Gibson's and Hodder's theoretical frameworks?
+
+**Ontology modules required:** Archaeological Object Module, Social Agency Module, Interpretation Module
+
+**Possible ontology reuse:** CIDOC CRM (`E19_Physical_Object`, `E26_Physical_Feature`, `E7_Activity`), CRMinf (`I4_Proposition_Set`)
+
+**Complexity:** advanced
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.2 emphasizes that objects are not passive but actively structure interaction through affordances (Gibson) and entanglement (Hodder). CRM does not model affordances or material agency. This CQ requires creating `arqo:MaterialAgencyAttribution` to capture the interpretive attribution of agency to an object's physical properties.
+
+---
+
+### CQ-OBJ-33
+
+**Question:** What is the strength of the typological-to-period relationship for an archaeological object — weak (the type appears in the period, AP29), moderate (the type is typical for the period, AP31), or strong (the type is restricted exclusively to the period, AP30) — and what evidence supports this strength assessment?
+
+**Ontology modules required:** Archaeological Object Module, Classification Module, Chronology Module
+
+**Possible ontology reuse:** CRMarchaeo (`AP29_appears_in`, `AP30_restricted_to`, `AP31_typical_for`, `E55_Type`, `E4_Period`), CIDOC CRM (`E17_Type_Assignment`)
+
+**Complexity:** advanced
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.3 emphasizes that type-to-period relationships have three distinct strength levels. CRMarchaeo has AP29/AP30/AP31 as properties but does not reify them as entities with explicit strength. This CQ requires creating `arqo:TypeToPeriodRelationship` to capture the strength level as a first-class entity.
+
+---
+
+### CQ-OBJ-34
+
+**Question:** What significant features — diagnostically relevant physical attributes identified through systematic analysis — support the chronological or cultural assignment of an archaeological object, and what is the strength of the evidential link between each feature and the assigned period or culture?
+
+**Ontology modules required:** Archaeological Object Module, Classification Module, Evidence Module
+
+**Possible ontology reuse:** CIDOC CRM (`E26_Physical_Feature`, `E17_Type_Assignment`, `E1_CRM_Entity`), CRMarchaeo (`A8_Stratigraphic_Unit`)
+
+**Complexity:** advanced
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.4 emphasizes that significant features are not just physical attributes but diagnostically relevant ones with evidential value. CRM's E26_Physical_Feature captures general features but not their diagnostic/evidential role. This CQ requires creating `arqo:SignificantFeature` and `arqo:FeatureEvidenceLink` to capture both the feature and its evidential strength.
+
+---
+
+### CQ-OBJ-35
+
+**Question:** To which compositional group (Leitlegierung) — defined by diagnostic elemental ratios or alloy signatures — has a metallic archaeological object been assigned, and what analytical technique produced the compositional data supporting this assignment?
+
+**Ontology modules required:** Archaeological Object Module, Archaeometry Module, Classification Module
+
+**Possible ontology reuse:** CIDOC CRM (`E55_Type`, `E17_Type_Assignment`, `E16_Measurement`), CRMsci (`S21_Measurement`, `S4_Observation`)
+
+**Complexity:** intermediate
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.5 emphasizes that compositional groups (Leitlegierungen) are specific to archaeometallurgy and based on analytical data. CRM's E55_Type is too general to capture compositional groups defined by elemental ratios. This CQ requires creating `arqo:CompositionalGroup` and `arqo:CompositionalGroupAssignment` to capture this archaeometrically specific concept.
+
+---
+
+### CQ-OBJ-36
+
+**Question:** What functional interpretation has been assigned to an archaeological object — distinguishing primary intended function (original design purpose), secondary acquired function (function adopted during use-life), and researcher-attributed function (function proposed by investigators) — and what evidence supports each functional assignment?
+
+**Ontology modules required:** Archaeological Object Module, Interpretation Module, Use Module
+
+**Possible ontology reuse:** CIDOC CRM (`E13_Attribute_Assignment`, `E55_Type`, `E7_Activity`), CRMarchaeo (`A8_Stratigraphic_Unit`)
+
+**Complexity:** intermediate
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.6 emphasizes that functional assignment has three distinct levels. CRM's E13_Attribute_Assignment captures general attribute assignment but does not distinguish the three functional levels. This CQ requires creating `arqo:FunctionalAssignment` to capture the specific type of functional interpretation.
+
+---
+
+### CQ-OBJ-37
+
+**Question:** What cultural, symbolic, or ritual significance has been attributed to an archaeological object by different researchers, descendant communities, or institutional narratives, and how do these attributed meanings conflict or converge?
+
+**Ontology modules required:** Archaeological Object Module, Interpretation Module, Social Module
+
+**Possible ontology reuse:** CIDOC CRM (`E13_Attribute_Assignment`, `E89_Propositional_Object`, `E39_Actor`), CRMinf (`I4_Proposition_Set`)
+
+**Complexity:** advanced
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.7 emphasizes that cultural significance is attributed, not intrinsic, and can vary across stakeholders. CRM does not specifically model cultural significance attribution as a distinct interpretive act. This CQ requires creating `arqo:CulturalSignificanceAssignment` to capture this socially constructed attribution.
+
+---
+
+### CQ-OBJ-38
+
+**Question:** What competing or contradictory interpretive hypotheses exist regarding the identity, chronology, function, or cultural meaning of an archaeological object, and how does the ontology represent the multivocality of interpretations without privileging a single "correct" interpretation?
+
+**Ontology modules required:** Archaeological Object Module, Inference Module, Interpretation Module
+
+**Possible ontology reuse:** CRMinf (`I4_Proposition_Set`, `I2_Belief`), CRMsci (`S5_Inference_Making`), CIDOC CRM (`E89_Propositional_Object`)
+
+**Complexity:** advanced
+
+**Pattern:** P4
+
+**Rationale:** Brief §7.8 emphasizes that multivocality is the coexistence of rival interpretations. While CQ-OBJ-30 addresses competing hypotheses, this CQ explicitly requires the ontology to represent multivocality as a first-class concept without privileging any single interpretation. This CQ reinforces the need for `arqo:InterpretiveHypothesis` to capture competing propositions as equal entities.

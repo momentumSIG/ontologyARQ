@@ -236,6 +236,123 @@ Un portador físico transita por múltiples identidades proposicionales (E89): h
 
 ---
 
+## 7. Conceptos que requieren extensión arqo:
+
+Los siguientes conceptos del dominio **NO están adecuadamente capturados por CIDOC CRM/CRMarchaeo** y requieren la creación de clases `arqo:` nuevas. Esta sección es una guía para la generación de ontologías: cuando una CQ toque estos conceptos, **deben crearse extensiones `arqo:`** en lugar de forzar el reuso de clases CRM.
+
+### 7.1 Materialidad relacional (Knappett)
+
+**Concepto:** Las propiedades materiales no son solo composición física, sino relaciones sociales y culturales. Knappett identifica cuatro propiedades: dependiente (relaciones materiales), codependiente (relaciones sociales), independiente (vital), interdependiente (plural).
+
+**Clases arqo:**
+- `arqo:MaterialRelation` - Reified relationship between material components
+- `arqo:MaterialComponent` - Material constituent of an archaeological object
+
+**Justificación:** CRM solo captura composición física (E57_Material), no las relaciones sociales/culturales que constituyen la materialidad.
+
+**CQs relacionadas:** CQ sobre composición material, propiedades relacionales.
+
+---
+
+### 7.2 Affordances y agencia material (Gibson, Hodder)
+
+**Concepto:** Los objetos no son pasivos: sus propiedades formales "establecen reglas de uso" y "canalizan intenciones humanas". El objeto estructura la interacción social mediante affordances (Gibson) y entanglement (Hodder).
+
+**Clases arqo:**
+- `arqo:MaterialAgencyAttribution` - Interpretive attribution of material agency (Gibson affordances, Hodder entanglement)
+
+**Justificación:** CRM no modela affordances ni la capacidad del objeto de canalizar acciones humanas.
+
+**CQs relacionadas:** CQ sobre función, uso, agencia del objeto.
+
+---
+
+### 7.3 Type-to-period strength (tres niveles)
+
+**Concepto:** La relación entre un tipo tipológico y un período cronológico tiene tres niveles de fuerza:
+- **Weak** (AP29: appears in) - el tipo aparece en el período
+- **Moderate** (AP31: typical for) - el tipo es típico del período
+- **Strong** (AP30: restricted to) - el tipo está restringido exclusivamente al período
+
+**Clases arqo:**
+- `arqo:TypeToPeriodRelationship` - Reified relationship with strength level (AP29/AP31/AP30)
+
+**Justificación:** CRMarchaeo tiene AP29/AP30/AP31 como propiedades, pero no las reifica como entidad con fuerza explícita.
+
+**CQs relacionadas:** CQ sobre tipología, cronología, clasificación.
+
+---
+
+### 7.4 Significant features (rasgos diagnósticos)
+
+**Concepto:** Atributos físicos diagnósticos identificados mediante análisis sistemático que apoyan la asignación cronológica o cultural de un objeto. No son propiedades generales, sino rasgos específicos con valor evidencial.
+
+**Clases arqo:**
+- `arqo:SignificantFeature` - Diagnostically relevant physical attribute
+- `arqo:FeatureEvidenceLink` - Reified evidential link between significant feature and period
+
+**Justificación:** CRM tiene E26_Physical_Feature (rasgos generales), pero no captura el valor diagnóstico/evidencial específico.
+
+**CQs relacionadas:** CQ sobre clasificación, atributos diagnósticos, evidencia.
+
+---
+
+### 7.5 Compositional groups / Leitlegierungen
+
+**Concepto:** Grupos de objetos metálicos que comparten ratios elementales característicos o firmas de aleación. Usados en arqueometalurgia para identificar tradición tecnológica o procedencia.
+
+**Clases arqo:**
+- `arqo:CompositionalGroup` - Group of metallic objects sharing elemental ratios (Leitlegierung)
+- `arqo:CompositionalGroupAssignment` - Assignment to a compositional group
+
+**Justificación:** CRM tiene E55_Type (tipos generales), pero no captura específicamente grupos compositivos basados en análisis químico.
+
+**CQs relacionadas:** CQ sobre composición, análisis metalúrgico, procedencia.
+
+---
+
+### 7.6 Functional assignment
+
+**Concepto:** Asignación interpretativa de función a un objeto arqueológico, distinguiendo:
+- **Primary intended function** - función original para la que fue diseñado
+- **Secondary acquired function** - función adquirida durante su vida útil
+- **Researcher-attributed function** - función atribuida por investigadores
+
+**Clases arqo:**
+- `arqo:FunctionalAssignment` - Interpretive assignment of function
+
+**Justificación:** CRM tiene E17_Type_Assignment (asignación de tipos), pero no captura específicamente la asignación funcional con sus tres niveles.
+
+**CQs relacionadas:** CQ sobre función, uso, interpretación.
+
+---
+
+### 7.7 Cultural significance
+
+**Concepto:** Atribución de significado cultural, simbólico o ritual a un objeto por investigadores, comunidades descendientes o narrativas institucionales. El significado no es intrínseco al objeto, sino atribuido socialmente.
+
+**Clases arqo:**
+- `arqo:CulturalSignificanceAssignment` - Attribution of cultural, symbolic, or ritual significance
+
+**Justificación:** CRM no modela específicamente la atribución de significado cultural/ritual como acto interpretativo.
+
+**CQs relacionadas:** CQ sobre significado, valor cultural, interpretación.
+
+---
+
+### 7.8 Competing hypotheses / Multivocality
+
+**Concepto:** Coexistencia de proposiciones interpretativas rivales o contradictorias sobre la identidad, cronología, función o significado cultural de un objeto arqueológico. La multivocalidad reconoce que no hay una única interpretación "correcta".
+
+**Clases arqo:**
+- `arqo:InterpretiveHypothesis` - Competing interpretive proposition regarding the object
+
+**Justificación:** CRMinf tiene I4_Proposition_Set (conjuntos proposicionales), pero no captura específicamente la competencia/contradicción entre hipótesis.
+
+**CQs relacionadas:** CQ sobre interpretación, hipótesis, multivocalidad, certeza.
+
+---
+
 **Fuentes consultadas:**
 - Schiffer 1972, 1975, 1976, 1983 (behavioral archaeology, formation processes)
 - Materiality in Archaeological Theory (Knappett, Gosden, Hodder, Ingold)

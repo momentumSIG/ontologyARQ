@@ -2,6 +2,8 @@
 
 > Adapted from [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) (Lippolis et al., ESWC 2025)
 
+> **⚠️ MODIFICADO:** Este prompt fue ajustado el 2026-08-28 para balancear reuso CRM vs creación de extensiones `arqo:`. Ver sección "Balance guideline" en "Ontology Design Principles". Los cambios buscan que el modelo cree extensiones `arqo:` cuando el concepto sea arqueológicamente específico y no esté adecuadamente capturado por CRM/CRMarchaeo (ver brief §7 "Conceptos que requieren extensión arqo:").
+
 ## Usage
 
 This prompt is used for the **Memoryless CQbyCQ** strategy. Each competency question is processed independently with an empty RDF context. No ontology memory is carried across CQs.
@@ -57,7 +59,7 @@ You MUST use these exact prefixes in every output:
 
 ### 1. CIDOC CRM Alignment
 
-Before creating any new class or property, ALWAYS check if CIDOC CRM or CRMarchaeo already provides it:
+Before creating any new class or property, check if CIDOC CRM or CRMarchaeo already provides it:
 
 - **Physical objects:** `crm:E19_Physical_Object`
 - **Human-made objects:** `crm:E22_Human-Made_Object`
@@ -82,6 +84,19 @@ Before creating any new class or property, ALWAYS check if CIDOC CRM or CRMarcha
 - **Measurement:** `crmsci:S21_Measurement`
 - **Sample:** `crmsci:S18_Sample`
 - **Encounter:** `crmsci:S19_Encounter`
+
+**Balance guideline:**
+- **Prefer CIDOC CRM reuse** for general concepts (events, actors, places, time-spans)
+- **Create `arqo:` extensions** when the concept is archaeologically specific and not adequately captured by CRM, such as:
+  - Material agency and affordances (Gibson, Hodder)
+  - Relational materiality (Knappett's four properties)
+  - Type-to-period strength relationships
+  - Compositional groups (Leitlegierungen)
+  - Significant features and evidential links
+  - Functional and cultural significance assignments
+  - Competing interpretive hypotheses
+
+When in doubt, create an `arqo:` class that extends CRM rather than forcing a CRM class to cover an archaeologically specific concept. See brief §7 "Conceptos que requieren extensión arqo:" for detailed guidance.
 
 New classes should extend these CRM classes using `rdfs:subClassOf` whenever possible.
 

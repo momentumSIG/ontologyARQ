@@ -3,6 +3,8 @@
 > Adapted from [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) (Lippolis et al., ESWC 2025)
 > Metacognitive prompting technique for iterative ontology extension
 
+> **⚠️ MODIFICADO:** Este prompt fue ajustado el 2026-08-28 para balancear reuso CRM vs creación de extensiones `arqo:`. Los cambios buscan que el modelo cree extensiones `arqo:` cuando el concepto sea arqueológicamente específico y no esté adecuadamente capturado por CRM/CRMarchaeo (ver brief §7 "Conceptos que requieren extensión arqo:").
+
 ## Usage
 
 This prompt is used for the **Ontogenia** strategy. Each competency question is processed iteratively with the LLM receiving the accumulated RDF from all previous steps. The metacognitive procedure guides the LLM through a structured 9-step ontology design process.
@@ -16,7 +18,7 @@ This prompt is used for the **Ontogenia** strategy. Each competency question is 
 | `{procedure}` | The 9-step metacognitive procedure (see `procedure.md`) |
 | `{previous_output}` | Accumulated RDF from all previous CQ steps (empty for step 1) |
 | `{patterns_json}` | Ontology Design Patterns in Turtle format (see below) |
-| `{ontology_elements}` | "Classes, Object Properties, Datatype Properties. Object properties need domain and range. All need rdfs:label and rdfs:comment. Add restrictions where justified. Prefer CIDOC CRM alignment. Reify assignments (E17_Type_Assignment pattern) and observations (S4_Observation pattern)."
+| `{ontology_elements}` | "Classes, Object Properties, Datatype Properties. Object properties need domain and range. All need rdfs:label and rdfs:comment. Add restrictions where justified. **Balance guideline:** Prefer CIDOC CRM reuse for general concepts, but create `arqo:` extensions when the concept is archaeologically specific and not adequately captured by CRM (e.g., material agency/affordances, relational materiality, type-to-period strength, compositional groups/Leitlegierungen, significant features, functional/cultural significance assignments, competing hypotheses). See brief §7 'Conceptos que requieren extensión arqo:' for detailed guidance. Reify assignments (E17_Type_Assignment pattern) and observations (S4_Observation pattern)."
 
 ### Temperature guidance
 
