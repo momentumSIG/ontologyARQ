@@ -99,6 +99,8 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **P4 — Assignment-Intrinsic** | 10             | 7 (CQ-OBJ-32 a 38) | **17** |
 | **TOTAL**                     | **30**         | **8**              | **38** |
 
+> **Qué son las "CQs adicionales":** son 8 preguntas añadidas en una segunda iteración, después de las 30 iniciales, para asegurar que los conceptos del brief §7 tuvieran cobertura. Al revisarlas, **solo 1 (la 31) aporta un concepto nuevo**: las otras 7 refuerzan o duplican conceptos ya presentes en las 30 originales (ver análisis detallado en la sección "CQs del piloto clasificadas por patrón y subgrupo").
+
 
 ### Comparativa lado a lado
 
@@ -142,7 +144,7 @@ Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** seg
 |---|---|---|
 | **P2.1 Composición y materialidad** | CQ-OBJ-11 | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta? |
 | | CQ-OBJ-12 | ¿Cuál es la composición material del objeto? |
-| | CQ-OBJ-31 *(refuerzo)* | ¿Qué propiedades materiales relacionales (Knappett) caracterizan al objeto? |
+| | CQ-OBJ-31 *(nueva)* | ¿Qué propiedades materiales relacionales (Knappett) caracterizan al objeto? |
 | **P2.2 Alteración y forma** | CQ-OBJ-16 | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta? |
 | | CQ-OBJ-17 | ¿Cuál es su estado de fragmentación y qué proporción se conserva? |
 | | CQ-OBJ-18 | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene? |
@@ -161,20 +163,32 @@ Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** seg
 | | CQ-OBJ-23 | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
 | | CQ-OBJ-24 | ¿A qué grupo composicional (Leitlegierung) pertenece? |
 | | CQ-OBJ-29 | ¿A qué universo estilístico ha sido asignado? |
-| | CQ-OBJ-33 *(refuerzo)* | *(repite el concepto de CQ-OBJ-23)* |
-| | CQ-OBJ-34 *(refuerzo)* | *(repite el concepto de CQ-OBJ-22)* |
-| | CQ-OBJ-35 *(refuerzo)* | *(repite el concepto de CQ-OBJ-24)* |
+| | CQ-OBJ-33 *(duplicado de CQ-OBJ-23)* | *(repite el concepto de CQ-OBJ-23)* |
+| | CQ-OBJ-34 *(duplicado de CQ-OBJ-22)* | *(repite el concepto de CQ-OBJ-22)* |
+| | CQ-OBJ-35 *(duplicado de CQ-OBJ-24)* | *(repite el concepto de CQ-OBJ-24)* |
 | **P4.2 Función** | CQ-OBJ-26 | ¿Qué interpretación funcional se le ha asignado? |
-| | CQ-OBJ-36 *(refuerzo)* | *(repite el concepto de CQ-OBJ-26)* |
+| | CQ-OBJ-36 *(duplicado de CQ-OBJ-26)* | *(repite el concepto de CQ-OBJ-26)* |
 | **P4.3 Significado y agencia** | CQ-OBJ-27 | ¿Qué significado cultural/simbólico/ritual se le atribuye? |
 | | CQ-OBJ-28 | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico? |
-| | CQ-OBJ-32 *(refuerzo)* | ¿Qué affordances presenta y cómo canalizan la acción humana? |
-| | CQ-OBJ-37 *(refuerzo)* | *(repite el concepto de CQ-OBJ-27)* |
+| | CQ-OBJ-32 *(duplica conceptualmente CQ-OBJ-28)* | ¿Qué affordances presenta y cómo canalizan la acción humana? |
+| | CQ-OBJ-37 *(duplicado de CQ-OBJ-27)* | *(repite el concepto de CQ-OBJ-27)* |
 | **P4.4 Conocimiento y evidencia** | CQ-OBJ-25 | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan? |
 | | CQ-OBJ-30 | ¿Qué hipótesis interpretativas rivales existen sobre el objeto? |
-| | CQ-OBJ-38 *(refuerzo)* | *(repite el concepto de CQ-OBJ-30)* |
+| | CQ-OBJ-38 *(duplicado de CQ-OBJ-30)* | *(repite el concepto de CQ-OBJ-30)* |
 
-> **Importante sobre las CQs marcadas "refuerzo":** las CQs **31–38** se añadieron en la última iteración para reforzar los conceptos que el brief identifica como necesitados de extensión (`arqo:`). Seis de ellas (**33, 34, 35, 36, 37, 38**) son **reformulaciones del mismo concepto** que las CQs 23, 22, 24, 26, 27 y 30 respectivamente. Se mantienen por trazabilidad, pero **el conteo de conceptos distintos es de 30 CQs**, no 38.
+> **Importante: qué son las CQs "adicionales" y cuántas son realmente distintas**
+>
+> Las CQs **31–38** son **8 preguntas añadidas en una segunda iteración** del piloto, después de las 30 iniciales. Se añadieron con un objetivo: asegurar que los 8 conceptos del brief que requieren clases propias del proyecto (brief §7) tuvieran al menos una pregunta que los forzara.
+>
+> Al revisarlas una a una, su relación con las 30 primeras es la siguiente:
+>
+> | Tipo | CQs | Detalle |
+> |---|---|---|
+> | **Duplicados exactos** | 33, 34, 35, 36, 37, 38 | **6 CQs** — reformulan preguntas ya existentes (23, 22, 24, 26, 27, 30). Cinco son literalmente idénticas o casi idénticas. |
+> | **Duplicado conceptual** | 32 | **1 CQ** — pregunta por *affordances*, que es el mismo apartado del brief (§7.2) ya cubierto por la CQ 28 (*agencia material*). Son conceptos teóricos hermanos (Gibson/Hodder) que el brief trata como uno solo. |
+> | **Concepto nuevo** | 31 | **1 CQ** — la *materialidad relacional* (las 4 propiedades de Knappett) no estaba cubierta por ninguna pregunta anterior. La CQ 12 pregunta por *composición* (de qué está hecho); la 31 pregunta por las *relaciones sociales del material*. |
+>
+> **Conclusión:** de las 38 CQs totales, **31 son conceptos distintos** (30 originales + 1 genuinamente nuevo). Las 7 restantes son refuerzos o duplicados que se mantienen por trazabilidad.
 
 ### CQs de Qwen 3.6, clasificadas por patrón (referencia)
 
@@ -536,7 +550,7 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 **Qwen 3.7-plus:**
 
 - Las 38 CQs cubren los conceptos clave del brief §1 (biografía, materialidad, contexto, tipología, agencia, pastness, relojes internos, archivo)
-- Las 8 CQs adicionales (§7) fuerzan los conceptos de extensión
+- Las 8 CQs adicionales (§7) refuerzan los conceptos de extensión; de ellas, solo la 31 aporta un concepto nuevo, mientras que las 32–38 solapan con preguntas ya existentes
 
 ### 2. Patrones de modelado
 
@@ -762,7 +776,7 @@ Estas mejoras **no están implementadas todavía** y se proponen para las próxi
 
 | # | Propuesta | Qué resolvería | Esfuerzo |
 |---|---|---|---|
-| 1 | **Consolidar las CQs duplicadas** | Las CQs 33–38 reformulan conceptos ya cubiertos por las 22–30. Consolidarlas daría un set limpio de 30 CQs distintas | Bajo |
+| 1 | **Consolidar las CQs duplicadas** | Las CQs 32–38 reformulan conceptos ya cubiertos por las 22–30. Consolidarlas daría un set limpio de **31 conceptos distintos** | Bajo |
 | 2 | **Adoptar los subgrupos temáticos** (P1.1, P1.2…) como estructura oficial | Facilita la lectura, la validación con expertos y la detección de vacíos temáticos | Bajo |
 | 3 | **Validación intermedia** (concepto → CQ) | Detecta automáticamente si algún concepto del brief no tiene pregunta asignada | Medio |
 | 4 | **Evaluación con expertos arqueólogos** | Valida que las preguntas y las clases sean arqueológicamente correctas, no solo técnicamente válidas | Medio |
@@ -881,7 +895,7 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 1. El piloto usa menos preguntas (38 vs 50) pero **más específicas y mejor fundamentadas teóricamente**
 2. La distribución por patrón es más equilibrada en el piloto
-3. Las 8 preguntas añadidas garantizan que los conceptos teóricos del dominio queden cubiertos (aunque 6 de ellas refuercen conceptos ya existentes)
+3. De las 38 preguntas, **31 son conceptos distintos**: las 8 adicionales refuerzan los conceptos del brief, pero 7 de ellas solapan con preguntas ya existentes
 
 ### Sobre la ontología generada
 
@@ -900,7 +914,7 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 1. ⏳ Implementar la validación concepto → pregunta (detecta conceptos sin cobertura)
 2. Regenerar las ontologías con los prompts mejorados y comparar antes/después
-3. Consolidar las preguntas duplicadas (31–38) para dejar un set limpio de 30
+3. Consolidar las preguntas duplicadas (32–38) para dejar un set limpio de **31 conceptos distintos**
 4. Ejecutar el pipeline completo en ambas estrategias de generación
 
 
