@@ -93,71 +93,85 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:ArchaeologicalObject
 
-**Label:** ArchaeologicalObject
+**Nombre:** ArchaeologicalObject
 
-**Superclase:** crm:E19_Physical_Object
+**Superclase:** `crm:E19_Physical_Object (objeto físico)`
 
-**Descripción:** Physical object recovered during archaeological investigation
+**Descripción:** Objeto físico recuperado durante una investigación arqueológica.
+
+<sub>Original (EN): Physical object recovered during archaeological investigation</sub>
 
 ---
 
 ### arqo:ComponentPart
 
-**Label:** ComponentPart
+**Nombre:** ComponentPart
 
-**Superclase:** crm:E19_Physical_Object
+**Superclase:** `crm:E19_Physical_Object (objeto físico)`
 
-**Descripción:** Physical component of a composite archaeological object, such as a handle, lid, blade, shaft, inlay, or attachment
+**Descripción:** Parte física de un objeto arqueológico compuesto (asa, tapa, hoja, vástago, incrustación o adhesivo).
+
+<sub>Original (EN): Physical component of a composite archaeological object, such as a handle, lid, blade, shaft, inlay, or attachment</sub>
 
 ---
 
 ### arqo:MaterialAgencyAttribution
 
-**Label:** MaterialAgencyAttribution
+**Nombre:** MaterialAgencyAttribution
 
-**Superclase:** crminf:I4_Proposition_Set
+**Superclase:** `crminf:I4_Proposition_Set (conjunto proposicional (inferencia))`
 
-**Descripción:** Interpretive attribution of material agency to an object: the capacity of its form, material properties, or cultural associations to channel, constrain, or enable human actions (Gibson affordances, Hodder entanglement)
+**Descripción:** Atribución interpretativa de agencia material a un objeto: la capacidad de su forma, propiedades materiales o asociaciones culturales de canalizar, limitar o permitir acciones humanas (affordances de Gibson, entanglement de Hodder).
+
+<sub>Original (EN): Interpretive attribution of material agency to an object: the capacity of its form, material properties, or cultural associations to channel, constrain, or enable human actions (Gibson affordances, Hodder entanglement)</sub>
 
 ---
 
 ### arqo:MaterialComponent
 
-**Label:** MaterialComponent
+**Nombre:** MaterialComponent
 
-**Superclase:** crm:E57_Material
+**Superclase:** `crm:E57_Material (material)`
 
-**Descripción:** Material constituent of an archaeological object
+**Descripción:** Componente material de un objeto arqueológico.
+
+<sub>Original (EN): Material constituent of an archaeological object</sub>
 
 ---
 
 ### arqo:MaterialRelation
 
-**Label:** MaterialRelation
+**Nombre:** MaterialRelation
 
-**Superclase:** crm:E1_CRM_Entity
+**Superclase:** `crm:E1_CRM_Entity (entidad (raíz del estándar))`
 
-**Descripción:** Reified relationship between material components (Knappett)
+**Descripción:** Relación reificada entre componentes materiales (Knappett).
+
+<sub>Original (EN): Reified relationship between material components (Knappett)</sub>
 
 ---
 
 ### arqo:ObjectBiography
 
-**Label:** ObjectBiography
+**Nombre:** ObjectBiography
 
-**Superclase:** crm:E5_Event
+**Superclase:** `crm:E5_Event (evento)`
 
-**Descripción:** Ordered sequence of biographical events
+**Descripción:** Secuencia ordenada de eventos biográficos.
+
+<sub>Original (EN): Ordered sequence of biographical events</sub>
 
 ---
 
 ### arqo:RawMaterialSource
 
-**Label:** RawMaterialSource
+**Nombre:** RawMaterialSource
 
-**Superclase:** crm:E53_Place
+**Superclase:** `crm:E53_Place (lugar)`
 
-**Descripción:** Geological or geographic source of raw materials
+**Descripción:** Fuente geológica o geográfica de materias primas.
+
+<sub>Original (EN): Geological or geographic source of raw materials</sub>
 
 ---
 
@@ -165,21 +179,25 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:SocialPersona
 
-**Label:** SocialPersona
+**Nombre:** SocialPersona
 
-**Superclase:** crm:E89_Propositional_Object
+**Superclase:** `crm:E89_Propositional_Object (objeto proposicional (idea/afirmación))`
 
-**Descripción:** Culturally attributed identity of an object
+**Descripción:** Identidad culturalmente atribuida a un objeto.
+
+<sub>Original (EN): Culturally attributed identity of an object</sub>
 
 ---
 
 ### arqo:SocialPersonaTransition
 
-**Label:** SocialPersonaTransition
+**Nombre:** SocialPersonaTransition
 
-**Superclase:** crm:E5_Event
+**Superclase:** `crm:E5_Event (evento)`
 
-**Descripción:** Change of object social persona
+**Descripción:** Cambio de persona social de un objeto.
+
+<sub>Original (EN): Change of object social persona</sub>
 
 ---
 
@@ -187,31 +205,37 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:CraftTradition
 
-**Label:** CraftTradition
+**Nombre:** CraftTradition
 
-**Superclase:** crm:E74_Group
+**Superclase:** `crm:E74_Group (grupo)`
 
-**Descripción:** Community of practice sharing technical knowledge
+**Descripción:** Comunidad de práctica que comparte conocimiento técnico.
+
+<sub>Original (EN): Community of practice sharing technical knowledge</sub>
 
 ---
 
 ### arqo:ProcurementEvent
 
-**Label:** ProcurementEvent
+**Nombre:** ProcurementEvent
 
-**Superclase:** crm:E9_Move
+**Superclase:** `crm:E9_Move (movimiento)`
 
-**Descripción:** Event of raw material extraction, acquisition, or collection
+**Descripción:** Evento de extracción, adquisición o recolección de materia prima.
+
+<sub>Original (EN): Event of raw material extraction, acquisition, or collection</sub>
 
 ---
 
 ### arqo:TechnicalAction
 
-**Label:** TechnicalAction
+**Nombre:** TechnicalAction
 
-**Superclase:** crm:E7_Activity
+**Superclase:** `crm:E7_Activity (actividad)`
 
-**Descripción:** Individual step within a chaîne opératoire
+**Descripción:** Paso individual dentro de una cadena operativa.
+
+<sub>Original (EN): Individual step within a chaîne opératoire</sub>
 
 ---
 
@@ -219,81 +243,97 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:DeFactoRefuse
 
-**Label:** DeFactoRefuse
+**Nombre:** DeFactoRefuse
 
-**Superclase:** arqo:DiscardEvent
+**Superclase:** `arqo:DiscardEvent`
 
-**Descripción:** Abandonment without intentional discard
+**Descripción:** Abandono sin descarte intencional.
+
+<sub>Original (EN): Abandonment without intentional discard</sub>
 
 ---
 
 ### arqo:LateralCyclingEvent
 
-**Label:** LateralCyclingEvent
+**Nombre:** LateralCyclingEvent
 
-**Superclase:** arqo:ReuseEvent
+**Superclase:** `arqo:ReuseEvent`
 
-**Descripción:** Reuse in different social context without function change
+**Descripción:** Reutilización en un contexto social diferente sin cambio de función.
+
+<sub>Original (EN): Reuse in different social context without function change</sub>
 
 ---
 
 ### arqo:MaintenanceEvent
 
-**Label:** MaintenanceEvent
+**Nombre:** MaintenanceEvent
 
-**Superclase:** crm:E11_Modification
+**Superclase:** `crm:E11_Modification (modificación)`
 
-**Descripción:** Preventive care or repair during active use-life
+**Descripción:** Cuidado preventivo o reparación durante la vida útil activa.
+
+<sub>Original (EN): Preventive care or repair during active use-life</sub>
 
 ---
 
 ### arqo:PrimaryRefuse
 
-**Label:** PrimaryRefuse
+**Nombre:** PrimaryRefuse
 
-**Superclase:** arqo:DiscardEvent
+**Superclase:** `arqo:DiscardEvent`
 
-**Descripción:** Discard at place of use
+**Descripción:** Descarte en el lugar de uso.
+
+<sub>Original (EN): Discard at place of use</sub>
 
 ---
 
 ### arqo:RecyclingEvent
 
-**Label:** RecyclingEvent
+**Nombre:** RecyclingEvent
 
-**Superclase:** crm:E81_Transformation
+**Superclase:** `crm:E81_Transformation (transformación)`
 
-**Descripción:** Re-entry into manufacturing process
+**Descripción:** Reingreso en el proceso de fabricación.
+
+<sub>Original (EN): Re-entry into manufacturing process</sub>
 
 ---
 
 ### arqo:RefuseDistributionState
 
-**Label:** RefuseDistributionState
+**Nombre:** RefuseDistributionState
 
-**Superclase:** crm:E3_Condition_State
+**Superclase:** `crm:E3_Condition_State (estado de condición)`
 
-**Descripción:** Spatial-distributional condition of an object in the archaeological record: primary refuse (at place of use), secondary refuse (transported to disposal area), or de facto refuse (abandoned in situ)
+**Descripción:** Condición espacial-distribucional de un objeto en el registro arqueológico: desecho primario (en el lugar de uso), secundario (transportado a zona de desecho) o de facto (abandonado in situ).
+
+<sub>Original (EN): Spatial-distributional condition of an object in the archaeological record: primary refuse (at place of use), secondary refuse (transported to disposal area), or de facto refuse (abandoned in situ)</sub>
 
 ---
 
 ### arqo:ReuseEvent
 
-**Label:** ReuseEvent
+**Nombre:** ReuseEvent
 
-**Superclase:** crm:E7_Activity
+**Superclase:** `crm:E7_Activity (actividad)`
 
-**Descripción:** Event of object reuse after initial use phase
+**Descripción:** Evento de reutilización de un objeto tras su fase de uso inicial.
+
+<sub>Original (EN): Event of object reuse after initial use phase</sub>
 
 ---
 
 ### arqo:SecondaryRefuse
 
-**Label:** SecondaryRefuse
+**Nombre:** SecondaryRefuse
 
-**Superclase:** arqo:DiscardEvent
+**Superclase:** `arqo:DiscardEvent`
 
-**Descripción:** Discard transported to refuse area
+**Descripción:** Descarte transportado a la zona de desecho.
+
+<sub>Original (EN): Discard transported to refuse area</sub>
 
 ---
 
@@ -301,51 +341,61 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:CasualAbandonment
 
-**Label:** CasualAbandonment
+**Nombre:** CasualAbandonment
 
-**Superclase:** arqo:DepositionEvent
+**Superclase:** `arqo:DepositionEvent`
 
-**Descripción:** Unstructured loss or abandonment
+**Descripción:** Pérdida o abandono no estructurado.
+
+<sub>Original (EN): Unstructured loss or abandonment</sub>
 
 ---
 
 ### arqo:DepositionEvent
 
-**Label:** DepositionEvent
+**Nombre:** DepositionEvent
 
-**Superclase:** crmarchaeo:A4_Stratigraphic_Genesis
+**Superclase:** `crmarchaeo:A4_Stratigraphic_Genesis (génesis estratigráfica)`
 
-**Descripción:** Event placing object into stratigraphic record
+**Descripción:** Evento que sitúa un objeto en el registro estratigráfico.
+
+<sub>Original (EN): Event placing object into stratigraphic record</sub>
 
 ---
 
 ### arqo:DiscardEvent
 
-**Label:** DiscardEvent
+**Nombre:** DiscardEvent
 
-**Superclase:** crm:E5_Event
+**Superclase:** `crm:E5_Event (evento)`
 
-**Descripción:** Event of discard leading to archaeological record entry
+**Descripción:** Evento de descarte que conduce a la entrada en el registro arqueológico.
+
+<sub>Original (EN): Event of discard leading to archaeological record entry</sub>
 
 ---
 
 ### arqo:IntentionalBurial
 
-**Label:** IntentionalBurial
+**Nombre:** IntentionalBurial
 
-**Superclase:** arqo:DepositionEvent
+**Superclase:** `arqo:DepositionEvent`
 
-**Descripción:** Deliberate burial of an object
+**Descripción:** Enterramiento deliberado de un objeto.
+
+<sub>Original (EN): Deliberate burial of an object</sub>
 
 ---
 
 ### arqo:RitualOffering
 
-**Label:** RitualOffering
+**Nombre:** RitualOffering
 
-**Superclase:** arqo:DepositionEvent
+**Superclase:** `arqo:DepositionEvent`
 
-**Descripción:** Votive or ritual placement
+**Descripción:** Colocación votiva o ritual.
+
+<sub>Original (EN): Votive or ritual placement</sub>
 
 ---
 
@@ -353,31 +403,37 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:RecoveryDocumentation
 
-**Label:** RecoveryDocumentation
+**Nombre:** RecoveryDocumentation
 
-**Superclase:** crm:E31_Document
+**Superclase:** `crm:E31_Document (documento)`
 
-**Descripción:** Documentation produced during recovery
+**Descripción:** Documentación producida durante la recuperación.
+
+<sub>Original (EN): Documentation produced during recovery</sub>
 
 ---
 
 ### arqo:RecoveryEvent
 
-**Label:** RecoveryEvent
+**Nombre:** RecoveryEvent
 
-**Superclase:** crmarchaeo:A1_Excavation_Process_Unit
+**Superclase:** `crmarchaeo:A1_Excavation_Process_Unit (unidad de proceso de excavación)`
 
-**Descripción:** Excavation unit that recovered the object
+**Descripción:** Unidad de excavación que recuperó el objeto.
+
+<sub>Original (EN): Excavation unit that recovered the object</sub>
 
 ---
 
 ### arqo:RecoveryObservation
 
-**Label:** RecoveryObservation
+**Nombre:** RecoveryObservation
 
-**Superclase:** crmsci:S4_Observation
+**Superclase:** `crmsci:S4_Observation (observación científica)`
 
-**Descripción:** Observation during recovery
+**Descripción:** Observación durante la recuperación.
+
+<sub>Original (EN): Observation during recovery</sub>
 
 ---
 
@@ -385,11 +441,13 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:EmbeddingRelation
 
-**Label:** EmbeddingRelation
+**Nombre:** EmbeddingRelation
 
-**Superclase:** crmarchaeo:A7_Embedding
+**Superclase:** `crmarchaeo:A7_Embedding (embebido estratigráfico)`
 
-**Descripción:** Physical containment of an archaeological object within a stratigraphic volume unit with relative stability, following the CRMarchaeo embedding pattern (E18 - AP18i - A7 - AP19 - A2)
+**Descripción:** Contención física de un objeto arqueológico dentro de una unidad de volumen estratigráfico con estabilidad relativa.
+
+<sub>Original (EN): Physical containment of an archaeological object within a stratigraphic volume unit with relative stability, following the CRMarchaeo embedding pattern (E18 - AP18i - A7 - AP19 - A2)</sub>
 
 ---
 
@@ -397,41 +455,49 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:ClassificationMethod
 
-**Label:** ClassificationMethod
+**Nombre:** ClassificationMethod
 
-**Superclase:** crm:E29_Design_or_Procedure
+**Superclase:** `crm:E29_Design_or_Procedure (diseño o procedimiento)`
 
-**Descripción:** Method employed for typological classification: monothetic (single diagnostic attribute) or polythetic (cluster analysis of multiple attributes)
+**Descripción:** Método empleado para la clasificación tipológica: monotético (un único atributo diagnóstico) o politético (análisis de conglomerados de múltiples atributos).
+
+<sub>Original (EN): Method employed for typological classification: monothetic (single diagnostic attribute) or polythetic (cluster analysis of multiple attributes)</sub>
 
 ---
 
 ### arqo:CompositionalGroup
 
-**Label:** CompositionalGroup
+**Nombre:** CompositionalGroup
 
-**Superclase:** crm:E55_Type
+**Superclase:** `crm:E55_Type (tipo)`
 
-**Descripción:** Group of metallic objects sharing characteristic elemental ratios or alloy signatures (Leitlegierung)
+**Descripción:** Grupo de objetos metálicos que comparten ratios elementales característicos o firmas de aleación (Leitlegierung).
+
+<sub>Original (EN): Group of metallic objects sharing characteristic elemental ratios or alloy signatures (Leitlegierung)</sub>
 
 ---
 
 ### arqo:CompositionalGroupAssignment
 
-**Label:** CompositionalGroupAssignment
+**Nombre:** CompositionalGroupAssignment
 
-**Superclase:** crm:E17_Type_Assignment
+**Superclase:** `crm:E17_Type_Assignment (asignación de tipo)`
 
-**Descripción:** Assignment of a metallic object to a compositional group (Leitlegierung) defined by diagnostic elemental ratios or alloy signatures
+**Descripción:** Asignación de un objeto metálico a un grupo composicional (Leitlegierung) definido por ratios elementales o firmas de aleación diagnósticas.
+
+<sub>Original (EN): Assignment of a metallic object to a compositional group (Leitlegierung) defined by diagnostic elemental ratios or alloy signatures</sub>
 
 ---
 
 ### arqo:TypeToPeriodRelationship
 
-**Label:** TypeToPeriodRelationship
+**Nombre:** TypeToPeriodRelationship
 
-**Superclase:** crm:E1_CRM_Entity
+**Superclase:** `crm:E1_CRM_Entity (entidad (raíz del estándar))`
 
-**Descripción:** Reified relationship between a typological type and a chronological period, with explicit strength level following CRMarchaeo AP29 (weak), AP31 (moderate), AP30 (strong)
+**Descripción:** Relación reificada entre un tipo tipológico y un período cronológico, con nivel de fuerza explícito (débil/moderado/fuerte).
+
+<sub>Original (EN): Reified relationship between a typological type and a chronological period, with explicit strength level following CRMarchaeo AP29 (weak), AP31 (moderate), AP30 (strong)</sub>
 
 ---
 
@@ -439,21 +505,25 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:InternalClockIndicator
 
-**Label:** InternalClockIndicator
+**Nombre:** InternalClockIndicator
 
-**Superclase:** crm:E26_Physical_Feature
+**Superclase:** `crm:E26_Physical_Feature (rasgo físico)`
 
-**Descripción:** Measurable physical-chemical property serving as age indicator
+**Descripción:** Propiedad físico-química medible que sirve como indicador de edad.
+
+<sub>Original (EN): Measurable physical-chemical property serving as age indicator</sub>
 
 ---
 
 ### arqo:InternalClockMeasurement
 
-**Label:** InternalClockMeasurement
+**Nombre:** InternalClockMeasurement
 
-**Superclase:** crmsci:S21_Measurement
+**Superclase:** `crmsci:S21_Measurement (medición científica)`
 
-**Descripción:** Scientific measurement of an internal clock indicator
+**Descripción:** Medición científica de un indicador de reloj interno.
+
+<sub>Original (EN): Scientific measurement of an internal clock indicator</sub>
 
 ---
 
@@ -461,51 +531,61 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:ArchaeologicalArchiveRecord
 
-**Label:** ArchaeologicalArchiveRecord
+**Nombre:** ArchaeologicalArchiveRecord
 
-**Superclase:** crm:E73_Information_Object
+**Superclase:** `crm:E73_Information_Object (objeto de información)`
 
-**Descripción:** Record within the archaeological archive documenting an object: field notebooks, digital databases, photographic archives, drawing collections, or published reports. Archive records function as archaeological objects in their own right.
+**Descripción:** Registro dentro del archivo arqueológico que documenta un objeto: cuadernos de campo, bases de datos digitales, archivos fotográficos, colecciones de dibujos o informes publicados.
+
+<sub>Original (EN): Record within the archaeological archive documenting an object: field notebooks, digital databases, photographic archives, drawing collections, or published reports. Archive records function as archaeological objects in their own right.</sub>
 
 ---
 
 ### arqo:ArchiveCollection
 
-**Label:** ArchiveCollection
+**Nombre:** ArchiveCollection
 
-**Superclase:** crm:E78_Curated_Holding
+**Superclase:** `crm:E78_Curated_Holding (colección curada)`
 
-**Descripción:** Curated collection of archaeological archive records maintained by a research institution
+**Descripción:** Colección curada de registros de archivo arqueológico mantenida por una institución de investigación.
+
+<sub>Original (EN): Curated collection of archaeological archive records maintained by a research institution</sub>
 
 ---
 
 ### arqo:CulturalSignificanceAssignment
 
-**Label:** CulturalSignificanceAssignment
+**Nombre:** CulturalSignificanceAssignment
 
-**Superclase:** crm:E13_Attribute_Assignment
+**Superclase:** `crm:E13_Attribute_Assignment (asignación de atributo)`
 
-**Descripción:** Attribution of cultural, symbolic, or ritual significance to an object by researchers, descendant communities, or institutional narratives
+**Descripción:** Atribución de significado cultural, simbólico o ritual a un objeto por investigadores, comunidades descendientes o narrativas institucionales.
+
+<sub>Original (EN): Attribution of cultural, symbolic, or ritual significance to an object by researchers, descendant communities, or institutional narratives</sub>
 
 ---
 
 ### arqo:InterpretiveHypothesis
 
-**Label:** InterpretiveHypothesis
+**Nombre:** InterpretiveHypothesis
 
-**Superclase:** crminf:I4_Proposition_Set
+**Superclase:** `crminf:I4_Proposition_Set (conjunto proposicional (inferencia))`
 
-**Descripción:** Competing or contradictory interpretive proposition regarding the identity, chronology, function, or cultural meaning of an archaeological object
+**Descripción:** Proposición interpretativa competidora o contradictoria sobre la identidad, cronología, función o significado cultural de un objeto.
+
+<sub>Original (EN): Competing or contradictory interpretive proposition regarding the identity, chronology, function, or cultural meaning of an archaeological object</sub>
 
 ---
 
 ### arqo:PastnessQuality
 
-**Label:** PastnessQuality
+**Nombre:** PastnessQuality
 
-**Superclase:** crm:E1_CRM_Entity
+**Superclase:** `crm:E1_CRM_Entity (entidad (raíz del estándar))`
 
-**Descripción:** Culturally constructed experiential quality of being 'from the past' that emerges from material traces of disintegration on an object's surface
+**Descripción:** Cualidad experiencial culturalmente construida de ser “del pasado” que emerge de huellas materiales de desintegración en la superficie de un objeto.
+
+<sub>Original (EN): Culturally constructed experiential quality of being 'from the past' that emerges from material traces of disintegration on an object's surface</sub>
 
 ---
 
@@ -513,11 +593,13 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:CulturalCommunity
 
-**Label:** CulturalCommunity
+**Nombre:** CulturalCommunity
 
-**Superclase:** crm:E74_Group
+**Superclase:** `crm:E74_Group (grupo)`
 
-**Descripción:** Social group sharing cultural practices and material traditions
+**Descripción:** Grupo social que comparte prácticas culturales y tradiciones materiales.
+
+<sub>Original (EN): Social group sharing cultural practices and material traditions</sub>
 
 ---
 
@@ -525,181 +607,217 @@ Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.
 
 ### arqo:BiographicalParallelism
 
-**Label:** BiographicalParallelism
+**Nombre:** BiographicalParallelism
 
-**Superclase:** crminf:I4_Proposition_Set
+**Superclase:** `crminf:I4_Proposition_Set (conjunto proposicional (inferencia))`
 
-**Descripción:** Assertion that objects share similar biographical sequences
+**Descripción:** Afirmación de que objetos comparten secuencias biográficas similares.
+
+<sub>Original (EN): Assertion that objects share similar biographical sequences</sub>
 
 ---
 
 ### arqo:ChaineOperatoire
 
-**Label:** ChaineOperatoire
+**Nombre:** ChaineOperatoire
 
-**Superclase:** crm:E29_Design_or_Procedure
+**Superclase:** `crm:E29_Design_or_Procedure (diseño o procedimiento)`
 
-**Descripción:** Complete ordered sequence of technical actions
+**Descripción:** Secuencia ordenada completa de acciones técnicas.
+
+<sub>Original (EN): Complete ordered sequence of technical actions</sub>
 
 ---
 
 ### arqo:EmergencyCaching
 
-**Label:** EmergencyCaching
+**Nombre:** EmergencyCaching
 
-**Superclase:** arqo:DepositionEvent
+**Superclase:** `arqo:DepositionEvent`
 
-**Descripción:** Hasty concealment in response to threat
+**Descripción:** Ocultación apresurada en respuesta a una amenaza.
+
+<sub>Original (EN): Hasty concealment in response to threat</sub>
 
 ---
 
 ### arqo:FeatureEvidenceLink
 
-**Label:** FeatureEvidenceLink
+**Nombre:** FeatureEvidenceLink
 
-**Superclase:** crm:E1_CRM_Entity
+**Superclase:** `crm:E1_CRM_Entity (entidad (raíz del estándar))`
 
-**Descripción:** Reified evidential link between a significant feature and the chronological or cultural period it supports, with explicit strength assessment
+**Descripción:** Vínculo evidencial reificado entre un rasgo significativo y el período cronológico o cultural que sustenta.
+
+<sub>Original (EN): Reified evidential link between a significant feature and the chronological or cultural period it supports, with explicit strength assessment</sub>
 
 ---
 
 ### arqo:FragmentationState
 
-**Label:** FragmentationState
+**Nombre:** FragmentationState
 
-**Superclase:** crm:E3_Condition_State
+**Superclase:** `crm:E3_Condition_State (estado de condición)`
 
-**Descripción:** Physical state of an object regarding its completeness: complete, partially fragmented, or reduced to isolated fragments
+**Descripción:** Estado físico de un objeto en cuanto a su integridad: completo, parcialmente fragmentado o reducido a fragmentos aislados.
+
+<sub>Original (EN): Physical state of an object regarding its completeness: complete, partially fragmented, or reduced to isolated fragments</sub>
 
 ---
 
 ### arqo:FunctionalAssignment
 
-**Label:** FunctionalAssignment
+**Nombre:** FunctionalAssignment
 
-**Superclase:** crm:E13_Attribute_Assignment
+**Superclase:** `crm:E13_Attribute_Assignment (asignación de atributo)`
 
-**Descripción:** Interpretive assignment of function to an archaeological object, distinguishing primary intended function, secondary acquired function, and researcher-attributed function
+**Descripción:** Asignación interpretativa de función a un objeto arqueológico, distinguiendo función primaria pretendida, función secundaria adquirida y función atribuida por el investigador.
+
+<sub>Original (EN): Interpretive assignment of function to an archaeological object, distinguishing primary intended function, secondary acquired function, and researcher-attributed function</sub>
 
 ---
 
 ### arqo:JoiningTechnique
 
-**Label:** JoiningTechnique
+**Nombre:** JoiningTechnique
 
-**Superclase:** crm:E29_Design_or_Procedure
+**Superclase:** `crm:E29_Design_or_Procedure (diseño o procedimiento)`
 
-**Descripción:** Technical procedure used to connect component parts of a composite object, such as riveting, soldering, adhesion, mortise-and-tenon, or lashing
+**Descripción:** Procedimiento técnico usado para conectar partes componentes de un objeto compuesto (remachado, soldadura, adhesión, ensamblaje machihembrado o atado).
+
+<sub>Original (EN): Technical procedure used to connect component parts of a composite object, such as riveting, soldering, adhesion, mortise-and-tenon, or lashing</sub>
 
 ---
 
 ### arqo:ModeOfExperience
 
-**Label:** ModeOfExperience
+**Nombre:** ModeOfExperience
 
-**Superclase:** crm:E3_Condition_State
+**Superclase:** `crm:E3_Condition_State (estado de condición)`
 
-**Descripción:** Heideggerian ontological mode: readiness-to-hand or presence-at-hand
+**Descripción:** Modo ontológico heideggeriano: disponibilidad (readiness-to-hand) o presencia (presence-at-hand).
+
+<sub>Original (EN): Heideggerian ontological mode: readiness-to-hand or presence-at-hand</sub>
 
 ---
 
 ### arqo:MorphometricAttribute
 
-**Label:** MorphometricAttribute
+**Nombre:** MorphometricAttribute
 
-**Superclase:** crmsci:S21_Measurement
+**Superclase:** `crmsci:S21_Measurement (medición científica)`
 
-**Descripción:** Quantitative physical measurement of an archaeological object including dimensions, weight, volume, surface area, and shape descriptors
+**Descripción:** Medición física cuantitativa de un objeto arqueológico: dimensiones, peso, volumen, área superficial y descriptores de forma.
+
+<sub>Original (EN): Quantitative physical measurement of an archaeological object including dimensions, weight, volume, surface area, and shape descriptors</sub>
 
 ---
 
 ### arqo:OntologicalShiftEvent
 
-**Label:** OntologicalShiftEvent
+**Nombre:** OntologicalShiftEvent
 
-**Superclase:** crm:E5_Event
+**Superclase:** `crm:E5_Event (evento)`
 
-**Descripción:** Event causing transition between modes of experience
+**Descripción:** Evento que causa la transición entre modos de experiencia.
+
+<sub>Original (EN): Event causing transition between modes of experience</sub>
 
 ---
 
 ### arqo:PresenceAtHand
 
-**Label:** PresenceAtHand
+**Nombre:** PresenceAtHand
 
-**Superclase:** arqo:ModeOfExperience
+**Superclase:** `arqo:ModeOfExperience`
 
-**Descripción:** Object experienced as detached specimen
+**Descripción:** Objeto experimentado como espécimen separado.
+
+<sub>Original (EN): Object experienced as detached specimen</sub>
 
 ---
 
 ### arqo:ReadinessToHand
 
-**Label:** ReadinessToHand
+**Nombre:** ReadinessToHand
 
-**Superclase:** arqo:ModeOfExperience
+**Superclase:** `arqo:ModeOfExperience`
 
-**Descripción:** Object experienced as available tool
+**Descripción:** Objeto experimentado como herramienta disponible.
+
+<sub>Original (EN): Object experienced as available tool</sub>
 
 ---
 
 ### arqo:SignificantFeature
 
-**Label:** SignificantFeature
+**Nombre:** SignificantFeature
 
-**Superclase:** crm:E26_Physical_Feature
+**Superclase:** `crm:E26_Physical_Feature (rasgo físico)`
 
-**Descripción:** Diagnostically relevant physical attribute of an object identified through systematic analysis that supports chronological or cultural assignment
+**Descripción:** Atributo físico diagnóstico de un objeto identificado mediante análisis sistemático que apoya su asignación cronológica o cultural.
+
+<sub>Original (EN): Diagnostically relevant physical attribute of an object identified through systematic analysis that supports chronological or cultural assignment</sub>
 
 ---
 
 ### arqo:StylisticAssignment
 
-**Label:** StylisticAssignment
+**Nombre:** StylisticAssignment
 
-**Superclase:** crm:E17_Type_Assignment
+**Superclase:** `crm:E17_Type_Assignment (asignación de tipo)`
 
-**Descripción:** Assignment of an object to a stylistic universe based on formal, decorative, and cultural attributes
+**Descripción:** Asignación de un objeto a un universo estilístico basada en atributos formales, decorativos y culturales.
+
+<sub>Original (EN): Assignment of an object to a stylistic universe based on formal, decorative, and cultural attributes</sub>
 
 ---
 
 ### arqo:StylisticUniverse
 
-**Label:** StylisticUniverse
+**Nombre:** StylisticUniverse
 
-**Superclase:** crm:E55_Type
+**Superclase:** `crm:E55_Type (tipo)`
 
-**Descripción:** Corpus of objects sharing formal rules, decorative conventions, and cultural associations that define a coherent aesthetic-cultural system
+**Descripción:** Conjunto de objetos que comparten reglas formales, convenciones decorativas y asociaciones culturales que definen un sistema estético-cultural coherente.
+
+<sub>Original (EN): Corpus of objects sharing formal rules, decorative conventions, and cultural associations that define a coherent aesthetic-cultural system</sub>
 
 ---
 
 ### arqo:SurfaceAlteration
 
-**Label:** SurfaceAlteration
+**Nombre:** SurfaceAlteration
 
-**Superclase:** crm:E26_Physical_Feature
+**Superclase:** `crm:E26_Physical_Feature (rasgo físico)`
 
-**Descripción:** Physical modification of an object's surface including patina, corrosion layers, weathering rinds, use-wear polish, and oxidation films
+**Descripción:** Modificación física de la superficie de un objeto: pátina, capas de corrosión, costras de meteorización, brillo por uso o películas de oxidación.
+
+<sub>Original (EN): Physical modification of an object's surface including patina, corrosion layers, weathering rinds, use-wear polish, and oxidation films</sub>
 
 ---
 
 ### arqo:TypologicalAssignment
 
-**Label:** TypologicalAssignment
+**Nombre:** TypologicalAssignment
 
-**Superclase:** crm:E17_Type_Assignment
+**Superclase:** `crm:E17_Type_Assignment (asignación de tipo)`
 
-**Descripción:** Researcher assignment of an object to a typological category, using either monothetic or polythetic classification methods
+**Descripción:** Asignación por el investigador de un objeto a una categoría tipológica, usando clasificación monotética o politética.
+
+<sub>Original (EN): Researcher assignment of an object to a typological category, using either monothetic or polythetic classification methods</sub>
 
 ---
 
 ### arqo:VisualAppearanceAttribute
 
-**Label:** VisualAppearanceAttribute
+**Nombre:** VisualAppearanceAttribute
 
-**Superclase:** crm:E26_Physical_Feature
+**Superclase:** `crm:E26_Physical_Feature (rasgo físico)`
 
-**Descripción:** Observable visual property of an archaeological object in its current state of preservation, including Munsell color, surface texture, and general appearance
+**Descripción:** Propiedad visual observable de un objeto arqueológico en su estado actual de conservación: color Munsell, textura superficial y apariencia general.
+
+<sub>Original (EN): Observable visual property of an archaeological object in its current state of preservation, including Munsell color, surface texture, and general appearance</sub>
 
 ---
 

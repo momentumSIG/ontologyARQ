@@ -48,10 +48,10 @@ Para cada pregunta, la ontología se genera con dos **estrategias** distintas:
 
 ### Qué es la temperatura
 
-La **temperatura** controla cuán "conservador" o "creativo" es el modelo al generar:
-- **0.3** — conservador: máxima reutilización de estándares, mínimas clases nuevas
-- **0.5** — equilibrado: algunas clases nuevas, alineación estándar
-- **0.7** — creativo: jerarquías profundas, más clases nuevas, más axiomas
+La **temperatura** controla cuán "conservador" o "creativo" es el modelo al generar la ontología:
+- **0.3** — conservador: reutiliza al máximo los estándares, crea las mínimas clases nuevas
+- **0.5** — equilibrado: crea algunas clases nuevas, mantiene la alineación con los estándares
+- **0.7** — creativo: construye jerarquías más profundas, más clases nuevas y más reglas formales
 
 ---
 
@@ -87,7 +87,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **TOTAL**                     | **50** |                                                                                         |
 
 
-**Nota:** El experimento `Qwen3.6_objeto_patrones` generó 50 archivos TTL por patrón (150 total), modelando las mismas 50 CQs bajo cada patrón.
+**Nota:** El experimento `Qwen3.6_objeto_patrones` generó 50 archivos de ontología por patrón (150 en total), modelando las mismas 50 preguntas bajo cada patrón. Los archivos con extensión `.ttl` son los archivos de ontología en formato Turtle (ver glosario, Anexo A).
 
 ### Distribución actual del piloto Qwen 3.7-plus
 
@@ -113,9 +113,9 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 
 **Interpretación:**
 
-- Qwen 3.6 tenía más CQs (50 vs 38) porque era el set unificado de 2 generaciones (30 v2 + 20 v1)
-- El piloto es más conciso: 38 CQs, pero **más específicas y con referencia explícita a los conceptos teóricos**
-- La distribución por patrón es más balanceada en el piloto (10/11/17 vs 17/13/20)
+- Qwen 3.6 tenía más preguntas (50 vs 38) porque su set combinaba dos generaciones anteriores de preguntas (una de 30 y otra de 20), no porque produjera más conceptos nuevos
+- El piloto es más conciso: 38 preguntas, pero **más específicas y con referencia explícita a los conceptos teóricos**
+- La distribución por patrón es más equilibrada en el piloto (10/11/17 vs 17/13/20)
 
 ### CQs del piloto Qwen 3.7-plus, clasificadas por patrón y subgrupo
 
@@ -292,6 +292,8 @@ Las 50 CQs de Qwen 3.6 se clasificaron en su momento según los mismos tres patr
 ---
 
 ## 4. Métricas por archivo
+
+Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** = propiedades de relación (entre entidades); **Data Props** = propiedades de valor (entidad → valor). Ver Anexo B para más detalle.
 
 ### Qwen 3.6 — Patrón 1 (Event-Driven), memoryless temp_0_5
 
@@ -636,9 +638,9 @@ Las 50 CQs de Qwen 3.6 se clasificaron en su momento según los mismos tres patr
 
 ## 11. Análisis crítico
 
-### ✅ Corrección: Los 8 conceptos clave SÍ están representados
+### Verificación de cobertura conceptual
 
-**El análisis previo fue incorrecto.** Revisando `clases_arqo_creadas.md`, los 8 conceptos que se marcaron como "faltantes" en realidad **SÍ están representados** en las 59 clases `arqo:` del piloto:
+Los 8 conceptos del dominio identificados como prioritarios en el brief (§7) **están representados** en las 59 clases `arqo:` del piloto:
 
 1. ✅ **Materialidad relacional (Knappett)** — `MaterialRelation`, `MaterialComponent`
 2. ✅ **Affordances / agencia material** — `MaterialAgencyAttribution`
@@ -648,6 +650,8 @@ Las 50 CQs de Qwen 3.6 se clasificaron en su momento según los mismos tres patr
 6. ✅ **Functional assignment** — `FunctionalAssignment`
 7. ✅ **Cultural significance** — `CulturalSignificanceAssignment`
 8. ✅ **Competing hypotheses / multivocality** — `InterpretiveHypothesis`
+
+Esta verificación confirma que el enfoque del brief (indicar explícitamente qué conceptos requieren extensión) tiene el efecto buscado: los conceptos teóricos del dominio quedan modelados como clases propias, no forzados dentro de clases genéricas del estándar.
 
 ### Ventajas del piloto qwen 3.7-plus
 
@@ -873,29 +877,85 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 ## 14. Conclusiones
 
-### Sobre las CQs
+### Sobre las preguntas (CQs)
 
-1. El piloto tiene menos CQs (38 vs 50) pero **más específicas y teóricamente informadas**
-2. La distribución por patrón es más balanceada en el piloto
-3. Las 8 CQs adicionales garantizan cobertura de los conceptos de extensión
+1. El piloto usa menos preguntas (38 vs 50) pero **más específicas y mejor fundamentadas teóricamente**
+2. La distribución por patrón es más equilibrada en el piloto
+3. Las 8 preguntas añadidas garantizan que los conceptos teóricos del dominio queden cubiertos (aunque 6 de ellas refuercen conceptos ya existentes)
 
 ### Sobre la ontología generada
 
-1. **Qwen 3.7-plus supera a qwen 3.6 en riqueza y alineación**: 97 obj props vs 54, 23 clases CRM vs 12
-2. **Qwen 3.7-plus usa 4 ontologías de referencia** vs solo 2 de qwen 3.6
-3. **Qwen 3.6 P1 es más rico en eventos** (63 clases) pero con menor alineación
-4. **Qwen 3.6 P2/P4 tienen baja alineación** (0 clases CRMarchaeo)
+1. **El piloto supera al experimento anterior en riqueza y alineación**: 97 relaciones entre conceptos vs 54 como máximo, y 23 clases de estándar reutilizadas vs 12
+2. **El piloto usa 4 ontologías de referencia** (CIDOC CRM, CRMarchaeo, CRMsci, CRMinf) frente a solo 2 del experimento anterior
+3. **El experimento anterior era más rico en eventos específicos** (63 clases) pero con menor alineación con los estándares
+4. **Los patrones de estados y asignaciones del experimento anterior apenas reutilizan CRMarchaeo** (0 clases)
 
-### Sobre las mejoras
+### Sobre las mejoras aplicadas
 
-1. El brief §7 da al generador **guía explícita** sobre cuándo crear extensiones `arqo:`
-2. Las CQs de extensión **fuerzan** el modelado de conceptos teóricos
-3. El balance guideline en prompts **equilibra** reuso vs creación
+1. La sección §7 del brief da al modelo **instrucciones explícitas** sobre cuándo crear clases nuevas propias del proyecto
+2. Las preguntas de extensión **obligan** a modelar conceptos teóricos que de otro modo se perderían
+3. La guía de equilibrio en los prompts **corrige** el sesgo anterior hacia la reutilización forzada de estándares
 
 ### Próximos pasos
 
-1. ⏳ Implementar validación intermedia (script concepto→CQ)
-2. Regenerar ontologías con los prompts mejorados
-3. Comparar si las nuevas ontologías cubren mejor los conceptos de extensión
-4. Ejecutar el pipeline con las 38 CQs completas en ambas estrategias
+1. ⏳ Implementar la validación concepto → pregunta (detecta conceptos sin cobertura)
+2. Regenerar las ontologías con los prompts mejorados y comparar antes/después
+3. Consolidar las preguntas duplicadas (31–38) para dejar un set limpio de 30
+4. Ejecutar el pipeline completo en ambas estrategias de generación
 
+
+---
+
+## Anexo A. Glosario de términos técnicos
+
+Para facilitar la lectura a perfiles no informáticos.
+
+### Conceptos de ontologías
+
+| Término | En palabras llanas |
+|---|---|
+| **Ontología** | Representación formal y legible por máquina del conocimiento de un dominio. Define qué tipos de cosas existen y cómo se relacionan. |
+| **Clase** | Un *tipo de cosa* del dominio (p. ej. "objeto arqueológico", "evento de producción"). |
+| **Propiedad** | Una *relación* entre dos cosas, o entre una cosa y un valor (p. ej. "está hecho de", "tiene fecha"). |
+| **Subclase** | Relación "es un tipo de". Si `A` es subclase de `B`, toda `A` es también una `B`. |
+| **Reificar** | Convertir una relación en una entidad con identidad propia, para poder darle atributos (autor, fecha, certeza). Ejemplo: "A está hecho de B" se convierte en "Asignación de material, hecha por X, con certeza Y". |
+| **Propiedad de objeto** | Relación entre dos entidades (p. ej. "el objeto *fue producido por* el evento"). |
+| **Propiedad de dato** | Relación entre una entidad y un valor literal (p. ej. "el objeto *tiene peso* 250 gramos"). |
+| **Axioma** | Regla formal que la ontología declara como verdadera (p. ej. "todo objeto arqueológico es un objeto físico"). |
+
+### Estándares y formatos
+
+| Término | En palabras llanas |
+|---|---|
+| **CIDOC CRM** | Estándar internacional para el patrimonio cultural. Define las clases y relaciones básicas (objetos, eventos, actores, lugares, tiempos). |
+| **CRMarchaeo** | Extensión de CIDOC CRM específica para excavación y estratigrafía. |
+| **CRMsci / CRMinf** | Extensiones de CIDOC CRM para observación científica (CRMsci) e inferencia y argumentación (CRMinf). |
+| **TTL / Turtle** | Formato de archivo de texto en el que se escriben las ontologías. Es legible por humanos y por máquinas. |
+| **OWL** | Lenguaje estándar para expresar ontologías con lógica formal. |
+| **SPARQL** | Lenguaje de consulta para buscar información en ontologías. |
+| **Reasoner** | Programa que verifica automáticamente la coherencia lógica de una ontología (detecta contradicciones). |
+
+### Nomenclatura del proyecto
+
+| Término | En palabras llanas |
+|---|---|
+| **`arqo:`** | Prefijo de las clases y propiedades **nuevas** creadas por el proyecto. Las heredadas de estándares usan prefijos como `crm:` o `crmarchaeo:`. |
+| **Memoryless** | Estrategia de generación "sin memoria": cada pregunta se responde por separado. |
+| **Ontogenia** | Estrategia de generación "con memoria": cada respuesta tiene en cuenta todo lo construido antes. |
+| **Temperatura** | Parámetro que controla cuán conservador (0.3) o creativo (0.7) es el modelo al generar. |
+| **Cumulative** | Archivo final que acumula todo lo construido paso a paso en la estrategia ontogenia. |
+| **Patrón (P1/P2/P4)** | Tipo de conocimiento que pide una pregunta: eventos (P1), estados (P2) o asignaciones (P4). |
+
+> **Nota sobre los nombres de clases:** las clases se nombran en inglés (`ProcurementEvent`, `MaterialRelation`…) porque así lo exige la convención internacional de CIDOC CRM y porque facilita la interoperabilidad con otros proyectos. En el glosario de cada documento se ofrece su equivalente en español.
+
+---
+
+## Anexo B. Nota sobre el vocabulario de las tablas
+
+Para leer las tablas de métricas de este documento:
+
+- **"Clases arqo"** — número de clases **nuevas** creadas por el proyecto (con prefijo `arqo:`).
+- **"Object Props" / "Obj Props"** — número de **propiedades de objeto** (relaciones entre entidades).
+- **"Data Props"** — número de **propiedades de dato** (relaciones entre una entidad y un valor).
+- **"Clases CRM usadas"** — número de clases del **estándar CIDOC CRM** que la ontología reutiliza (no crea, sino que aprovecha).
+- **"Líneas cumulative"** — tamaño del archivo final acumulado, en líneas de texto.
