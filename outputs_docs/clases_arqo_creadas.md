@@ -2,7 +2,92 @@
 
 **Total:** 59 clases nuevas
 
+> **Audiencia:** Investigadores principales del proyecto (perfil arqueológico e informático).
+
 ---
+
+## ¿Qué es una clase "arqo"?
+
+La ontología se construye con dos tipos de piezas:
+
+- **Clases** — los *tipos de cosas* que existen en el dominio (p. ej. "objeto arqueológico", "evento de producción", "estado de fragmentación").
+- **Propiedades** — las *relaciones* entre esas cosas (p. ej. "está hecho de", "fue producido por").
+
+Cuando decimos que una clase es **`arqo:`**, significa que es **nueva, creada por el proyecto**, no heredada de los estándares internacionales. El prefijo `arqo:` es el espacio de nombres propio de esta ontología (`http://www.ontologyARQ.org/archaeological-object/`).
+
+Las clases nuevas **siempre extienden una clase del estándar** cuando existe una adecuada. Por ejemplo:
+
+```turtle
+arqo:ProcurementEvent  rdfs:subClassOf  crm:E9_Move
+```
+
+Esto se lee: *"un evento de aprovisionamiento (nuevo) ES UN TIPO DE movimiento (estándar CIDOC CRM)"*. Así, la ontología añade detalle arqueológico sin romper la compatibilidad con los estándares.
+
+---
+
+## Comparación con Qwen 3.6
+
+Este documento compara las clases nuevas creadas por el **piloto actual (Qwen 3.7-plus)** con las creadas por el **experimento anterior (Qwen 3.6 con patrones)**.
+
+### Cuántas clases creó cada modelo
+
+| Experimento | Clases arqo | Cómo se generaron |
+|---|---|---|
+| **Qwen 3.6 — patrón eventos (P1)** | 63 | Modelando las 50 CQs bajo el patrón de eventos |
+| **Qwen 3.6 — patrón estados (P2)** | 34 | Modelando las 50 CQs bajo el patrón de estados |
+| **Qwen 3.6 — patrón asignaciones (P4)** | 31 | Modelando las 50 CQs bajo el patrón de asignaciones |
+| **Qwen 3.7-plus (piloto)** | **59** | Modelando 38 CQs en un corpus coherente |
+
+> **Cómo leer esta tabla:** Qwen 3.6 generó tres ontologías *separadas* (una por patrón), cada una modelando las mismas 50 preguntas desde un ángulo distinto. Qwen 3.7-plus generó *una sola ontología coherente* que integra los tres patrones.
+
+### Qué clases coinciden entre ambos
+
+| Categoría | N.º de clases |
+|---|---|
+| Clases **comunes** (creadas por ambos modelos) | **3** |
+| Clases **solo en Qwen 3.6** | 41 |
+| Clases **solo en Qwen 3.7-plus** (nuevas del piloto) | 56 |
+
+**Las 3 clases comunes son:**
+
+- `arqo:DepositionEvent` — evento de deposición
+- `arqo:InterpretiveHypothesis` — hipótesis interpretativa
+- `arqo:RecoveryEvent` — evento de recuperación
+
+> **Por qué solo coinciden 3:** los dos experimentos partieron de corpus y briefs distintos. Qwen 3.6 trabajó desde el análisis de lagunas y un set de 50 CQs; Qwen 3.7-plus trabajó desde un brief del dominio mucho más detallado (con sección de extensión §7) y 38 CQs. El enfoque resultante es distinto, no necesariamente peor.
+
+### Enfoque de cada modelo
+
+**Qwen 3.6 — centrado en eventos y procesos**
+- Modela el ciclo de vida como una cadena de **eventos** (producción, uso, recirculación, exhibición, repatriación, custodia…)
+- Genera clases como `ManufacturingEvent`, `CirculationEvent`, `CustodyEvent`, `SamplingEvent`, `ExhibitionEvent`, `RepatriationEvent`
+- Los estados se modelan como clases separadas (`CorrosionState`, `PatinaState`, `DepositedState`…)
+- **Ventaja:** muy detallado en eventos específicos
+- **Limitación:** poca alineación con los estándares en los patrones de estados y asignaciones (0 clases CRMarchaeo)
+
+**Qwen 3.7-plus — centrado en conceptos teóricos y relaciones**
+- Modela explícitamente **conceptos teóricos** del dominio arqueológico: materialidad relacional (Knappett), affordances y agencia material (Gibson, Hodder), pastness, modos de experiencia (Heidegger)
+- Genera clases que reifican **relaciones** (no solo entidades): `MaterialRelation`, `TypeToPeriodRelationship`, `FeatureEvidenceLink`, `EmbeddingRelation`
+- Reifica las **asignaciones interpretativas**: `TypologicalAssignment`, `FunctionalAssignment`, `CulturalSignificanceAssignment`, `CompositionalGroupAssignment`
+- **Ventaja:** mejor alineación con los estándares y captura explícita de la teoría arqueológica
+- **Limitación:** menos clases de eventos específicos que Qwen 3.6
+
+### Resumen de la comparación
+
+| Criterio | Ganador | Por qué |
+|---|---|---|
+| **Número de clases** | Qwen 3.6 P1 (63) | Más clases, pero en el patrón más prolífico |
+| **Alineación con estándares** | **Qwen 3.7-plus** | Usa 4 ontologías de referencia (CRM, CRMarchaeo, CRMsci, CRMinf) vs 2 |
+| **Coherencia interna** | **Qwen 3.7-plus** | Una ontología integrada vs tres corpus separados |
+| **Cobertura teórica** | **Qwen 3.7-plus** | Captura materialidad, affordances, pastness explícitamente |
+| **Detalle en eventos** | Qwen 3.6 | Más tipos de eventos específicos (exhibición, repatriación, custodia) |
+| **Riqueza de propiedades** | **Qwen 3.7-plus** | 97 propiedades de objeto vs 54 máximo de Qwen 3.6 |
+
+> **Conclusión:** Qwen 3.7-plus no gana por cantidad, sino por **calidad estructural**: menos clases pero mejor alineadas, mejor conectadas y teóricamente más ricas. Qwen 3.6 gana en detalle de eventos específicos, lo que sugiere una posible **mejora futura: incorporar los eventos de Qwen 3.6 al modelo de Qwen 3.7-plus**.
+
+---
+
+## Inventario completo de clases creadas por el piloto
 
 ## Objeto y Materialidad (7)
 

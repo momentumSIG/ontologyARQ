@@ -2,6 +2,56 @@
 
 > **Fecha:** 2026-08-28
 > **Propósito:**  Compara el experimento de Qwen 3.6 plus con patrones ontológicos vs el piloto actual con Qwen 3.7-plus: CQs por patrón, conceptos cubiertos, métricas, alineación CRM, clases nuevas, observaciones y mejoras aplicadas.
+> **Audiencia:** Investigadores principales del proyecto (perfil arqueológico e informático).
+
+---
+
+## 0. ¿Qué es una Competency Question (CQ)?
+
+Una **pregunta de competencia** (en inglés, *Competency Question*) es una pregunta que la ontología debe ser capaz de responder. Es la forma estándar de definir **qué debe saber** una ontología antes de construirla.
+
+En lugar de empezar diciendo "crearemos estas clases y estas relaciones" (que es como se construyen mal las ontologías), empezamos preguntando: **¿qué preguntas reales debe poder responder el sistema?** Cada pregunta se convierte después en una prueba de validación: si la ontología puede responderla, cumple su función.
+
+**Ejemplo sencillo:**
+
+| Pregunta de competencia | Lo que exige de la ontología |
+|---|---|
+| "¿De qué material está hecho este objeto arqueológico?" | Que exista una entidad "objeto", una entidad "material" y una relación entre ambas |
+| "¿En qué unidad estratigráfica fue hallado?" | Que exista una entidad "unidad estratigráfica" y una relación de procedencia |
+| "¿Qué tipología se le ha asignado?" | Que exista una entidad "asignación tipológica" con autor y fecha |
+
+### Los dos ejes de clasificación
+
+Las preguntas se organizan en **dos ejes que se cruzan**:
+
+**Eje 1 — Bloques temáticos** (de qué habla la pregunta):
+- Objeto arqueológico · Espacial · Temporal · Estratigrafía
+
+**Eje 2 — Patrones de modelado** (qué tipo de conocimiento pide la pregunta):
+
+| Patrón | Pregunta sobre... | Pregunta típica |
+|---|---|---|
+| **P1 — Eventos** (*Event-Driven*) | Lo que **pasó** — procesos y acciones | "¿Qué eventos de producción tuvo el objeto?" |
+| **P2 — Estados** (*State-Transition*) | Lo que **es** — propiedades y condiciones | "¿Qué estado de conservación tiene?" |
+| **P4 — Asignaciones** (*Assignment-Intrinsic*) | Lo que **sabemos** — interpretaciones | "¿Qué tipología se le ha asignado?" |
+
+> **Nota sobre la numeración:** los patrones se numeran P1, P2 y P4 (no hay P3) porque siguen la nomenclatura del análisis de lagunas original del proyecto, donde P3 correspondía a un patrón descartado.
+
+### Qué significa cada estrategia de generación
+
+Para cada pregunta, la ontología se genera con dos **estrategias** distintas:
+
+| Estrategia | En palabras llanas | Analogía |
+|---|---|---|
+| **Memoryless** (*sin memoria*) | Cada pregunta se responde por separado, sin recordar las anteriores | Como escribir fichas independientes, una por pregunta |
+| **Ontogenia** (*con memoria*) | Cada pregunta se responde teniendo en cuenta todo lo ya construido | Como escribir un libro capítulo a capítulo, manteniendo coherencia |
+
+### Qué es la temperatura
+
+La **temperatura** controla cuán "conservador" o "creativo" es el modelo al generar:
+- **0.3** — conservador: máxima reutilización de estándares, mínimas clases nuevas
+- **0.5** — equilibrado: algunas clases nuevas, alineación estándar
+- **0.7** — creativo: jerarquías profundas, más clases nuevas, más axiomas
 
 ---
 
@@ -66,6 +116,75 @@
 - Qwen 3.6 tenía más CQs (50 vs 38) porque era el set unificado de 2 generaciones (30 v2 + 20 v1)
 - El piloto es más conciso: 38 CQs, pero **más específicas y con referencia explícita a los conceptos teóricos**
 - La distribución por patrón es más balanceada en el piloto (10/11/17 vs 17/13/20)
+
+### CQs del piloto Qwen 3.7-plus, clasificadas por patrón y subgrupo
+
+Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** según el concepto que abordan. Los subgrupos no son una clasificación oficial del proyecto: son una **propuesta de organización** para facilitar la lectura.
+
+#### P1 — Eventos (lo que pasó) — 10 CQs
+
+| Subgrupo | CQs | Pregunta (resumida) |
+|---|---|---|
+| **P1.1 Origen y fabricación** | CQ-OBJ-01 | ¿Qué eventos de aprovisionamiento de materia prima hubo? |
+| | CQ-OBJ-05 | ¿Cuál es la secuencia completa de la cadena operativa? |
+| **P1.2 Vida útil y transformación** | CQ-OBJ-02 | ¿Qué objetos sufrieron reutilización lateral vs reciclaje? |
+| | CQ-OBJ-06 | ¿Qué eventos de mantenimiento se realizaron durante la vida útil? |
+| **P1.3 Fin del ciclo: depósito y recuperación** | CQ-OBJ-03 | ¿Qué eventos de descarte llevaron el objeto al registro? |
+| | CQ-OBJ-08 | ¿Qué eventos de deposición (inhumación, ofrenda, abandono) lo situaron? |
+| | CQ-OBJ-09 | ¿Qué unidades de excavación lo recuperaron y cómo se documentó? |
+| **P1.4 Actores y biografía** | CQ-OBJ-04 | ¿Por qué transiciones de persona social pasó durante su biografía? |
+| | CQ-OBJ-07 | ¿Qué actores, grupos o tradiciones participaron en su producción/uso? |
+| | CQ-OBJ-10 | ¿Dos o más objetos muestran secuencias biográficas paralelas? |
+
+#### P2 — Estados (lo que es) — 11 CQs
+
+| Subgrupo | CQs | Pregunta (resumida) |
+|---|---|---|
+| **P2.1 Composición y materialidad** | CQ-OBJ-11 | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta? |
+| | CQ-OBJ-12 | ¿Cuál es la composición material del objeto? |
+| | CQ-OBJ-31 *(refuerzo)* | ¿Qué propiedades materiales relacionales (Knappett) caracterizan al objeto? |
+| **P2.2 Alteración y forma** | CQ-OBJ-16 | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta? |
+| | CQ-OBJ-17 | ¿Cuál es su estado de fragmentación y qué proporción se conserva? |
+| | CQ-OBJ-18 | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene? |
+| | CQ-OBJ-20 | ¿Qué valores de color Munsell y apariencia visual presenta? |
+| **P2.3 Contexto físico** | CQ-OBJ-14 | ¿En qué estado de distribución de desecho se encuentra? |
+| | CQ-OBJ-15 | ¿En qué unidad de volumen estratigráfico está embebido? |
+| | CQ-OBJ-19 | ¿Qué partes componentes (asas, tapaderas, hojas) lo componen? |
+| **P2.4 Modo de experiencia** | CQ-OBJ-13 | ¿Se experimenta como herramienta disponible o como espécimen de estudio? |
+
+#### P4 — Asignaciones (lo que sabemos) — 17 CQs
+
+| Subgrupo | CQs | Pregunta (resumida) |
+|---|---|---|
+| **P4.1 Clasificación** | CQ-OBJ-21 | ¿Bajo qué esquema tipológico (monotético/politético) se clasifica? |
+| | CQ-OBJ-22 | ¿Qué rasgos significativos apoyan su asignación cronológica/cultural? |
+| | CQ-OBJ-23 | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
+| | CQ-OBJ-24 | ¿A qué grupo composicional (Leitlegierung) pertenece? |
+| | CQ-OBJ-29 | ¿A qué universo estilístico ha sido asignado? |
+| | CQ-OBJ-33 *(refuerzo)* | *(repite el concepto de CQ-OBJ-23)* |
+| | CQ-OBJ-34 *(refuerzo)* | *(repite el concepto de CQ-OBJ-22)* |
+| | CQ-OBJ-35 *(refuerzo)* | *(repite el concepto de CQ-OBJ-24)* |
+| **P4.2 Función** | CQ-OBJ-26 | ¿Qué interpretación funcional se le ha asignado? |
+| | CQ-OBJ-36 *(refuerzo)* | *(repite el concepto de CQ-OBJ-26)* |
+| **P4.3 Significado y agencia** | CQ-OBJ-27 | ¿Qué significado cultural/simbólico/ritual se le atribuye? |
+| | CQ-OBJ-28 | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico? |
+| | CQ-OBJ-32 *(refuerzo)* | ¿Qué affordances presenta y cómo canalizan la acción humana? |
+| | CQ-OBJ-37 *(refuerzo)* | *(repite el concepto de CQ-OBJ-27)* |
+| **P4.4 Conocimiento y evidencia** | CQ-OBJ-25 | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan? |
+| | CQ-OBJ-30 | ¿Qué hipótesis interpretativas rivales existen sobre el objeto? |
+| | CQ-OBJ-38 *(refuerzo)* | *(repite el concepto de CQ-OBJ-30)* |
+
+> **Importante sobre las CQs marcadas "refuerzo":** las CQs **31–38** se añadieron en la última iteración para reforzar los conceptos que el brief identifica como necesitados de extensión (`arqo:`). Seis de ellas (**33, 34, 35, 36, 37, 38**) son **reformulaciones del mismo concepto** que las CQs 23, 22, 24, 26, 27 y 30 respectivamente. Se mantienen por trazabilidad, pero **el conteo de conceptos distintos es de 30 CQs**, no 38.
+
+### CQs de Qwen 3.6, clasificadas por patrón (referencia)
+
+Las 50 CQs de Qwen 3.6 se clasificaron en su momento según los mismos tres patrones:
+
+| Patrón | CQs | Ejemplos de preguntas |
+|---|---|---|
+| **P1 — Eventos** | 17 | Secuencia biográfica de eventos; transformaciones funcionales; actores vinculados; depósito compartido; circulación geográfica |
+| **P2 — Estados** | 13 | Composición material; estado de preservación; procesos tafonómicos; fragmentación; relaciones espaciales |
+| **P4 — Asignaciones** | 20 | Esquema tipológico; interpretación funcional; hipótesis rivales; certeza; cadenas argumentativas; conflictos interpretativos |
 
 ---
 
@@ -630,6 +749,38 @@
 **Problema:** No se verificaba que cada concepto del brief tuviera al menos una CQ.
 
 **Solución pendiente:** Script de mapeo concepto→CQ (`scripts/validate_cq_coverage.py`).
+
+### 12.2 Propuestas de mejora futuras
+
+Estas mejoras **no están implementadas todavía** y se proponen para las próximas iteraciones. Se presentan ordenadas por prioridad.
+
+#### 🔴 Prioridad alta
+
+| # | Propuesta | Qué resolvería | Esfuerzo |
+|---|---|---|---|
+| 1 | **Consolidar las CQs duplicadas** | Las CQs 33–38 reformulan conceptos ya cubiertos por las 22–30. Consolidarlas daría un set limpio de 30 CQs distintas | Bajo |
+| 2 | **Adoptar los subgrupos temáticos** (P1.1, P1.2…) como estructura oficial | Facilita la lectura, la validación con expertos y la detección de vacíos temáticos | Bajo |
+| 3 | **Validación intermedia** (concepto → CQ) | Detecta automáticamente si algún concepto del brief no tiene pregunta asignada | Medio |
+| 4 | **Evaluación con expertos arqueólogos** | Valida que las preguntas y las clases sean arqueológicamente correctas, no solo técnicamente válidas | Medio |
+
+#### 🟡 Prioridad media
+
+| # | Propuesta | Qué resolvería | Esfuerzo |
+|---|---|---|---|
+| 5 | **Medir cobertura CQ → ontología con SPARQL** | Comprueba que cada pregunta puede responderse realmente contra la ontología generada (no solo que la clase exista) | Medio |
+| 6 | **Verificar consistencia lógica con un reasoner OWL** | Detecta clases insatisfacibles, contradicciones y axiomas mal formados | Medio |
+| 7 | **Extender el pipeline a los otros 3 bloques** (espacial, temporal, estratigrafía) | Actualmente solo está completo el bloque de objeto | Alto |
+| 8 | **Comparar más modelos LLM** (deepseek, kimi, glm…) | Permite una comparativa cross-model robusta | Medio |
+
+#### 🟢 Prioridad baja (exploratoria)
+
+| # | Propuesta | Qué resolvería | Esfuerzo |
+|---|---|---|---|
+| 9 | **Comparar temperaturas** (0.3, 0.5, 0.7) en el piloto | El piloto solo usó temperatura 0.5; faltan los extremos | Bajo |
+| 10 | **Añadir métricas de determinismo** (misma pregunta, dos ejecuciones) | Mide la estabilidad del modelo ante el mismo prompt | Medio |
+| 11 | **Regenerar con los prompts mejorados** y comparar antes/después | Mide el impacto real del balance guideline en las clases `arqo:` creadas | Bajo |
+
+> **Recomendación:** empezar por las propuestas 1, 2 y 3 (bajo esfuerzo, alto impacto en claridad y rigor), que preparan el terreno para la evaluación con expertos (propuesta 4).
 
 ---
 
