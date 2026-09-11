@@ -2,7 +2,7 @@
 
 > **Fecha:** 10-09-2026
 >
-> **Revisión 2026-09-11 — trazabilidad de las mejoras.** Las ontologías del piloto Qwen 3.7-plus se generaron con la **versión 1** del prompt (`ALWAYS check`, sin balance guideline). La sección §7 del brief, las 8 CQs de extensión y el balance guideline se incorporaron después, **después del piloto y sin regenerarlo**. Por tanto, las mejoras descritas en §12 son solo propuestas pero **no se han ejecutado**: los resultados comparados aquí corresponden al prompt v1 y a las 30 CQs originales.
+> **Revisión 11-09-2026 — trazabilidad de las mejoras.** Las ontologías del piloto Qwen 3.7-plus se generaron con la **versión 1** del prompt. La sección §7 del brief, las 8 CQs de extensión y el balance guideline se incorporaron después, **después del piloto y sin regenerarlo**. Por tanto, las mejoras descritas en §12 son solo propuestas pero **no se han ejecutado**: los resultados comparados aquí corresponden al prompt v1 y a las 30 CQs originales.
 
 ---
 
@@ -104,21 +104,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **TOTAL**                     | **30**         | **0**           | **30** |
 
 
-> **Nota:** El piloto original tiene exactamente 30 CQs (10 por patrón). Las 8 preguntas de extensión se conservan en `CQ-object-qwen3.7plus-extension.md` y pertenecen a una iteración posterior; no forman parte de este piloto ni de sus métricas.
-
-### Comparativa lado a lado
-
-
-| Patrón                    | Qwen 3.6-plus | Qwen 3.7-plus |     |
-| ------------------------- | ------------- | ------------- | --- |
-| P1 — Event-Driven         | 17            | 10            |     |
-| 2 — State-Transition      | 13            | 10            |     |
-| P4 — Assignment-Intrinsic | 20            | 10            |     |
-| **Total**                 | **50**        | **30**        |     |
-
-
-- El piloto original cumple exactamente el diseño solicitado: 10 preguntas por patrón
-- Las preguntas de extensión posterior se analizan por separado y no alteran las métricas del piloto
+> **Nota:** El piloto original tiene exactamente 30 CQs (10 por patrón). Hay 8 preguntas de extensión que se encuentran en `CQ-object-qwen3.7plus-extension.md` y pertenecen a una iteración posterior en la que Qwen 3.7 plus propone mejoras; no forman parte de este piloto ni de sus métricas.
 
 ### CQs de Qwen 3.6, clasificadas por patrón y subgrupo (50 CQs)
 
