@@ -1,6 +1,8 @@
 # Comparativa Qwen 3.6 plus vs Qwen 3.7-plus
 
-> **Fecha:** 11/09/2026
+> **Fecha:** 10-09-2026
+>
+> **Revisión 2026-09-11 — trazabilidad de las mejoras.** Las ontologías del piloto Qwen 3.7-plus se generaron con la **versión 1** del prompt (`ALWAYS check`, sin balance guideline). La sección §7 del brief, las 8 CQs de extensión y el balance guideline se incorporaron después, **después del piloto y sin regenerarlo**. Por tanto, las mejoras descritas en §12 son solo propuestas pero **no se han ejecutado**: los resultados comparados aquí corresponden al prompt v1 y a las 30 CQs originales.
 
 ---
 
@@ -62,25 +64,25 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 ## 1. Comparativa general
 
 
-| Parámetro               | Qwen 3.6 plus                 | Qwen 3.7-plus (piloto)                   |
-| ----------------------- | ----------------------------- | ---------------------------------------- |
-| **Fecha**               | 28-05-2026                    | 27-08-2026                               |
-| **Modelo**              | qwen3.6-plus                  | qwen3.7-plus                             |
-| **CQs totales**         | 50                            | 30                                       |
-| **CQs por patrón**      | 17 P1 + 13 P2 + 20 P4         | 10 P1 + 10 P2 + 10 P4                    |
-| **Estrategias**         | memoryless + ontogenia        | memoryless + ontogenia                   |
-| **Temperatura**         | 0.3, 0.5, 0.7                 | 0.5                                      |
-| **Corpus**              | Gap analysis + CQs unificadas | Núcleo + artículosJuan + ontologies_data |
-| **Brief del dominio**   | No                            | Sí (con sección §7 de extensiones)       |
-| **Patrones explícitos** | Sí (3 patrones separados)     | Sí (3 patrones en un archivo)            |
-| **Carpeta experimento** | `Qwen3.6_objeto_patrones/`    | `Qwen3.7plus/`                           |
+| Parámetro               | Qwen 3.6 plus                           | Qwen 3.7-plus (piloto)                       |
+| ----------------------- | --------------------------------------- | -------------------------------------------- |
+| **Fecha**               | 28-05-2026                              | 27-08-2026                                   |
+| **Modelo**              | qwen3.6-plus                            | qwen3.7-plus                                 |
+| **CQs totales**         | 50                                      | 30                                           |
+| **CQs por patrón**      | 17 P1 + 13 P2 + 20 P4                   | 10 P1 + 10 P2 + 10 P4                        |
+| **Estrategias**         | memoryless + ontogenia                  | memoryless + ontogenia                       |
+| **Temperatura**         | 0.3, 0.5, 0.7                           | 0.5                                          |
+| **Corpus**              | Gap analysis + ontologies_data (núcleo) | Núcleo + artículosJuan                       |
+| **Brief del dominio**   | No                                      | Sí (sin §7; §7 se añadió después del piloto) |
+| **Patrones explícitos** | Sí                                      | Sí                                           |
+| **Carpeta experimento** | `Qwen3.6_objeto_patrones/`              | `Qwen3.7plus/`                               |
 
 
 ---
 
 ## 2. CQs por patrón — comparativa detallada
 
-### Distribución original de Qwen 3.6 (según CQ_por_patron.md)
+### Distribución original de Qwen 3.6
 
 
 | Patrón                        | CQs    | Descripción                                                                             |
@@ -91,17 +93,15 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **TOTAL**                     | **50** |                                                                                         |
 
 
-**Nota:** El experimento `Qwen3.6_objeto_patrones` generó 50 archivos de ontología por patrón (150 en total), modelando las mismas 50 preguntas bajo cada patrón. Los archivos con extensión `.ttl` son los archivos de ontología en formato Turtle (ver glosario, Anexo A).
-
 ### Distribución actual del piloto Qwen 3.7-plus
 
 
-| Patrón                        | CQs originales | CQs adicionales    | Total  |
-| ----------------------------- | -------------- | ------------------ | ------ |
-| **P1 — Event-Driven**         | 10             | 0                  | **10** |
-| **P2 — State-Transition**     | 10             | 0                  | **10** |
-| **P4 — Assignment-Intrinsic** | 10             | 0                  | **10** |
-| **TOTAL**                     | **30**         | **0**              | **30** |
+| Patrón                        | CQs originales | CQs adicionales | Total  |
+| ----------------------------- | -------------- | --------------- | ------ |
+| **P1 — Event-Driven**         | 10             | 0               | **10** |
+| **P2 — State-Transition**     | 10             | 0               | **10** |
+| **P4 — Assignment-Intrinsic** | 10             | 0               | **10** |
+| **TOTAL**                     | **30**         | **0**           | **30** |
 
 
 > **Nota:** El piloto original tiene exactamente 30 CQs (10 por patrón). Las 8 preguntas de extensión se conservan en `CQ-object-qwen3.7plus-extension.md` y pertenecen a una iteración posterior; no forman parte de este piloto ni de sus métricas.
@@ -109,17 +109,14 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 ### Comparativa lado a lado
 
 
-| Patrón                    | Qwen 3.6 | Qwen 3.7-plus | Diferencia |
-| ------------------------- | -------- | ------------- | ---------- |
-| P1 — Event-Driven         | 17       | 10            | -7         |
-| P2 — State-Transition     | 13       | 10            | -3         |
-| P4 — Assignment-Intrinsic | 20       | 10            | -10        |
-| **Total**                 | **50**   | **30**        | **-20**    |
+| Patrón                    | Qwen 3.6-plus | Qwen 3.7-plus |     |
+| ------------------------- | ------------- | ------------- | --- |
+| P1 — Event-Driven         | 17            | 10            |     |
+| 2 — State-Transition      | 13            | 10            |     |
+| P4 — Assignment-Intrinsic | 20            | 10            |     |
+| **Total**                 | **50**        | **30**        |     |
 
 
-**Interpretación:**
-
-- Qwen 3.6 tenía más preguntas (50 vs 30) porque su set combinaba dos generaciones anteriores de preguntas (una de 30 y otra de 20)
 - El piloto original cumple exactamente el diseño solicitado: 10 preguntas por patrón
 - Las preguntas de extensión posterior se analizan por separado y no alteran las métricas del piloto
 
@@ -130,25 +127,25 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 #### P1 — Eventos (lo que pasó) — 17 CQs
 
 
-| CQ        | Pregunta                                                                                                                                                             |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CQ-OBJ-01 | ¿Qué secuencia de eventos biográficos (producción, uso, reuso, reparación, circulación, depósito, recuperación) constituye la trayectoria vital completa del objeto? |
-| CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reuso)?                                     |
-| CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil?                                         |
-| CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación?                                                                                            |
-| CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original?                                                                                             |
-| CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto?                                                                                                        |
-| CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos?                                                                                |
-| CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto?                                                                            |
-| CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica?                                                                            |
-| CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto?                                                     |
-| CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia?                                                                        |
-| CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato?                                |
-| CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                         |
-| CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                |
-| CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto?                                      |
-| CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales?                                                        |
-| CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa?                                                      |
+| CQ        | Pregunta                                                                                                                                                                     |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CQ-OBJ-01 | ¿Qué secuencia de eventos biográficos (producción, uso, reutilización, reparación, circulación, depósito, recuperación) constituye la trayectoria vital completa del objeto? |
+| CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reutilización)?                                     |
+| CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil?                                                 |
+| CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación?                                                                                                    |
+| CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original?                                                                                                     |
+| CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto?                                                                                                                |
+| CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos?                                                                                        |
+| CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto?                                                                                    |
+| CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica?                                                                                    |
+| CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto?                                                             |
+| CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia?                                                                                |
+| CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato?                                        |
+| CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                                 |
+| CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                        |
+| CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto?                                              |
+| CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales?                                                                |
+| CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa?                                                              |
 
 
 #### P2 — Estados (lo que es) — 13 CQs
@@ -202,7 +199,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 
 ### CQs del piloto Qwen 3.7-plus, clasificadas por patrón y subgrupo (30 CQs)
 
-Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** según el concepto que abordan. Los subgrupos no son una clasificación oficial del proyecto: son una **propuesta de organización** para facilitar la lectura.
+Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** según el concepto que abordan.
 
 #### P1 — Eventos (lo que pasó) — 10 CQs
 
@@ -224,45 +221,47 @@ Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** seg
 #### P2 — Estados (lo que es) — 11 CQs
 
 
-| Subgrupo                            | CQs                 | Pregunta (resumida)                                                         |
-| ----------------------------------- | ------------------- | --------------------------------------------------------------------------- |
-| **P2.1 Composición y materialidad** | CQ-OBJ-11           | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta?       |
-|                                     | CQ-OBJ-12           | ¿Cuál es la composición material del objeto?                                |
-| **P2.2 Alteración y forma**         | CQ-OBJ-16           | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta?     |
-|                                     | CQ-OBJ-17           | ¿Cuál es su estado de fragmentación y qué proporción se conserva?           |
-|                                     | CQ-OBJ-18           | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene?              |
-|                                     | CQ-OBJ-20           | ¿Qué valores de color Munsell y apariencia visual presenta?                 |
-| **P2.3 Contexto físico**            | CQ-OBJ-14           | ¿En qué estado de distribución de desecho se encuentra?                     |
-|                                     | CQ-OBJ-15           | ¿En qué unidad de volumen estratigráfico está embebido?                     |
-|                                     | CQ-OBJ-19           | ¿Qué partes componentes (asas, tapaderas, hojas) lo componen?               |
-| **P2.4 Modo de experiencia**        | CQ-OBJ-13           | ¿Se experimenta como herramienta disponible o como espécimen de estudio?    |
+| Subgrupo                            | CQs       | Pregunta (resumida)                                                      |
+| ----------------------------------- | --------- | ------------------------------------------------------------------------ |
+| **P2.1 Composición y materialidad** | CQ-OBJ-11 | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta?    |
+|                                     | CQ-OBJ-12 | ¿Cuál es la composición material del objeto?                             |
+| **P2.2 Alteración y forma**         | CQ-OBJ-16 | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta?  |
+|                                     | CQ-OBJ-17 | ¿Cuál es su estado de fragmentación y qué proporción se conserva?        |
+|                                     | CQ-OBJ-18 | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene?           |
+|                                     | CQ-OBJ-20 | ¿Qué valores de color Munsell y apariencia visual presenta?              |
+| **P2.3 Contexto físico**            | CQ-OBJ-14 | ¿En qué estado de distribución de desecho se encuentra?                  |
+|                                     | CQ-OBJ-15 | ¿En qué unidad de volumen estratigráfico está embebido?                  |
+|                                     | CQ-OBJ-19 | ¿Qué partes componentes (asas, tapaderas, hojas) lo componen?            |
+| **P2.4 Modo de experiencia**        | CQ-OBJ-13 | ¿Se experimenta como herramienta disponible o como espécimen de estudio? |
 
 
 #### P4 — Asignaciones (lo que sabemos) — 17 CQs
 
 
-| Subgrupo                          | CQs                                             | Pregunta (resumida)                                                     |
-| --------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
-| **P4.1 Clasificación**            | CQ-OBJ-21                                       | ¿Bajo qué esquema tipológico (monotético/politético) se clasifica?      |
-|                                   | CQ-OBJ-22                                       | ¿Qué rasgos significativos apoyan su asignación cronológica/cultural?   |
-|                                   | CQ-OBJ-23                                       | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
-|                                   | CQ-OBJ-24                                       | ¿A qué grupo composicional (Leitlegierung) pertenece?                   |
-|                                   | CQ-OBJ-29                                       | ¿A qué universo estilístico ha sido asignado?                           |
-| **P4.2 Función**                  | CQ-OBJ-26                                       | ¿Qué interpretación funcional se le ha asignado?                        |
-| **P4.3 Significado y agencia**    | CQ-OBJ-27                                       | ¿Qué significado cultural/simbólico/ritual se le atribuye?              |
-|                                   | CQ-OBJ-28                                       | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico?      |
-| **P4.4 Conocimiento y evidencia** | CQ-OBJ-25                                       | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan?    |
-|                                   | CQ-OBJ-30                                       | ¿Qué hipótesis interpretativas rivales existen sobre el objeto?         |
+| Subgrupo                          | CQs       | Pregunta (resumida)                                                     |
+| --------------------------------- | --------- | ----------------------------------------------------------------------- |
+| **P4.1 Clasificación**            | CQ-OBJ-21 | ¿Bajo qué esquema tipológico (monotético/politético) se clasifica?      |
+|                                   | CQ-OBJ-22 | ¿Qué rasgos significativos apoyan su asignación cronológica/cultural?   |
+|                                   | CQ-OBJ-23 | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
+|                                   | CQ-OBJ-24 | ¿A qué grupo composicional (Leitlegierung) pertenece?                   |
+|                                   | CQ-OBJ-29 | ¿A qué universo estilístico ha sido asignado?                           |
+| **P4.2 Función**                  | CQ-OBJ-26 | ¿Qué interpretación funcional se le ha asignado?                        |
+| **P4.3 Significado y agencia**    | CQ-OBJ-27 | ¿Qué significado cultural/simbólico/ritual se le atribuye?              |
+|                                   | CQ-OBJ-28 | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico?      |
+| **P4.4 Conocimiento y evidencia** | CQ-OBJ-25 | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan?    |
+|                                   | CQ-OBJ-30 | ¿Qué hipótesis interpretativas rivales existen sobre el objeto?         |
 
 
-### CQs de extensión posterior (fuera del piloto)
+### CQs de extensión posterior
 
-Las CQs 31–38 se conservan en `CQ-object-qwen3.7plus-extension.md`. Se añadieron después del piloto para reforzar los conceptos del brief §7; **no forman parte de las 30 CQs originales ni de sus métricas**.
+Las CQs 31–38 se conservan en `CQ-object-qwen3.7plus-extension.md`. Se añadieron después del piloto para reforzar los conceptos del brief §7.
 
-| Tipo | CQs | Motivo |
-|---|---|---|
-| Concepto nuevo | CQ-OBJ-31 | Materialidad relacional de Knappett |
+
+| Tipo                    | CQs                   | Motivo                                        |
+| ----------------------- | --------------------- | --------------------------------------------- |
+| Concepto nuevo          | CQ-OBJ-31             | Materialidad relacional de Knappett           |
 | Refuerzo o solapamiento | CQ-OBJ-32 a CQ-OBJ-38 | Refuerzan o reformulan conceptos ya cubiertos |
+
 
 ---
 
@@ -602,7 +601,6 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 - P1 cubre eventos del ciclo de vida + tafonomía + interpretación + espacial
 - P2 cubre estados físicos y de ciclo de vida
 - P4 cubre asignaciones interpretativas
-- Las 50 CQs son las mismas modeladas bajo 3 patrones distintos
 
 **Qwen 3.7-plus:**
 
@@ -619,20 +617,13 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 - Qwen 3.7-plus duplica la alineación CRM (23 vs 12 clases)
 - Qwen 3.7-plus es el único que usa CRMsci y CRMinf
-- Qwen 3.6 P2/P4 no usan CRMarchaeo en absoluto
+- Qwen 3.6 P2/P4 no usan CRMarchaeo
 
 ### 4. Riqueza ontológica
 
 - Qwen 3.7-plus genera 97 object props vs máx 54 de qwen 3.6
 - Qwen 3.7-plus genera 56 data props vs máx 37 de qwen 3.6
 - El cumulative de qwen 3.7-plus (1112 líneas) supera a cualquier patrón de qwen 3.6 (máx 836)
-
-### 5. Estilo de modelado
-
-- Qwen 3.6 P1 es **event-centric puro**: casi todo son eventos
-- Qwen 3.6 P2 es **state-centric**: modela estados como entidades
-- Qwen 3.6 P4 es **assignment-centric**: reifica asignaciones
-- Qwen 3.7-plus combina **eventos + estados + asignaciones + conceptos teóricos** en un corpus coherente
 
 ---
 
@@ -703,7 +694,7 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 | **Resultado**            | Fragmentos independientes | Ontología coherente       |
 
 
-**Hallazgo:** En ambos experimentos, ontogenia produce una ontología más coherente con reuso de clases, mientras memoryless genera fragmentos más diversos pero menos integrados. Qwen 3.7-plus en ontogenia alcanza 59 clases coherentes vs ~190 clases dispersas en memoryless.
+**Hallazgo:** En ambos experimentos, ontogenia produce una ontología más coherente con reutilización de clases, mientras memoryless genera fragmentos más diversos pero menos integrados. Qwen 3.7-plus en ontogenia alcanza 59 clases coherentes vs ~190 clases dispersas en memoryless.
 
 ---
 
@@ -722,7 +713,9 @@ Los 8 conceptos del dominio identificados como prioritarios en el brief (§7) **
 7. ✅ **Cultural significance** — `CulturalSignificanceAssignment`
 8. ✅ **Competing hypotheses / multivocality** — `InterpretiveHypothesis`
 
-Esta verificación confirma que el enfoque del brief (indicar explícitamente qué conceptos requieren extensión) tiene el efecto buscado: los conceptos teóricos del dominio quedan modelados como clases propias, no forzados dentro de clases genéricas del estándar.
+Esta verificación confirma que los 8 conceptos están **cubiertos** en el piloto, pero **no** que las mejoras de §12 hayan tenido el efecto buscado.
+
+> ⚠️ **La causalidad está invertida en versiones anteriores de este documento.** Las 8 clases ya existían en el `cumulative.ttl` del piloto, que se generó **antes** de que se creara la sección §7 y con la **versión 1** del prompt (`ALWAYS check`, sin balance guideline). Es decir: el modelo las creó por su cuenta a partir de las 30 CQs originales, no porque §7 ni el balance guideline las provocaran. Medir el efecto real de las mejoras exige regenerar las ontologías con la versión 2 del prompt y las CQs de extensión — propuesta 11 de §12.2, todavía no ejecutada.
 
 ### Ventajas del piloto qwen 3.7-plus
 
@@ -731,7 +724,8 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 3. **Uso de 4 ontologías de referencia** (vs 2)
 4. **Conceptos teóricos más sofisticados** (materialidad, pastness, affordances)
 5. **Corpus coherente** (no fragmentos separados por patrón)
-6. **Brief con guía de extensiones** (§7)
+
+> **Nota:** el piloto **no** se generó con el brief §7 ni con el balance guideline (se añadieron después; ver §12), por lo que la cobertura de esos 8 conceptos **no es atribuible** a esas mejoras.
 
 ### Limitaciones del piloto qwen 3.7-plus
 
@@ -750,13 +744,13 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 ### Diferencias metodológicas
 
 
-| Aspecto         | Qwen 3.6 con patrones      | Qwen 3.7-plus piloto    |
-| --------------- | -------------------------- | ----------------------- |
-| **CQs**         | 50 unificadas              | 30 en el piloto + 8 en una extensión posterior |
-| **Patrones**    | 3 experimentos separados   | 1 corpus con 3 patrones |
-| **Temperatura** | 3 valores                  | 1 valor (0.5)           |
-| **Brief**       | Sin sección de extensiones | Con §7 de extensiones   |
-| **Prompt**      | ALWAYS reuse CRM           | Balance guideline       |
+| Aspecto         | Qwen 3.6 con patrones      | Qwen 3.7-plus piloto                                                                         |
+| --------------- | -------------------------- | -------------------------------------------------------------------------------------------- |
+| **CQs**         | 50 unificadas              | 30 en el piloto + 8 en una extensión posterior                                               |
+| **Patrones**    | 3 experimentos separados   | 1 corpus con 3 patrones                                                                      |
+| **Temperatura** | 3 valores                  | 1 valor (0.5)                                                                                |
+| **Brief**       | Sin sección de extensiones | Sin §7 (el piloto es anterior a §7)                                                          |
+| **Prompt**      | v1 — `ALWAYS reuse CRM`    | v1 — `ALWAYS reuse CRM` (la v2 con balance guideline llegó después y no se aplicó al piloto) |
 
 
 ---
@@ -764,6 +758,10 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 ## 12. Mejoras propuestas e implementadas
 
 ### 12.1 Mejoras implementadas (2026-08-28)
+
+> **Alcance real (revisión 2026-09-11).** Las mejoras de esta sección son **insumos del pipeline** (brief, CQs y prompts), incorporadas al repositorio en el commit `b04411f` (2026-09-01; trabajo fechado 2026-08-28).
+>
+> **Ninguna se ejecutó sobre el piloto.** Las ontologías de `Qwen3.7plus/` son del commit `9a827d9` (2026-08-28) y se generaron con la **versión 1** del prompt. No existe ningún `.ttl` generado para las CQs de extensión (CQ-OBJ-31 a 38). En consecuencia, los resultados comparados en este documento **no reflejan** estas mejoras; medirlas exige regenerar (ver §12.2, propuesta 11).
 
 #### ✅ Mejora 1: Brief con sección de extensiones (§7)
 
@@ -784,7 +782,7 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 | Competing hypotheses / multivocality   | `InterpretiveHypothesis`                             |
 
 
-**Impacto:** El generador ahora sabe qué conceptos requieren extensiones `arqo:` en lugar de forzar reuso CRM.
+**Impacto esperado (no medido):** se espera que el generador sepa qué conceptos requieren extensiones `arqo:` en lugar de forzar reuso CRM. El piloto comparado no se regeneró, así que este efecto no está verificado.
 
 #### ✅ Mejora 2: CQs adicionales de extensión
 
@@ -805,11 +803,11 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 | CQ-OBJ-38 | Competing hypotheses / multivocality | P4     |
 
 
-**Impacto:** Cada concepto de extensión ahora tiene al menos una CQ que fuerza su modelado.
+**Impacto esperado (no medido):** cada concepto de extensión tiene al menos una CQ que fuerza su modelado, pero **no se ha generado ninguna ontología** con estas 8 CQs; permanecen archivadas en `CQ-object-qwen3.7plus-extension.md`.
 
 #### ✅ Mejora 3: Prompts con balance guideline
 
-**Problema:** El prompt decía "ALWAYS check if CIDOC CRM provides it" — demasiado conservador, favorecía reuso forzado.
+**Problema:** El prompt decía "ALWAYS check if CIDOC CRM provides it" — demasiado conservador, favorecía reutilización forzada.
 
 **Solución implementada:** Se agregó un "Balance guideline" en ambos prompts (memoryless y ontogenia):
 
@@ -817,7 +815,7 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 - **Crear extensiones `arqo:`** cuando el concepto sea arqueológicamente específico (material agency, relational materiality, type-to-period strength, etc.)
 - **"When in doubt, create an `arqo:` class that extends CRM"**
 
-**Impacto:** El modelo ahora crea extensiones `arqo:` cuando es apropiado, en lugar de forzar clases CRM para conceptos específicos.
+**Impacto esperado (no medido):** se espera que el modelo cree más extensiones `arqo:`. El piloto no se regeneró con esta versión, así que su efecto sobre las clases `arqo:` sigue sin medirse.
 
 #### ⏳ Mejora 4: Validación intermedia (pendiente)
 
@@ -867,9 +865,25 @@ Estas mejoras **no están implementadas todavía** y se proponen para las próxi
 
 ## 13. Prompts antiguos vs nuevos
 
+> **Versiones archivadas.** La versión original (v1) y la nueva (v2, balance guideline) se conservan en el repositorio para comparación directa:
+>
+>
+> | Estrategia | v1 — original                                                    | v2 — activa (balance guideline)                      |
+> | ---------- | ---------------------------------------------------------------- | ---------------------------------------------------- |
+> | Memoryless | `prompts/memoryless/prompt_archaeological_object_v1_original.md` | `prompts/memoryless/prompt_archaeological_object.md` |
+> | Ontogenia  | `prompts/ontogenia/prompt_archaeological_object_v1_original.md`  | `prompts/ontogenia/prompt_archaeological_object.md`  |
+>
+>
+> El `procedure.md` de ontogenia **no cambió** entre versiones.
+>
+> **Aviso de aplicación:** el piloto comparado en este documento se generó con la **v1**. La **v2 nunca se ha ejecutado** para generar ontologías.
+
 ### 13.1 Prompt Memoryless
 
-**Archivo:** `prompts/memoryless/prompt_archaeological_object.md`
+**Archivos:**
+
+- v1 (antes): `prompts/memoryless/prompt_archaeological_object_v1_original.md`
+- v2 (después, activa): `prompts/memoryless/prompt_archaeological_object.md`
 
 #### Antes (cab6189):
 
@@ -919,7 +933,11 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 ### 13.2 Prompt Ontogenia
 
-**Archivo:** `prompts/ontogenia/prompt_archaeological_object.md`
+**Archivos:**
+
+- v1 (antes): `prompts/ontogenia/prompt_archaeological_object_v1_original.md`
+- v2 (después, activa): `prompts/ontogenia/prompt_archaeological_object.md`
+- Procedimiento: `prompts/ontogenia/procedure.md` (sin cambios entre versiones)
 
 #### Antes (cab6189):
 
@@ -942,12 +960,13 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 ### 13.3 Resumen de cambios en prompts
 
 
-| Aspecto                    | Antes            | Después                                                    |
-| -------------------------- | ---------------- | ---------------------------------------------------------- |
-| **Postura**                | ALWAYS reuse CRM | Prefer reuse, pero crear extensiones cuando sea específico |
-| **Conceptos de extensión** | No listados      | 7 categorías listadas                                      |
-| **Regla final**            | Ninguna          | "When in doubt, create `arqo:` extension"                  |
-| **Referencia al brief**    | No               | Brief §7                                                   |
+| Aspecto                    | Antes            | Después                                                       |
+| -------------------------- | ---------------- | ------------------------------------------------------------- |
+| **Postura**                | ALWAYS reuse CRM | Prefer reuse, pero crear extensiones cuando sea específico    |
+| **Conceptos de extensión** | No listados      | 7 categorías listadas                                         |
+| **Regla final**            | Ninguna          | "When in doubt, create `arqo:` extension"                     |
+| **Referencia al brief**    | No               | Brief §7                                                      |
+| **¿Usada en el piloto?**   | Sí (v1)          | **No** — la v2 se incorporó después y nunca generó ontologías |
 
 
 ---
@@ -969,14 +988,16 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 ### Sobre las mejoras aplicadas
 
-1. La sección §7 del brief da al modelo **instrucciones explícitas** sobre cuándo crear clases nuevas propias del proyecto
-2. Las preguntas de extensión **obligan** a modelar conceptos teóricos que de otro modo se perderían
-3. La guía de equilibrio en los prompts **corrige** el sesgo anterior hacia la reutilización forzada de estándares
+1. La sección §7 del brief **pretende dar** al modelo instrucciones explícitas sobre cuándo crear clases nuevas propias del proyecto
+2. Las preguntas de extensión **fuerzan** (por diseño) el modelado de conceptos teóricos que de otro modo se perderían
+3. La guía de equilibrio en los prompts **pretende corregir** el sesgo hacia la reutilización forzada de estándares
+
+> ⚠️ **Ninguna de estas mejoras está validada todavía.** Están implementadas como insumos (brief, CQs y prompts), pero el piloto que se compara se generó **antes** de ellas y con la **v1** del prompt. Las afirmaciones anteriores son hipótesis de diseño, **no resultados medidos**. La comprobación pendiente es la propuesta 11 de §12.2: regenerar y comparar antes/después.
 
 ### Próximos pasos
 
 1. ⏳ Implementar la validación concepto → pregunta (detecta conceptos sin cobertura)
-2. Regenerar las ontologías con los prompts mejorados y comparar antes/después
+2. ⏳ **Regenerar las ontologías con la v2 de los prompts y las CQs de extensión**, y comparar antes/después (mide el impacto real del balance guideline)
 3. Consolidar las preguntas duplicadas (32–38) para dejar un set limpio de **31 conceptos distintos**
 4. Ejecutar el pipeline completo en ambas estrategias de generación
 
@@ -1041,3 +1062,4 @@ Para leer las tablas de métricas de este documento:
 - **"Data Props"** — número de **propiedades de dato** (relaciones entre una entidad y un valor).
 - **"Clases CRM usadas"** — número de clases del **estándar CIDOC CRM** que la ontología reutiliza (no crea, sino que aprovecha).
 - **"Líneas cumulative"** — tamaño del archivo final acumulado, en líneas de texto.
+

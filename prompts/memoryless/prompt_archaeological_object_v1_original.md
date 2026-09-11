@@ -2,9 +2,7 @@
 
 > Adapted from [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) (Lippolis et al., ESWC 2025)
 
-> **📌 VERSIÓN 2 — ACTUAL (balance guideline).** Incorporada al repositorio en el commit `b04411f` (2026-09-01; trabajo fechado 2026-08-28). Añade la sección "Balance guideline" en "Ontology Design Principles" y relaja `ALWAYS check` → `check`, para equilibrar el reuso de CIDOC CRM/CRMarchaeo frente a la creación de extensiones `arqo:` cuando el concepto sea arqueológicamente específico (ver brief §7 "Conceptos que requieren extensión arqo:").
->
-> **Trazabilidad:** esta versión **no se usó** para generar las ontologías del piloto Qwen 3.7-plus, que son anteriores y se generaron con la versión 1 (`prompt_archaeological_object_v1_original.md`). Su efecto sobre las clases `arqo:` todavía **no se ha medido** (ver comparativa §12 y §13).
+> **📌 VERSIÓN 1 — ORIGINAL (pre-balance guideline).** Esta es la versión del prompt vigente cuando se generó el piloto Qwen 3.7-plus (30 CQs, commit `9a827d9`, 2026-08-28). Postura: `ALWAYS check` — reutilización preferente de CIDOC CRM, sin sección "Balance guideline". Se conserva por trazabilidad metodológica. La versión activa es `prompt_archaeological_object.md`.
 
 ## Usage
 
@@ -61,7 +59,7 @@ You MUST use these exact prefixes in every output:
 
 ### 1. CIDOC CRM Alignment
 
-Before creating any new class or property, check if CIDOC CRM or CRMarchaeo already provides it:
+Before creating any new class or property, ALWAYS check if CIDOC CRM or CRMarchaeo already provides it:
 
 - **Physical objects:** `crm:E19_Physical_Object`
 - **Human-made objects:** `crm:E22_Human-Made_Object`
@@ -86,19 +84,6 @@ Before creating any new class or property, check if CIDOC CRM or CRMarchaeo alre
 - **Measurement:** `crmsci:S21_Measurement`
 - **Sample:** `crmsci:S18_Sample`
 - **Encounter:** `crmsci:S19_Encounter`
-
-**Balance guideline:**
-- **Prefer CIDOC CRM reuse** for general concepts (events, actors, places, time-spans)
-- **Create `arqo:` extensions** when the concept is archaeologically specific and not adequately captured by CRM, such as:
-  - Material agency and affordances (Gibson, Hodder)
-  - Relational materiality (Knappett's four properties)
-  - Type-to-period strength relationships
-  - Compositional groups (Leitlegierungen)
-  - Significant features and evidential links
-  - Functional and cultural significance assignments
-  - Competing interpretive hypotheses
-
-When in doubt, create an `arqo:` class that extends CRM rather than forcing a CRM class to cover an archaeologically specific concept. See brief §7 "Conceptos que requieren extensión arqo:" for detailed guidance.
 
 New classes should extend these CRM classes using `rdfs:subClassOf` whenever possible.
 

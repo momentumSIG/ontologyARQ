@@ -2,7 +2,7 @@
 
 > Compatible con CIDOC CRM · CRMarchaeo 
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![CIDOC CRM](https://img.shields.io/badge/CIDOC%20CRM-v7.3.2-green)](https://www.cidoc-crm.org/)
 [![CRMarchaeo](https://img.shields.io/badge/CRMarchaeo-v2.1.1-green)](https://www.cidoc-crm.org/crmarchaeo/)
 [![Methodology](https://img.shields.io/badge/Methodology-CQ--driven-orange)](ontologies_generated/)
@@ -57,7 +57,7 @@ ONTOLOGIA-ARQ/
 │
 ├── AGENTS.md                               # Principios, metodología, guía de reproducibilidad
 ├── README.md                               # Este archivo
-├── LICENSE
+├── LICENSE.txt                             # CC BY-SA 4.0
 │
 ├── CQ/
 │   ├── CQ_Deepseekv4Pro/                   # 80 CQs originales event-centric (4 bloques × 20)
@@ -203,4 +203,4 @@ Holtorf (2013) — *On Pastness* · Gosden — *What do objects want?* · Garcia
 
 ## Licencia
 
-[MIT License](LICENSE)
+[CC BY-SA 4.0](LICENSE.txt)

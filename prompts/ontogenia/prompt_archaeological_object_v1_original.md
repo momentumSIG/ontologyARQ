@@ -3,9 +3,7 @@
 > Adapted from [Onto-Generation](https://github.com/dersuchendee/Onto-Generation) (Lippolis et al., ESWC 2025)
 > Metacognitive prompting technique for iterative ontology extension
 
-> **📌 VERSIÓN 2 — ACTUAL (balance guideline).** Incorporada al repositorio en el commit `b04411f` (2026-09-01; trabajo fechado 2026-08-28). Modifica el campo `{ontology_elements}` para equilibrar el reuso de CIDOC CRM/CRMarchaeo frente a la creación de extensiones `arqo:` cuando el concepto sea arqueológicamente específico (ver brief §7 "Conceptos que requieren extensión arqo:").
->
-> **Trazabilidad:** esta versión **no se usó** para generar las ontologías del piloto Qwen 3.7-plus, que son anteriores y se generaron con la versión 1 (`prompt_archaeological_object_v1_original.md`). Su efecto sobre las clases `arqo:` todavía **no se ha medido** (ver comparativa §12 y §13).
+> **📌 VERSIÓN 1 — ORIGINAL (pre-balance guideline).** Esta es la versión del prompt vigente cuando se generó el piloto Qwen 3.7-plus (30 CQs, commit `9a827d9`, 2026-08-28). El campo `{ontology_elements}` dice `Prefer CIDOC CRM alignment`, sin sección "Balance guideline". El `procedure.md` no cambió entre versiones. Se conserva por trazabilidad metodológica. La versión activa es `prompt_archaeological_object.md`.
 
 ## Usage
 
@@ -20,7 +18,7 @@ This prompt is used for the **Ontogenia** strategy. Each competency question is 
 | `{procedure}` | The 9-step metacognitive procedure (see `procedure.md`) |
 | `{previous_output}` | Accumulated RDF from all previous CQ steps (empty for step 1) |
 | `{patterns_json}` | Ontology Design Patterns in Turtle format (see below) |
-| `{ontology_elements}` | "Classes, Object Properties, Datatype Properties. Object properties need domain and range. All need rdfs:label and rdfs:comment. Add restrictions where justified. **Balance guideline:** Prefer CIDOC CRM reuse for general concepts, but create `arqo:` extensions when the concept is archaeologically specific and not adequately captured by CRM (e.g., material agency/affordances, relational materiality, type-to-period strength, compositional groups/Leitlegierungen, significant features, functional/cultural significance assignments, competing hypotheses). See brief §7 'Conceptos que requieren extensión arqo:' for detailed guidance. Reify assignments (E17_Type_Assignment pattern) and observations (S4_Observation pattern)."
+| `{ontology_elements}` | "Classes, Object Properties, Datatype Properties. Object properties need domain and range. All need rdfs:label and rdfs:comment. Add restrictions where justified. Prefer CIDOC CRM alignment. Reify assignments (E17_Type_Assignment pattern) and observations (S4_Observation pattern)."
 
 ### Temperature guidance
 

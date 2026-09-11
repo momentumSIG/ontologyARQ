@@ -31,13 +31,26 @@ This directory contains prompt templates for generating archaeological OWL ontol
 
 ```
 prompts/
-├── README.md                                  # This file
+├── README.md                                         # This file
 ├── memoryless/
-│   └── prompt_archaeological_object.md        # Memoryless CQbyCQ prompt
+│   ├── prompt_archaeological_object.md               # Active (v2 — balance guideline)
+│   └── prompt_archaeological_object_v1_original.md   # v1 — original, pre-balance
 ├── ontogenia/
-│   ├── prompt_archaeological_object.md        # Ontogenia prompt with ODPs
-│   └── procedure.md                           # 9-step metacognitive procedure
+│   ├── prompt_archaeological_object.md               # Active (v2 — balance guideline)
+│   ├── prompt_archaeological_object_v1_original.md   # v1 — original, pre-balance
+│   └── procedure.md                                  # 9-step metacognitive procedure (unchanged between versions)
 ```
+
+## Version History
+
+Both strategies carry two versions. The active file (`prompt_archaeological_object.md`) is **v2**; the original is preserved as `prompt_archaeological_object_v1_original.md`.
+
+| Version | Prompt posture | Status | Used for pilot? |
+|---|---|---|---|
+| **v1 — original** | `ALWAYS check if CIDOC CRM or CRMarchaeo already provides it` — strict reuse preference, no balance guideline | Archived for traceability | ✅ Yes — generated the Qwen 3.7-plus 30-CQ pilot (commit `9a827d9`, 2026-08-28) |
+| **v2 — balance guideline** (active) | Prefer CRM reuse for general concepts, but create `arqo:` extensions for archaeologically specific concepts (brief §7) | Active | ❌ No — added in commit `b04411f` (2026-09-01), after the pilot; never used to regenerate |
+
+**Important:** the pilot comparisons in `outputs_docs/comparativas/comparativa-qwen3.6-vs-qwen3.7.md` reflect **v1**, not v2. The effect of the v2 balance guideline on the creation of `arqo:` classes has **not been measured** yet — doing so requires regenerating the ontologies (see comparativa §12.2, proposal 11).
 
 ## Prompt Variables
 
