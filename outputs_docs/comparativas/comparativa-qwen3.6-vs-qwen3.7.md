@@ -1,8 +1,6 @@
 # Comparativa Qwen 3.6 plus vs Qwen 3.7-plus
 
-> **Fecha:** 2026-08-28
-> **Propósito:**  Compara el experimento de Qwen 3.6 plus con patrones ontológicos vs el piloto actual con Qwen 3.7-plus: CQs por patrón, conceptos cubiertos, métricas, alineación CRM, clases nuevas, observaciones y mejoras aplicadas.
-> **Audiencia:** Investigadores principales del proyecto (perfil arqueológico e informático).
+> **Fecha:** 11/09/2026
 
 ---
 
@@ -10,45 +8,51 @@
 
 Una **pregunta de competencia** (en inglés, *Competency Question*) es una pregunta que la ontología debe ser capaz de responder. Es la forma estándar de definir **qué debe saber** una ontología antes de construirla.
 
-En lugar de empezar diciendo "crearemos estas clases y estas relaciones" (que es como se construyen mal las ontologías), empezamos preguntando: **¿qué preguntas reales debe poder responder el sistema?** Cada pregunta se convierte después en una prueba de validación: si la ontología puede responderla, cumple su función.
+En lugar de empezar diciendo "crearemos estas clases y estas relaciones", empezamos preguntando: **¿qué preguntas reales debe poder responder el sistema?** Cada pregunta se convierte después en una prueba de validación: si la ontología puede responderla, cumple su función.
 
-**Ejemplo sencillo:**
+**Ejemplo:**
 
-| Pregunta de competencia | Lo que exige de la ontología |
-|---|---|
+
+| Pregunta de competencia                                 | Lo que exige de la ontología                                                       |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | "¿De qué material está hecho este objeto arqueológico?" | Que exista una entidad "objeto", una entidad "material" y una relación entre ambas |
-| "¿En qué unidad estratigráfica fue hallado?" | Que exista una entidad "unidad estratigráfica" y una relación de procedencia |
-| "¿Qué tipología se le ha asignado?" | Que exista una entidad "asignación tipológica" con autor y fecha |
+| "¿En qué unidad estratigráfica fue hallado?"            | Que exista una entidad "unidad estratigráfica" y una relación de procedencia       |
+| "¿Qué tipología se le ha asignado?"                     | Que exista una entidad "asignación tipológica" con autor y fecha                   |
+
 
 ### Los dos ejes de clasificación
 
 Las preguntas se organizan en **dos ejes que se cruzan**:
 
-**Eje 1 — Bloques temáticos** (de qué habla la pregunta):
-- Objeto arqueológico · Espacial · Temporal · Estratigrafía
+**Eje 1 — Patrones de modelado** (qué tipo de conocimiento pide la pregunta)
 
-**Eje 2 — Patrones de modelado** (qué tipo de conocimiento pide la pregunta):
+- **Eje 2 — Bloques temáticos** (de qué habla la pregunta)
 
-| Patrón | Pregunta sobre... | Pregunta típica |
-|---|---|---|
-| **P1 — Eventos** (*Event-Driven*) | Lo que **pasó** — procesos y acciones | "¿Qué eventos de producción tuvo el objeto?" |
-| **P2 — Estados** (*State-Transition*) | Lo que **es** — propiedades y condiciones | "¿Qué estado de conservación tiene?" |
-| **P4 — Asignaciones** (*Assignment-Intrinsic*) | Lo que **sabemos** — interpretaciones | "¿Qué tipología se le ha asignado?" |
 
-> **Nota sobre la numeración:** los patrones se numeran P1, P2 y P4 (no hay P3) porque siguen la nomenclatura del análisis de lagunas original del proyecto, donde P3 correspondía a un patrón descartado.
+| Patrón                                         | Pregunta sobre...                         | Pregunta típica                              |
+| ---------------------------------------------- | ----------------------------------------- | -------------------------------------------- |
+| **P1 — Eventos** (*Event-Driven*)              | Lo que **pasó** — procesos y acciones     | "¿Qué eventos de producción tuvo el objeto?" |
+| **P2 — Estados** (*State-Transition*)          | Lo que **es** — propiedades y condiciones | "¿Qué estado de conservación tiene?"         |
+| **P4 — Asignaciones** (*Assignment-Intrinsic*) | Lo que **sabemos** — interpretaciones     | "¿Qué tipología se le ha asignado?"          |
+
+
+> **Nota sobre la numeración:** los patrones se numeran P1, P2 y P4 (no hay P3) porque siguen la nomenclatura del análisis de lagunas original del proyecto, donde P3 correspondía a un patrón descartado (observación, mediciones).
 
 ### Qué significa cada estrategia de generación
 
 Para cada pregunta, la ontología se genera con dos **estrategias** distintas:
 
-| Estrategia | En palabras llanas | Analogía |
-|---|---|---|
-| **Memoryless** (*sin memoria*) | Cada pregunta se responde por separado, sin recordar las anteriores | Como escribir fichas independientes, una por pregunta |
-| **Ontogenia** (*con memoria*) | Cada pregunta se responde teniendo en cuenta todo lo ya construido | Como escribir un libro capítulo a capítulo, manteniendo coherencia |
+
+| Estrategia                     | Objetivo                                                            |     |
+| ------------------------------ | ------------------------------------------------------------------- | --- |
+| **Memoryless** (*sin memoria*) | Cada pregunta se responde por separado, sin recordar las anteriores |     |
+| **Ontogenia** (*con memoria*)  | Cada pregunta se responde teniendo en cuenta todo lo ya construido  |     |
+
 
 ### Qué es la temperatura
 
 La **temperatura** controla cuán "conservador" o "creativo" es el modelo al generar la ontología:
+
 - **0.3** — conservador: reutiliza al máximo los estándares, crea las mínimas clases nuevas
 - **0.5** — equilibrado: crea algunas clases nuevas, mantiene la alineación con los estándares
 - **0.7** — creativo: construye jerarquías más profundas, más clases nuevas y más reglas formales
@@ -58,12 +62,12 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 ## 1. Comparativa general
 
 
-| Parámetro               | Qwen 3.6 (con patrones)       | Qwen 3.7-plus (piloto)                   |
+| Parámetro               | Qwen 3.6 plus                 | Qwen 3.7-plus (piloto)                   |
 | ----------------------- | ----------------------------- | ---------------------------------------- |
-| **Fecha**               | 2026-05-28                    | 2026-08-27                               |
-| **Modelo**              | qwen3.6 plus                  | qwen3.7-plus                             |
-| **CQs totales**         | 50                            | 38                                       |
-| **CQs por patrón**      | 17 P1 + 13 P2 + 20 P4         | 10 P1 + 11 P2 + 17 P4                    |
+| **Fecha**               | 28-05-2026                    | 27-08-2026                               |
+| **Modelo**              | qwen3.6-plus                  | qwen3.7-plus                             |
+| **CQs totales**         | 50                            | 30                                       |
+| **CQs por patrón**      | 17 P1 + 13 P2 + 20 P4         | 10 P1 + 10 P2 + 10 P4                    |
 | **Estrategias**         | memoryless + ontogenia        | memoryless + ontogenia                   |
 | **Temperatura**         | 0.3, 0.5, 0.7                 | 0.5                                      |
 | **Corpus**              | Gap analysis + CQs unificadas | Núcleo + artículosJuan + ontologies_data |
@@ -95,12 +99,12 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | Patrón                        | CQs originales | CQs adicionales    | Total  |
 | ----------------------------- | -------------- | ------------------ | ------ |
 | **P1 — Event-Driven**         | 10             | 0                  | **10** |
-| **P2 — State-Transition**     | 10             | 1 (CQ-OBJ-31)      | **11** |
-| **P4 — Assignment-Intrinsic** | 10             | 7 (CQ-OBJ-32 a 38) | **17** |
-| **TOTAL**                     | **30**         | **8**              | **38** |
+| **P2 — State-Transition**     | 10             | 0                  | **10** |
+| **P4 — Assignment-Intrinsic** | 10             | 0                  | **10** |
+| **TOTAL**                     | **30**         | **0**              | **30** |
 
-> **Qué son las "CQs adicionales":** son 8 preguntas añadidas en una segunda iteración, después de las 30 iniciales, para asegurar que los conceptos del brief §7 tuvieran cobertura. Al revisarlas, **solo 1 (la 31) aporta un concepto nuevo**: las otras 7 refuerzan o duplican conceptos ya presentes en las 30 originales (ver análisis detallado en la sección "CQs del piloto clasificadas por patrón y subgrupo").
 
+> **Nota:** El piloto original tiene exactamente 30 CQs (10 por patrón). Las 8 preguntas de extensión se conservan en `CQ-object-qwen3.7plus-extension.md` y pertenecen a una iteración posterior; no forman parte de este piloto ni de sus métricas.
 
 ### Comparativa lado a lado
 
@@ -108,16 +112,16 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | Patrón                    | Qwen 3.6 | Qwen 3.7-plus | Diferencia |
 | ------------------------- | -------- | ------------- | ---------- |
 | P1 — Event-Driven         | 17       | 10            | -7         |
-| P2 — State-Transition     | 13       | 11            | -2         |
-| P4 — Assignment-Intrinsic | 20       | 17            | -3         |
-| **Total**                 | **50**   | **38**        | **-12**    |
+| P2 — State-Transition     | 13       | 10            | -3         |
+| P4 — Assignment-Intrinsic | 20       | 10            | -10        |
+| **Total**                 | **50**   | **30**        | **-20**    |
 
 
 **Interpretación:**
 
-- Qwen 3.6 tenía más preguntas (50 vs 38) porque su set combinaba dos generaciones anteriores de preguntas (una de 30 y otra de 20), no porque produjera más conceptos nuevos
-- El piloto es más conciso: 38 preguntas, pero **más específicas y con referencia explícita a los conceptos teóricos**
-- La distribución por patrón es más equilibrada en el piloto (10/11/17 vs 17/13/20)
+- Qwen 3.6 tenía más preguntas (50 vs 30) porque su set combinaba dos generaciones anteriores de preguntas (una de 30 y otra de 20)
+- El piloto original cumple exactamente el diseño solicitado: 10 preguntas por patrón
+- Las preguntas de extensión posterior se analizan por separado y no alteran las métricas del piloto
 
 ### CQs de Qwen 3.6, clasificadas por patrón (50 CQs)
 
@@ -125,141 +129,140 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 
 #### P1 — Eventos (lo que pasó) — 17 CQs
 
-| CQ | Pregunta |
-|---|---|
+
+| CQ        | Pregunta                                                                                                                                                             |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CQ-OBJ-01 | ¿Qué secuencia de eventos biográficos (producción, uso, reuso, reparación, circulación, depósito, recuperación) constituye la trayectoria vital completa del objeto? |
-| CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reuso)? |
-| CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil? |
-| CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación? |
-| CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original? |
-| CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto? |
-| CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos? |
-| CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto? |
-| CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica? |
-| CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto? |
-| CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia? |
-| CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato? |
-| CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio? |
-| CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación? |
-| CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto? |
-| CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales? |
-| CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa? |
+| CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reuso)?                                     |
+| CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil?                                         |
+| CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación?                                                                                            |
+| CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original?                                                                                             |
+| CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto?                                                                                                        |
+| CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos?                                                                                |
+| CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto?                                                                            |
+| CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica?                                                                            |
+| CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto?                                                     |
+| CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia?                                                                        |
+| CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato?                                |
+| CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                         |
+| CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                |
+| CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto?                                      |
+| CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales?                                                        |
+| CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa?                                                      |
+
 
 #### P2 — Estados (lo que es) — 13 CQs
 
-| CQ | Pregunta |
-|---|---|
-| CQ-OBJ-12 | ¿Cuál es la narrativa cronológica completa del objeto, desde la fabricación hasta el depósito? |
-| CQ-OBJ-13 | ¿Cambió el rol funcional del objeto durante su vida útil activa? |
-| CQ-OBJ-14 | ¿Presenta el objeto huellas de reparación, alteración o modificación deliberada tras su producción inicial? |
+
+| CQ        | Pregunta                                                                                                                            |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| CQ-OBJ-12 | ¿Cuál es la narrativa cronológica completa del objeto, desde la fabricación hasta el depósito?                                      |
+| CQ-OBJ-13 | ¿Cambió el rol funcional del objeto durante su vida útil activa?                                                                    |
+| CQ-OBJ-14 | ¿Presenta el objeto huellas de reparación, alteración o modificación deliberada tras su producción inicial?                         |
 | CQ-OBJ-34 | ¿Qué procesos tafonómicos naturales (bioturbación, corrosión, meteorización, transporte hídrico, compactación) alteraron el objeto? |
-| CQ-OBJ-35 | ¿Qué correlaciones existen entre las unidades estratigráficas que contienen el objeto y las unidades geológicas? |
-| CQ-OBJ-36 | ¿Qué eventos geomorfológicos (inundaciones, coluvión, erosión, vulcanismo, dinámica fluvial) afectaron el contexto deposicional? |
-| CQ-OBJ-37 | ¿Qué objetos muestran evidencia de desplazamiento post-deposicional y cómo afecta a su interpretación contextual? |
-| CQ-OBJ-38 | ¿Qué procesos de fragmentación (intencional-ritual, accidental por uso o tafonómica) sufrió el objeto? |
-| CQ-OBJ-39 | ¿Ha sido movido el objeto de su contexto deposicional primario por procesos naturales o humanos? |
-| CQ-OBJ-40 | ¿En qué estado de preservación se encuentra el objeto y qué procesos post-deposicionales lo conformaron? |
-| CQ-OBJ-42 | ¿Qué decisiones de conservación (limpieza, consolidación, reconstrucción o no intervención) se aplicaron al objeto? |
-| CQ-OBJ-44 | ¿Qué réplicas digitales, modelos 3D o representaciones virtuales existen del objeto y qué documentan? |
-| CQ-OBJ-49 | ¿Qué objetos de distintos niveles estratigráficos documentan secuencias de ocupación, abandono y reocupación? |
+| CQ-OBJ-35 | ¿Qué correlaciones existen entre las unidades estratigráficas que contienen el objeto y las unidades geológicas?                    |
+| CQ-OBJ-36 | ¿Qué eventos geomorfológicos (inundaciones, coluvión, erosión, vulcanismo, dinámica fluvial) afectaron el contexto deposicional?    |
+| CQ-OBJ-37 | ¿Qué objetos muestran evidencia de desplazamiento post-deposicional y cómo afecta a su interpretación contextual?                   |
+| CQ-OBJ-38 | ¿Qué procesos de fragmentación (intencional-ritual, accidental por uso o tafonómica) sufrió el objeto?                              |
+| CQ-OBJ-39 | ¿Ha sido movido el objeto de su contexto deposicional primario por procesos naturales o humanos?                                    |
+| CQ-OBJ-40 | ¿En qué estado de preservación se encuentra el objeto y qué procesos post-deposicionales lo conformaron?                            |
+| CQ-OBJ-42 | ¿Qué decisiones de conservación (limpieza, consolidación, reconstrucción o no intervención) se aplicaron al objeto?                 |
+| CQ-OBJ-44 | ¿Qué réplicas digitales, modelos 3D o representaciones virtuales existen del objeto y qué documentan?                               |
+| CQ-OBJ-49 | ¿Qué objetos de distintos niveles estratigráficos documentan secuencias de ocupación, abandono y reocupación?                       |
+
 
 #### P4 — Asignaciones (lo que sabemos) — 20 CQs
 
-| CQ | Pregunta |
-|---|---|
+
+| CQ        | Pregunta                                                                                                                                             |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CQ-OBJ-02 | ¿Cómo se distingue la biografía física real (secuencia de eventos materiales) de las biografías narrativas construidas por distintos investigadores? |
-| CQ-OBJ-04 | ¿En qué momento de su biografía un objeto natural adquirió agencia cultural por uso humano sin transformarse físicamente? |
-| CQ-OBJ-10 | ¿Qué identificador único se asignó al objeto en el momento de su recuperación en el campo? |
-| CQ-OBJ-19 | ¿Qué muestras físicas derivan del mismo objeto y qué resultados analíticos contradictorios produjeron distintos laboratorios? |
-| CQ-OBJ-20 | ¿Qué protocolos científicos, técnicas de laboratorio e instrumentos sustentan una determinación de procedencia? |
-| CQ-OBJ-21 | ¿Qué conjuntos de datos analíticos se generaron durante el estudio científico del objeto y cómo se documentan? |
-| CQ-OBJ-22 | ¿Qué procesos de calibración o correcciones metodológicas modificaron una datación o clasificación previamente publicada? |
-| CQ-OBJ-23 | ¿Cuál es la composición material primaria del objeto? |
-| CQ-OBJ-24 | ¿Qué interpretación material y funcional han asignado los investigadores al objeto? |
-| CQ-OBJ-25 | ¿De dónde proceden geológica o geográficamente las materias primas del objeto? |
-| CQ-OBJ-28 | ¿Qué hipótesis interpretativas rivales existen sobre la función, cronología o significado cultural del objeto? |
-| CQ-OBJ-29 | ¿Qué interpretaciones funcionales o tipológicas fueron rechazadas y qué evidencia lo motivó? |
-| CQ-OBJ-30 | ¿Qué niveles de certeza se asignan a las interpretaciones del objeto y cómo se justifican? |
-| CQ-OBJ-31 | ¿Qué cadenas argumentativas conectan observaciones empíricas, mediciones de laboratorio e inferencias interpretativas? |
-| CQ-OBJ-32 | ¿Qué conflictos interpretativos existen entre distintos investigadores sobre la biografía, procedencia o significado del objeto? |
-| CQ-OBJ-33 | ¿Bajo qué esquema tipológico se clasifica el objeto y qué vocabulario externo respalda esa clasificación? |
-| CQ-OBJ-43 | ¿Qué objetos fueron exhibidos públicamente y cómo influyó su pátina o apariencia de antigüedad en la percepción? |
-| CQ-OBJ-46 | ¿Qué relaciones topológicas espaciales (proximidad, co-ocurrencia, asociación funcional) conectan el objeto con otros? |
-| CQ-OBJ-48 | ¿Qué patrones de distribución espacial dentro de un sitio revelan una zonificación funcional (áreas domésticas, rituales)? |
-| CQ-OBJ-50 | ¿Qué correlaciones existen entre la distribución territorial de objetos de un tipo cultural y los períodos geológicos? |
+| CQ-OBJ-04 | ¿En qué momento de su biografía un objeto natural adquirió agencia cultural por uso humano sin transformarse físicamente?                            |
+| CQ-OBJ-10 | ¿Qué identificador único se asignó al objeto en el momento de su recuperación en el campo?                                                           |
+| CQ-OBJ-19 | ¿Qué muestras físicas derivan del mismo objeto y qué resultados analíticos contradictorios produjeron distintos laboratorios?                        |
+| CQ-OBJ-20 | ¿Qué protocolos científicos, técnicas de laboratorio e instrumentos sustentan una determinación de procedencia?                                      |
+| CQ-OBJ-21 | ¿Qué conjuntos de datos analíticos se generaron durante el estudio científico del objeto y cómo se documentan?                                       |
+| CQ-OBJ-22 | ¿Qué procesos de calibración o correcciones metodológicas modificaron una datación o clasificación previamente publicada?                            |
+| CQ-OBJ-23 | ¿Cuál es la composición material primaria del objeto?                                                                                                |
+| CQ-OBJ-24 | ¿Qué interpretación material y funcional han asignado los investigadores al objeto?                                                                  |
+| CQ-OBJ-25 | ¿De dónde proceden geológica o geográficamente las materias primas del objeto?                                                                       |
+| CQ-OBJ-28 | ¿Qué hipótesis interpretativas rivales existen sobre la función, cronología o significado cultural del objeto?                                       |
+| CQ-OBJ-29 | ¿Qué interpretaciones funcionales o tipológicas fueron rechazadas y qué evidencia lo motivó?                                                         |
+| CQ-OBJ-30 | ¿Qué niveles de certeza se asignan a las interpretaciones del objeto y cómo se justifican?                                                           |
+| CQ-OBJ-31 | ¿Qué cadenas argumentativas conectan observaciones empíricas, mediciones de laboratorio e inferencias interpretativas?                               |
+| CQ-OBJ-32 | ¿Qué conflictos interpretativos existen entre distintos investigadores sobre la biografía, procedencia o significado del objeto?                     |
+| CQ-OBJ-33 | ¿Bajo qué esquema tipológico se clasifica el objeto y qué vocabulario externo respalda esa clasificación?                                            |
+| CQ-OBJ-43 | ¿Qué objetos fueron exhibidos públicamente y cómo influyó su pátina o apariencia de antigüedad en la percepción?                                     |
+| CQ-OBJ-46 | ¿Qué relaciones topológicas espaciales (proximidad, co-ocurrencia, asociación funcional) conectan el objeto con otros?                               |
+| CQ-OBJ-48 | ¿Qué patrones de distribución espacial dentro de un sitio revelan una zonificación funcional (áreas domésticas, rituales)?                           |
+| CQ-OBJ-50 | ¿Qué correlaciones existen entre la distribución territorial de objetos de un tipo cultural y los períodos geológicos?                               |
+
 
 ---
 
-### CQs del piloto Qwen 3.7-plus, clasificadas por patrón y subgrupo (38 CQs)
+### CQs del piloto Qwen 3.7-plus, clasificadas por patrón y subgrupo (30 CQs)
 
 Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** según el concepto que abordan. Los subgrupos no son una clasificación oficial del proyecto: son una **propuesta de organización** para facilitar la lectura.
 
 #### P1 — Eventos (lo que pasó) — 10 CQs
 
-| Subgrupo | CQs | Pregunta (resumida) |
-|---|---|---|
-| **P1.1 Origen y fabricación** | CQ-OBJ-01 | ¿Qué eventos de aprovisionamiento de materia prima hubo? |
-| | CQ-OBJ-05 | ¿Cuál es la secuencia completa de la cadena operativa? |
-| **P1.2 Vida útil y transformación** | CQ-OBJ-02 | ¿Qué objetos sufrieron reutilización lateral vs reciclaje? |
-| | CQ-OBJ-06 | ¿Qué eventos de mantenimiento se realizaron durante la vida útil? |
-| **P1.3 Fin del ciclo: depósito y recuperación** | CQ-OBJ-03 | ¿Qué eventos de descarte llevaron el objeto al registro? |
-| | CQ-OBJ-08 | ¿Qué eventos de deposición (inhumación, ofrenda, abandono) lo situaron? |
-| | CQ-OBJ-09 | ¿Qué unidades de excavación lo recuperaron y cómo se documentó? |
-| **P1.4 Actores y biografía** | CQ-OBJ-04 | ¿Por qué transiciones de persona social pasó durante su biografía? |
-| | CQ-OBJ-07 | ¿Qué actores, grupos o tradiciones participaron en su producción/uso? |
-| | CQ-OBJ-10 | ¿Dos o más objetos muestran secuencias biográficas paralelas? |
+
+| Subgrupo                                        | CQs       | Pregunta (resumida)                                                     |
+| ----------------------------------------------- | --------- | ----------------------------------------------------------------------- |
+| **P1.1 Origen y fabricación**                   | CQ-OBJ-01 | ¿Qué eventos de aprovisionamiento de materia prima hubo?                |
+|                                                 | CQ-OBJ-05 | ¿Cuál es la secuencia completa de la cadena operativa?                  |
+| **P1.2 Vida útil y transformación**             | CQ-OBJ-02 | ¿Qué objetos sufrieron reutilización lateral vs reciclaje?              |
+|                                                 | CQ-OBJ-06 | ¿Qué eventos de mantenimiento se realizaron durante la vida útil?       |
+| **P1.3 Fin del ciclo: depósito y recuperación** | CQ-OBJ-03 | ¿Qué eventos de descarte llevaron el objeto al registro?                |
+|                                                 | CQ-OBJ-08 | ¿Qué eventos de deposición (inhumación, ofrenda, abandono) lo situaron? |
+|                                                 | CQ-OBJ-09 | ¿Qué unidades de excavación lo recuperaron y cómo se documentó?         |
+| **P1.4 Actores y biografía**                    | CQ-OBJ-04 | ¿Por qué transiciones de persona social pasó durante su biografía?      |
+|                                                 | CQ-OBJ-07 | ¿Qué actores, grupos o tradiciones participaron en su producción/uso?   |
+|                                                 | CQ-OBJ-10 | ¿Dos o más objetos muestran secuencias biográficas paralelas?           |
+
 
 #### P2 — Estados (lo que es) — 11 CQs
 
-| Subgrupo | CQs | Pregunta (resumida) |
-|---|---|---|
-| **P2.1 Composición y materialidad** | CQ-OBJ-11 | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta? |
-| | CQ-OBJ-12 | ¿Cuál es la composición material del objeto? |
-| | CQ-OBJ-31 *(nueva)* | ¿Qué propiedades materiales relacionales (Knappett) caracterizan al objeto? |
-| **P2.2 Alteración y forma** | CQ-OBJ-16 | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta? |
-| | CQ-OBJ-17 | ¿Cuál es su estado de fragmentación y qué proporción se conserva? |
-| | CQ-OBJ-18 | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene? |
-| | CQ-OBJ-20 | ¿Qué valores de color Munsell y apariencia visual presenta? |
-| **P2.3 Contexto físico** | CQ-OBJ-14 | ¿En qué estado de distribución de desecho se encuentra? |
-| | CQ-OBJ-15 | ¿En qué unidad de volumen estratigráfico está embebido? |
-| | CQ-OBJ-19 | ¿Qué partes componentes (asas, tapaderas, hojas) lo componen? |
-| **P2.4 Modo de experiencia** | CQ-OBJ-13 | ¿Se experimenta como herramienta disponible o como espécimen de estudio? |
+
+| Subgrupo                            | CQs                 | Pregunta (resumida)                                                         |
+| ----------------------------------- | ------------------- | --------------------------------------------------------------------------- |
+| **P2.1 Composición y materialidad** | CQ-OBJ-11           | ¿Qué indicadores internos de datación (isótopos, oxidación) presenta?       |
+|                                     | CQ-OBJ-12           | ¿Cuál es la composición material del objeto?                                |
+| **P2.2 Alteración y forma**         | CQ-OBJ-16           | ¿Qué alteraciones superficiales (pátina, corrosión, desgaste) presenta?     |
+|                                     | CQ-OBJ-17           | ¿Cuál es su estado de fragmentación y qué proporción se conserva?           |
+|                                     | CQ-OBJ-18           | ¿Qué atributos morfométricos (dimensiones, peso, forma) tiene?              |
+|                                     | CQ-OBJ-20           | ¿Qué valores de color Munsell y apariencia visual presenta?                 |
+| **P2.3 Contexto físico**            | CQ-OBJ-14           | ¿En qué estado de distribución de desecho se encuentra?                     |
+|                                     | CQ-OBJ-15           | ¿En qué unidad de volumen estratigráfico está embebido?                     |
+|                                     | CQ-OBJ-19           | ¿Qué partes componentes (asas, tapaderas, hojas) lo componen?               |
+| **P2.4 Modo de experiencia**        | CQ-OBJ-13           | ¿Se experimenta como herramienta disponible o como espécimen de estudio?    |
+
 
 #### P4 — Asignaciones (lo que sabemos) — 17 CQs
 
-| Subgrupo | CQs | Pregunta (resumida) |
-|---|---|---|
-| **P4.1 Clasificación** | CQ-OBJ-21 | ¿Bajo qué esquema tipológico (monotético/politético) se clasifica? |
-| | CQ-OBJ-22 | ¿Qué rasgos significativos apoyan su asignación cronológica/cultural? |
-| | CQ-OBJ-23 | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
-| | CQ-OBJ-24 | ¿A qué grupo composicional (Leitlegierung) pertenece? |
-| | CQ-OBJ-29 | ¿A qué universo estilístico ha sido asignado? |
-| | CQ-OBJ-33 *(duplicado de CQ-OBJ-23)* | *(repite el concepto de CQ-OBJ-23)* |
-| | CQ-OBJ-34 *(duplicado de CQ-OBJ-22)* | *(repite el concepto de CQ-OBJ-22)* |
-| | CQ-OBJ-35 *(duplicado de CQ-OBJ-24)* | *(repite el concepto de CQ-OBJ-24)* |
-| **P4.2 Función** | CQ-OBJ-26 | ¿Qué interpretación funcional se le ha asignado? |
-| | CQ-OBJ-36 *(duplicado de CQ-OBJ-26)* | *(repite el concepto de CQ-OBJ-26)* |
-| **P4.3 Significado y agencia** | CQ-OBJ-27 | ¿Qué significado cultural/simbólico/ritual se le atribuye? |
-| | CQ-OBJ-28 | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico? |
-| | CQ-OBJ-32 *(duplica conceptualmente CQ-OBJ-28)* | ¿Qué affordances presenta y cómo canalizan la acción humana? |
-| | CQ-OBJ-37 *(duplicado de CQ-OBJ-27)* | *(repite el concepto de CQ-OBJ-27)* |
-| **P4.4 Conocimiento y evidencia** | CQ-OBJ-25 | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan? |
-| | CQ-OBJ-30 | ¿Qué hipótesis interpretativas rivales existen sobre el objeto? |
-| | CQ-OBJ-38 *(duplicado de CQ-OBJ-30)* | *(repite el concepto de CQ-OBJ-30)* |
 
-> **Importante: qué son las CQs "adicionales" y cuántas son realmente distintas**
->
-> Las CQs **31–38** son **8 preguntas añadidas en una segunda iteración** del piloto, después de las 30 iniciales. Se añadieron con un objetivo: asegurar que los 8 conceptos del brief que requieren clases propias del proyecto (brief §7) tuvieran al menos una pregunta que los forzara.
->
-> Al revisarlas una a una, su relación con las 30 primeras es la siguiente:
->
-> | Tipo | CQs | Detalle |
-> |---|---|---|
-> | **Duplicados exactos** | 33, 34, 35, 36, 37, 38 | **6 CQs** — reformulan preguntas ya existentes (23, 22, 24, 26, 27, 30). Cinco son literalmente idénticas o casi idénticas. |
-> | **Duplicado conceptual** | 32 | **1 CQ** — pregunta por *affordances*, que es el mismo apartado del brief (§7.2) ya cubierto por la CQ 28 (*agencia material*). Son conceptos teóricos hermanos (Gibson/Hodder) que el brief trata como uno solo. |
-> | **Concepto nuevo** | 31 | **1 CQ** — la *materialidad relacional* (las 4 propiedades de Knappett) no estaba cubierta por ninguna pregunta anterior. La CQ 12 pregunta por *composición* (de qué está hecho); la 31 pregunta por las *relaciones sociales del material*. |
->
-> **Conclusión:** de las 38 CQs totales, **31 son conceptos distintos** (30 originales + 1 genuinamente nuevo). Las 7 restantes son refuerzos o duplicados que se mantienen por trazabilidad.
+| Subgrupo                          | CQs                                             | Pregunta (resumida)                                                     |
+| --------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| **P4.1 Clasificación**            | CQ-OBJ-21                                       | ¿Bajo qué esquema tipológico (monotético/politético) se clasifica?      |
+|                                   | CQ-OBJ-22                                       | ¿Qué rasgos significativos apoyan su asignación cronológica/cultural?   |
+|                                   | CQ-OBJ-23                                       | ¿Cuál es la fuerza de la relación tipo-período (débil/moderada/fuerte)? |
+|                                   | CQ-OBJ-24                                       | ¿A qué grupo composicional (Leitlegierung) pertenece?                   |
+|                                   | CQ-OBJ-29                                       | ¿A qué universo estilístico ha sido asignado?                           |
+| **P4.2 Función**                  | CQ-OBJ-26                                       | ¿Qué interpretación funcional se le ha asignado?                        |
+| **P4.3 Significado y agencia**    | CQ-OBJ-27                                       | ¿Qué significado cultural/simbólico/ritual se le atribuye?              |
+|                                   | CQ-OBJ-28                                       | ¿Qué agencia material se le ha atribuido y bajo qué marco teórico?      |
+| **P4.4 Conocimiento y evidencia** | CQ-OBJ-25                                       | ¿Qué registros de archivo (cuadernos, bases de datos) lo documentan?    |
+|                                   | CQ-OBJ-30                                       | ¿Qué hipótesis interpretativas rivales existen sobre el objeto?         |
+
+
+### CQs de extensión posterior (fuera del piloto)
+
+Las CQs 31–38 se conservan en `CQ-object-qwen3.7plus-extension.md`. Se añadieron después del piloto para reforzar los conceptos del brief §7; **no forman parte de las 30 CQs originales ni de sus métricas**.
+
+| Tipo | CQs | Motivo |
+|---|---|---|
+| Concepto nuevo | CQ-OBJ-31 | Materialidad relacional de Knappett |
+| Refuerzo o solapamiento | CQ-OBJ-32 a CQ-OBJ-38 | Refuerzan o reformulan conceptos ya cubiertos |
 
 ---
 
@@ -336,11 +339,11 @@ Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** seg
 - Morphometrics
 - Partonomy
 - Visual attributes (color Munsell)
-- **Materialidad relacional (Knappett)** [CQ-OBJ-31, adicional]
+- **Materialidad relacional (Knappett)** — documentada en la extensión posterior, no en las 30 CQs del piloto
 
 **Clases CIDOC CRM utilizadas:** E19_Physical_Object, E26_Physical_Feature, E3_Condition_State, E54_Dimension, E57_Material
 
-### Qwen 3.7-plus — P4 (Assignment-Intrinsic) — CQ-OBJ-21 a 30 + 32 a 38
+### Qwen 3.7-plus — P4 (Assignment-Intrinsic) — CQ-OBJ-21 a 30
 
 **Conceptos clave:**
 
@@ -354,13 +357,6 @@ Dentro de cada patrón, las preguntas se agrupan en **subgrupos temáticos** seg
 - Material agency
 - Stylistic universes
 - Competing hypotheses (multivocality)
-- **Affordances/agencia material** [CQ-OBJ-32]
-- **Type-to-period strength** [CQ-OBJ-33]
-- **Significant features** [CQ-OBJ-34]
-- **Compositional groups** [CQ-OBJ-35]
-- **Functional assignment** [CQ-OBJ-36]
-- **Cultural significance** [CQ-OBJ-37]
-- **Competing hypotheses** [CQ-OBJ-38]
 
 **Clases CIDOC CRM utilizadas:** E17_Type_Assignment, E55_Type, E89_Propositional_Object, E13_Attribute_Assignment
 
@@ -574,7 +570,7 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 | Métrica                      | Qwen 3.6 P1 | Qwen 3.6 P2 | Qwen 3.6 P4 | Qwen 3.7-plus |
 | ---------------------------- | ----------- | ----------- | ----------- | ------------- |
-| **CQs**                      | 50          | 50          | 50          | 38            |
+| **CQs**                      | 50          | 50          | 50          | 30            |
 | **Clases arqo (cumulative)** | 63          | 34          | 31          | 59            |
 | **Object Props**             | 54          | 29          | 24          | 97            |
 | **Data Props**               | 37          | 20          | 15          | 56            |
@@ -610,8 +606,8 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 **Qwen 3.7-plus:**
 
-- Las 38 CQs cubren los conceptos clave del brief §1 (biografía, materialidad, contexto, tipología, agencia, pastness, relojes internos, archivo)
-- Las 8 CQs adicionales (§7) refuerzan los conceptos de extensión; de ellas, solo la 31 aporta un concepto nuevo, mientras que las 32–38 solapan con preguntas ya existentes
+- Las 30 CQs del piloto cubren los conceptos clave del brief §1 (biografía, materialidad, contexto, tipología, agencia, pastness, relojes internos, archivo)
+- Las 8 CQs de extensión posterior se conservan aparte y no forman parte de estas métricas
 
 ### 2. Patrones de modelado
 
@@ -739,7 +735,7 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 
 ### Limitaciones del piloto qwen 3.7-plus
 
-1. **Menos CQs** (38 vs 50) — menor cobertura de eventos específicos
+1. **Menos CQs** (30 vs 50) — menor cobertura de eventos específicos
 2. **Solo temperatura 0.5** — no hay comparación entre temperaturas
 3. **Menos clases de eventos** que qwen 3.6 P1 (no modela Exhibition, Repatriation, Custody, Sampling como eventos)
 4. **P1 con solo 10 CQs** — menor profundidad en eventos del ciclo de vida
@@ -756,7 +752,7 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 
 | Aspecto         | Qwen 3.6 con patrones      | Qwen 3.7-plus piloto    |
 | --------------- | -------------------------- | ----------------------- |
-| **CQs**         | 50 unificadas              | 30 + 8 de extensión     |
+| **CQs**         | 50 unificadas              | 30 en el piloto + 8 en una extensión posterior |
 | **Patrones**    | 3 experimentos separados   | 1 corpus con 3 patrones |
 | **Temperatura** | 3 valores                  | 1 valor (0.5)           |
 | **Brief**       | Sin sección de extensiones | Con §7 de extensiones   |
@@ -794,7 +790,7 @@ Esta verificación confirma que el enfoque del brief (indicar explícitamente qu
 
 **Problema:** Las CQs originales no forzaban explícitamente la creación de extensiones para conceptos teóricos.
 
-**Solución implementada:** Se agregaron 8 CQs (CQ-OBJ-31 a CQ-OBJ-38) que referencian explícitamente los conceptos de la sección §7:
+**Solución implementada:** Se creó un conjunto de extensión separado con 8 CQs (CQ-OBJ-31 a CQ-OBJ-38) que referencia explícitamente los conceptos de la sección §7. Estas preguntas no forman parte del piloto original de 30 CQs:
 
 
 | CQ        | Concepto §7                          | Patrón |
@@ -835,29 +831,35 @@ Estas mejoras **no están implementadas todavía** y se proponen para las próxi
 
 #### 🔴 Prioridad alta
 
-| # | Propuesta | Qué resolvería | Esfuerzo |
-|---|---|---|---|
-| 1 | **Consolidar las CQs duplicadas** | Las CQs 32–38 reformulan conceptos ya cubiertos por las 22–30. Consolidarlas daría un set limpio de **31 conceptos distintos** | Bajo |
-| 2 | **Adoptar los subgrupos temáticos** (P1.1, P1.2…) como estructura oficial | Facilita la lectura, la validación con expertos y la detección de vacíos temáticos | Bajo |
-| 3 | **Validación intermedia** (concepto → CQ) | Detecta automáticamente si algún concepto del brief no tiene pregunta asignada | Medio |
-| 4 | **Evaluación con expertos arqueólogos** | Valida que las preguntas y las clases sean arqueológicamente correctas, no solo técnicamente válidas | Medio |
+
+| #   | Propuesta                                                                 | Qué resolvería                                                                                                                 | Esfuerzo |
+| --- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| 1   | **Consolidar las CQs duplicadas**                                         | Las CQs 32–38 reformulan conceptos ya cubiertos por las 22–30. Consolidarlas daría un set limpio de **31 conceptos distintos** | Bajo     |
+| 2   | **Adoptar los subgrupos temáticos** (P1.1, P1.2…) como estructura oficial | Facilita la lectura, la validación con expertos y la detección de vacíos temáticos                                             | Bajo     |
+| 3   | **Validación intermedia** (concepto → CQ)                                 | Detecta automáticamente si algún concepto del brief no tiene pregunta asignada                                                 | Medio    |
+| 4   | **Evaluación con expertos arqueólogos**                                   | Valida que las preguntas y las clases sean arqueológicamente correctas, no solo técnicamente válidas                           | Medio    |
+
 
 #### 🟡 Prioridad media
 
-| # | Propuesta | Qué resolvería | Esfuerzo |
-|---|---|---|---|
-| 5 | **Medir cobertura CQ → ontología con SPARQL** | Comprueba que cada pregunta puede responderse realmente contra la ontología generada (no solo que la clase exista) | Medio |
-| 6 | **Verificar consistencia lógica con un reasoner OWL** | Detecta clases insatisfacibles, contradicciones y axiomas mal formados | Medio |
-| 7 | **Extender el pipeline a los otros 3 bloques** (espacial, temporal, estratigrafía) | Actualmente solo está completo el bloque de objeto | Alto |
-| 8 | **Comparar más modelos LLM** (deepseek, kimi, glm…) | Permite una comparativa cross-model robusta | Medio |
+
+| #   | Propuesta                                                                          | Qué resolvería                                                                                                     | Esfuerzo |
+| --- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------- |
+| 5   | **Medir cobertura CQ → ontología con SPARQL**                                      | Comprueba que cada pregunta puede responderse realmente contra la ontología generada (no solo que la clase exista) | Medio    |
+| 6   | **Verificar consistencia lógica con un reasoner OWL**                              | Detecta clases insatisfacibles, contradicciones y axiomas mal formados                                             | Medio    |
+| 7   | **Extender el pipeline a los otros 3 bloques** (espacial, temporal, estratigrafía) | Actualmente solo está completo el bloque de objeto                                                                 | Alto     |
+| 8   | **Comparar más modelos LLM** (deepseek, kimi, glm…)                                | Permite una comparativa cross-model robusta                                                                        | Medio    |
+
 
 #### 🟢 Prioridad baja (exploratoria)
 
-| # | Propuesta | Qué resolvería | Esfuerzo |
-|---|---|---|---|
-| 9 | **Comparar temperaturas** (0.3, 0.5, 0.7) en el piloto | El piloto solo usó temperatura 0.5; faltan los extremos | Bajo |
-| 10 | **Añadir métricas de determinismo** (misma pregunta, dos ejecuciones) | Mide la estabilidad del modelo ante el mismo prompt | Medio |
-| 11 | **Regenerar con los prompts mejorados** y comparar antes/después | Mide el impacto real del balance guideline en las clases `arqo:` creadas | Bajo |
+
+| #   | Propuesta                                                             | Qué resolvería                                                           | Esfuerzo |
+| --- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------- |
+| 9   | **Comparar temperaturas** (0.3, 0.5, 0.7) en el piloto                | El piloto solo usó temperatura 0.5; faltan los extremos                  | Bajo     |
+| 10  | **Añadir métricas de determinismo** (misma pregunta, dos ejecuciones) | Mide la estabilidad del modelo ante el mismo prompt                      | Medio    |
+| 11  | **Regenerar con los prompts mejorados** y comparar antes/después      | Mide el impacto real del balance guideline en las clases `arqo:` creadas | Bajo     |
+
 
 > **Recomendación:** empezar por las propuestas 1, 2 y 3 (bajo esfuerzo, alto impacto en claridad y rigor), que preparan el terreno para la evaluación con expertos (propuesta 4).
 
@@ -954,9 +956,9 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 
 ### Sobre las preguntas (CQs)
 
-1. El piloto usa menos preguntas (38 vs 50) pero **más específicas y mejor fundamentadas teóricamente**
+1. El piloto usa menos preguntas (30 vs 50) pero **más específicas y mejor fundamentadas teóricamente**
 2. La distribución por patrón es más equilibrada en el piloto
-3. De las 38 preguntas, **31 son conceptos distintos**: las 8 adicionales refuerzan los conceptos del brief, pero 7 de ellas solapan con preguntas ya existentes
+3. El piloto tiene 30 preguntas originales; la extensión posterior añade 8 preguntas para trazabilidad y cobertura del brief, pero no altera las métricas del piloto
 
 ### Sobre la ontología generada
 
@@ -978,7 +980,6 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 3. Consolidar las preguntas duplicadas (32–38) para dejar un set limpio de **31 conceptos distintos**
 4. Ejecutar el pipeline completo en ambas estrategias de generación
 
-
 ---
 
 ## Anexo A. Glosario de términos técnicos
@@ -987,39 +988,45 @@ Para facilitar la lectura a perfiles no informáticos.
 
 ### Conceptos de ontologías
 
-| Término | En palabras llanas |
-|---|---|
-| **Ontología** | Representación formal y legible por máquina del conocimiento de un dominio. Define qué tipos de cosas existen y cómo se relacionan. |
-| **Clase** | Un *tipo de cosa* del dominio (p. ej. "objeto arqueológico", "evento de producción"). |
-| **Propiedad** | Una *relación* entre dos cosas, o entre una cosa y un valor (p. ej. "está hecho de", "tiene fecha"). |
-| **Subclase** | Relación "es un tipo de". Si `A` es subclase de `B`, toda `A` es también una `B`. |
-| **Reificar** | Convertir una relación en una entidad con identidad propia, para poder darle atributos (autor, fecha, certeza). Ejemplo: "A está hecho de B" se convierte en "Asignación de material, hecha por X, con certeza Y". |
-| **Propiedad de objeto** | Relación entre dos entidades (p. ej. "el objeto *fue producido por* el evento"). |
-| **Propiedad de dato** | Relación entre una entidad y un valor literal (p. ej. "el objeto *tiene peso* 250 gramos"). |
-| **Axioma** | Regla formal que la ontología declara como verdadera (p. ej. "todo objeto arqueológico es un objeto físico"). |
+
+| Término                 | En palabras llanas                                                                                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Ontología**           | Representación formal y legible por máquina del conocimiento de un dominio. Define qué tipos de cosas existen y cómo se relacionan.                                                                                |
+| **Clase**               | Un *tipo de cosa* del dominio (p. ej. "objeto arqueológico", "evento de producción").                                                                                                                              |
+| **Propiedad**           | Una *relación* entre dos cosas, o entre una cosa y un valor (p. ej. "está hecho de", "tiene fecha").                                                                                                               |
+| **Subclase**            | Relación "es un tipo de". Si `A` es subclase de `B`, toda `A` es también una `B`.                                                                                                                                  |
+| **Reificar**            | Convertir una relación en una entidad con identidad propia, para poder darle atributos (autor, fecha, certeza). Ejemplo: "A está hecho de B" se convierte en "Asignación de material, hecha por X, con certeza Y". |
+| **Propiedad de objeto** | Relación entre dos entidades (p. ej. "el objeto *fue producido por* el evento").                                                                                                                                   |
+| **Propiedad de dato**   | Relación entre una entidad y un valor literal (p. ej. "el objeto *tiene peso* 250 gramos").                                                                                                                        |
+| **Axioma**              | Regla formal que la ontología declara como verdadera (p. ej. "todo objeto arqueológico es un objeto físico").                                                                                                      |
+
 
 ### Estándares y formatos
 
-| Término | En palabras llanas |
-|---|---|
-| **CIDOC CRM** | Estándar internacional para el patrimonio cultural. Define las clases y relaciones básicas (objetos, eventos, actores, lugares, tiempos). |
-| **CRMarchaeo** | Extensión de CIDOC CRM específica para excavación y estratigrafía. |
-| **CRMsci / CRMinf** | Extensiones de CIDOC CRM para observación científica (CRMsci) e inferencia y argumentación (CRMinf). |
-| **TTL / Turtle** | Formato de archivo de texto en el que se escriben las ontologías. Es legible por humanos y por máquinas. |
-| **OWL** | Lenguaje estándar para expresar ontologías con lógica formal. |
-| **SPARQL** | Lenguaje de consulta para buscar información en ontologías. |
-| **Reasoner** | Programa que verifica automáticamente la coherencia lógica de una ontología (detecta contradicciones). |
+
+| Término             | En palabras llanas                                                                                                                        |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **CIDOC CRM**       | Estándar internacional para el patrimonio cultural. Define las clases y relaciones básicas (objetos, eventos, actores, lugares, tiempos). |
+| **CRMarchaeo**      | Extensión de CIDOC CRM específica para excavación y estratigrafía.                                                                        |
+| **CRMsci / CRMinf** | Extensiones de CIDOC CRM para observación científica (CRMsci) e inferencia y argumentación (CRMinf).                                      |
+| **TTL / Turtle**    | Formato de archivo de texto en el que se escriben las ontologías. Es legible por humanos y por máquinas.                                  |
+| **OWL**             | Lenguaje estándar para expresar ontologías con lógica formal.                                                                             |
+| **SPARQL**          | Lenguaje de consulta para buscar información en ontologías.                                                                               |
+| **Reasoner**        | Programa que verifica automáticamente la coherencia lógica de una ontología (detecta contradicciones).                                    |
+
 
 ### Nomenclatura del proyecto
 
-| Término | En palabras llanas |
-|---|---|
-| **`arqo:`** | Prefijo de las clases y propiedades **nuevas** creadas por el proyecto. Las heredadas de estándares usan prefijos como `crm:` o `crmarchaeo:`. |
-| **Memoryless** | Estrategia de generación "sin memoria": cada pregunta se responde por separado. |
-| **Ontogenia** | Estrategia de generación "con memoria": cada respuesta tiene en cuenta todo lo construido antes. |
-| **Temperatura** | Parámetro que controla cuán conservador (0.3) o creativo (0.7) es el modelo al generar. |
-| **Cumulative** | Archivo final que acumula todo lo construido paso a paso en la estrategia ontogenia. |
-| **Patrón (P1/P2/P4)** | Tipo de conocimiento que pide una pregunta: eventos (P1), estados (P2) o asignaciones (P4). |
+
+| Término               | En palabras llanas                                                                                                                             |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `**arqo:**`           | Prefijo de las clases y propiedades **nuevas** creadas por el proyecto. Las heredadas de estándares usan prefijos como `crm:` o `crmarchaeo:`. |
+| **Memoryless**        | Estrategia de generación "sin memoria": cada pregunta se responde por separado.                                                                |
+| **Ontogenia**         | Estrategia de generación "con memoria": cada respuesta tiene en cuenta todo lo construido antes.                                               |
+| **Temperatura**       | Parámetro que controla cuán conservador (0.3) o creativo (0.7) es el modelo al generar.                                                        |
+| **Cumulative**        | Archivo final que acumula todo lo construido paso a paso en la estrategia ontogenia.                                                           |
+| **Patrón (P1/P2/P4)** | Tipo de conocimiento que pide una pregunta: eventos (P1), estados (P2) o asignaciones (P4).                                                    |
+
 
 > **Nota sobre los nombres de clases:** las clases se nombran en inglés (`ProcurementEvent`, `MaterialRelation`…) porque así lo exige la convención internacional de CIDOC CRM y porque facilita la interoperabilidad con otros proyectos. En el glosario de cada documento se ofrece su equivalente en español.
 
