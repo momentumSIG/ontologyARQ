@@ -120,80 +120,77 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 - El piloto original cumple exactamente el diseño solicitado: 10 preguntas por patrón
 - Las preguntas de extensión posterior se analizan por separado y no alteran las métricas del piloto
 
-### CQs de Qwen 3.6, clasificadas por patrón (50 CQs)
+### CQs de Qwen 3.6, clasificadas por patrón y subgrupo (50 CQs)
 
-> Clasificación **oficial del proyecto** (archivo `CQ_por_patron.md`), con distribución 17 P1 + 13 P2 + 20 P4. Las preguntas están traducidas al español; entre paréntesis se conserva el original en inglés cuando aporta precisión.
+> Clasificación **oficial del proyecto** (archivo `CQ_por_patron.md`), con distribución 17 P1 + 13 P2 + 20 P4. Se añaden **subgrupos temáticos** (`P1.1`, `P1.2`…) homólogos a los del piloto Qwen 3.7-plus, para permitir la comparación directa y la detección de vacíos temáticos. Las preguntas están traducidas al español; entre paréntesis se conserva el original en inglés cuando aporta precisión.
 
 #### P1 — Eventos (lo que pasó) — 17 CQs
 
 
-| CQ        | Pregunta                                                                                                                                                                     |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CQ-OBJ-01 | ¿Qué secuencia de eventos biográficos (producción, uso, reutilización, reparación, circulación, depósito, recuperación) constituye la trayectoria vital completa del objeto? |
-| CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reutilización)?                                     |
-| CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil?                                                 |
-| CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación?                                                                                                    |
-| CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original?                                                                                                     |
-| CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto?                                                                                                                |
-| CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos?                                                                                        |
-| CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto?                                                                                    |
-| CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica?                                                                                    |
-| CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto?                                                             |
-| CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia?                                                                                |
-| CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato?                                        |
-| CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                                 |
-| CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                        |
-| CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto?                                              |
-| CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales?                                                                |
-| CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa?                                                              |
-
+| Subgrupo                                       | CQ        | Pregunta                                                                                                                                                                     |
+| ---------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P1.1 Producción y tecnología**               | CQ-OBJ-11 | ¿Mediante qué procedimientos tecnológicos y técnicas artesanales fue fabricado el objeto?                                                                                    |
+| **P1.2 Biografía, trayectorias y actores**     | CQ-OBJ-01 | ¿Qué secuencia de eventos biográficos (producción, uso, reutilización, reparación, circulación, depósito, recuperación) constituye la trayectoria vital completa del objeto? |
+|                                                | CQ-OBJ-03 | ¿Qué objetos de distintos sitios comparten trayectorias biográficas paralelas (secuencias similares de fabricación, uso, reutilización)?                                     |
+|                                                | CQ-OBJ-08 | ¿Qué secuencia de eventos constituye la biografía del objeto?                                                                                                                |
+|                                                | CQ-OBJ-09 | ¿Muestran objetos de sitios geográficamente distantes patrones biográficos paralelos?                                                                                        |
+|                                                | CQ-OBJ-16 | ¿Qué actores sociales, grupos culturales o tradiciones artesanales se vinculan a la producción o uso del objeto?                                                             |
+| **P1.3 Uso, reuso y transformación funcional** | CQ-OBJ-05 | ¿Qué objetos sufrieron transformaciones funcionales que cambiaron su clasificación tipológica original durante su vida útil?                                                 |
+|                                                | CQ-OBJ-07 | ¿Ha sido reutilizado un objeto para una función distinta de la original?                                                                                                     |
+| **P1.4 Depósito y recuperación**               | CQ-OBJ-06 | ¿Qué objetos se recuperaron como parte de una misma unidad de excavación?                                                                                                    |
+|                                                | CQ-OBJ-15 | ¿Qué objetos comparten un mismo evento de deposición dentro de una unidad estratigráfica?                                                                                    |
+| **P1.5 Circulación, custodia y patrimonio**    | CQ-OBJ-17 | ¿Viajó el objeto por distintas regiones geográficas o zonas culturales durante su existencia?                                                                                |
+|                                                | CQ-OBJ-41 | ¿Qué cadena de custodia (excavación, almacenamiento, préstamo, exhibición, restauración, repatriación) ha gestionado el objeto?                                              |
+|                                                | CQ-OBJ-45 | ¿Qué objetos son objeto de reclamaciones de patrimonio cultural, demandas de repatriación o litigios legales?                                                                |
+|                                                | CQ-OBJ-47 | ¿Qué objetos circularon entre asentamientos, territorios o corredores de movilidad durante su vida útil activa?                                                              |
+| **P1.6 Análisis, muestreo y conservación**     | CQ-OBJ-18 | ¿Qué cadena completa de eventos analíticos (muestreo, protocolo, medición, calibración, interpretación) transforma el objeto en dato?                                        |
+|                                                | CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                                 |
+|                                                | CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                        |
 
 #### P2 — Estados (lo que es) — 13 CQs
 
 
-| CQ        | Pregunta                                                                                                                            |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| CQ-OBJ-12 | ¿Cuál es la narrativa cronológica completa del objeto, desde la fabricación hasta el depósito?                                      |
-| CQ-OBJ-13 | ¿Cambió el rol funcional del objeto durante su vida útil activa?                                                                    |
-| CQ-OBJ-14 | ¿Presenta el objeto huellas de reparación, alteración o modificación deliberada tras su producción inicial?                         |
-| CQ-OBJ-34 | ¿Qué procesos tafonómicos naturales (bioturbación, corrosión, meteorización, transporte hídrico, compactación) alteraron el objeto? |
-| CQ-OBJ-35 | ¿Qué correlaciones existen entre las unidades estratigráficas que contienen el objeto y las unidades geológicas?                    |
-| CQ-OBJ-36 | ¿Qué eventos geomorfológicos (inundaciones, coluvión, erosión, vulcanismo, dinámica fluvial) afectaron el contexto deposicional?    |
-| CQ-OBJ-37 | ¿Qué objetos muestran evidencia de desplazamiento post-deposicional y cómo afecta a su interpretación contextual?                   |
-| CQ-OBJ-38 | ¿Qué procesos de fragmentación (intencional-ritual, accidental por uso o tafonómica) sufrió el objeto?                              |
-| CQ-OBJ-39 | ¿Ha sido movido el objeto de su contexto deposicional primario por procesos naturales o humanos?                                    |
-| CQ-OBJ-40 | ¿En qué estado de preservación se encuentra el objeto y qué procesos post-deposicionales lo conformaron?                            |
-| CQ-OBJ-42 | ¿Qué decisiones de conservación (limpieza, consolidación, reconstrucción o no intervención) se aplicaron al objeto?                 |
-| CQ-OBJ-44 | ¿Qué réplicas digitales, modelos 3D o representaciones virtuales existen del objeto y qué documentan?                               |
-| CQ-OBJ-49 | ¿Qué objetos de distintos niveles estratigráficos documentan secuencias de ocupación, abandono y reocupación?                       |
-
+| Subgrupo                                         | CQ        | Pregunta                                                                                                                            |
+| ------------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **P2.1 Tafonomía y alteración**                  | CQ-OBJ-34 | ¿Qué procesos tafonómicos naturales (bioturbación, corrosión, meteorización, transporte hídrico, compactación) alteraron el objeto? |
+|                                                  | CQ-OBJ-38 | ¿Qué procesos de fragmentación (intencional-ritual, accidental por uso o tafonómica) sufrió el objeto?                              |
+|                                                  | CQ-OBJ-40 | ¿En qué estado de preservación se encuentra el objeto y qué procesos post-deposicionales lo conformaron?                            |
+|                                                  | CQ-OBJ-14 | ¿Presenta el objeto huellas de reparación, alteración o modificación deliberada tras su producción inicial?                         |
+| **P2.2 Desplazamiento post-deposicional**        | CQ-OBJ-37 | ¿Qué objetos muestran evidencia de desplazamiento post-deposicional y cómo afecta a su interpretación contextual?                   |
+|                                                  | CQ-OBJ-39 | ¿Ha sido movido el objeto de su contexto deposicional primario por procesos naturales o humanos?                                    |
+| **P2.3 Contexto deposicional y geoarqueología**  | CQ-OBJ-35 | ¿Qué correlaciones existen entre las unidades estratigráficas que contienen el objeto y las unidades geológicas?                    |
+|                                                  | CQ-OBJ-36 | ¿Qué eventos geomorfológicos (inundaciones, coluvión, erosión, vulcanismo, dinámica fluvial) afectaron el contexto deposicional?    |
+| **P2.4 Conservación y representación digital**   | CQ-OBJ-42 | ¿Qué decisiones de conservación (limpieza, consolidación, reconstrucción o no intervención) se aplicaron al objeto?                 |
+|                                                  | CQ-OBJ-44 | ¿Qué réplicas digitales, modelos 3D o representaciones virtuales existen del objeto y qué documentan?                               |
+| **P2.5 Estado funcional, narrativa y ocupación** | CQ-OBJ-12 | ¿Cuál es la narrativa cronológica completa del objeto, desde la fabricación hasta el depósito?                                      |
+|                                                  | CQ-OBJ-13 | ¿Cambió el rol funcional del objeto durante su vida útil activa?                                                                    |
+|                                                  | CQ-OBJ-49 | ¿Qué objetos de distintos niveles estratigráficos documentan secuencias de ocupación, abandono y reocupación?                       |
 
 #### P4 — Asignaciones (lo que sabemos) — 20 CQs
 
 
-| CQ        | Pregunta                                                                                                                                             |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CQ-OBJ-02 | ¿Cómo se distingue la biografía física real (secuencia de eventos materiales) de las biografías narrativas construidas por distintos investigadores? |
-| CQ-OBJ-04 | ¿En qué momento de su biografía un objeto natural adquirió agencia cultural por uso humano sin transformarse físicamente?                            |
-| CQ-OBJ-10 | ¿Qué identificador único se asignó al objeto en el momento de su recuperación en el campo?                                                           |
-| CQ-OBJ-19 | ¿Qué muestras físicas derivan del mismo objeto y qué resultados analíticos contradictorios produjeron distintos laboratorios?                        |
-| CQ-OBJ-20 | ¿Qué protocolos científicos, técnicas de laboratorio e instrumentos sustentan una determinación de procedencia?                                      |
-| CQ-OBJ-21 | ¿Qué conjuntos de datos analíticos se generaron durante el estudio científico del objeto y cómo se documentan?                                       |
-| CQ-OBJ-22 | ¿Qué procesos de calibración o correcciones metodológicas modificaron una datación o clasificación previamente publicada?                            |
-| CQ-OBJ-23 | ¿Cuál es la composición material primaria del objeto?                                                                                                |
-| CQ-OBJ-24 | ¿Qué interpretación material y funcional han asignado los investigadores al objeto?                                                                  |
-| CQ-OBJ-25 | ¿De dónde proceden geológica o geográficamente las materias primas del objeto?                                                                       |
-| CQ-OBJ-28 | ¿Qué hipótesis interpretativas rivales existen sobre la función, cronología o significado cultural del objeto?                                       |
-| CQ-OBJ-29 | ¿Qué interpretaciones funcionales o tipológicas fueron rechazadas y qué evidencia lo motivó?                                                         |
-| CQ-OBJ-30 | ¿Qué niveles de certeza se asignan a las interpretaciones del objeto y cómo se justifican?                                                           |
-| CQ-OBJ-31 | ¿Qué cadenas argumentativas conectan observaciones empíricas, mediciones de laboratorio e inferencias interpretativas?                               |
-| CQ-OBJ-32 | ¿Qué conflictos interpretativos existen entre distintos investigadores sobre la biografía, procedencia o significado del objeto?                     |
-| CQ-OBJ-33 | ¿Bajo qué esquema tipológico se clasifica el objeto y qué vocabulario externo respalda esa clasificación?                                            |
-| CQ-OBJ-43 | ¿Qué objetos fueron exhibidos públicamente y cómo influyó su pátina o apariencia de antigüedad en la percepción?                                     |
-| CQ-OBJ-46 | ¿Qué relaciones topológicas espaciales (proximidad, co-ocurrencia, asociación funcional) conectan el objeto con otros?                               |
-| CQ-OBJ-48 | ¿Qué patrones de distribución espacial dentro de un sitio revelan una zonificación funcional (áreas domésticas, rituales)?                           |
-| CQ-OBJ-50 | ¿Qué correlaciones existen entre la distribución territorial de objetos de un tipo cultural y los períodos geológicos?                               |
-
+| Subgrupo                                | CQ        | Pregunta                                                                                                                                             |
+| --------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **P4.1 Clasificación y tipología**      | CQ-OBJ-33 | ¿Bajo qué esquema tipológico se clasifica el objeto y qué vocabulario externo respalda esa clasificación?                                            |
+| **P4.2 Composición y materialidad**     | CQ-OBJ-23 | ¿Cuál es la composición material primaria del objeto?                                                                                                |
+| **P4.3 Función y significado**          | CQ-OBJ-24 | ¿Qué interpretación material y funcional han asignado los investigadores al objeto?                                                                  |
+|                                         | CQ-OBJ-43 | ¿Qué objetos fueron exhibidos públicamente y cómo influyó su pátina o apariencia de antigüedad en la percepción?                                     |
+| **P4.4 Agencia, ontología y narrativa** | CQ-OBJ-02 | ¿Cómo se distingue la biografía física real (secuencia de eventos materiales) de las biografías narrativas construidas por distintos investigadores? |
+|                                         | CQ-OBJ-04 | ¿En qué momento de su biografía un objeto natural adquirió agencia cultural por uso humano sin transformarse físicamente?                            |
+| **P4.5 Identificadores y procedencia**  | CQ-OBJ-10 | ¿Qué identificador único se asignó al objeto en el momento de su recuperación en el campo?                                                           |
+|                                         | CQ-OBJ-20 | ¿Qué protocolos científicos, técnicas de laboratorio e instrumentos sustentan una determinación de procedencia?                                      |
+|                                         | CQ-OBJ-25 | ¿De dónde proceden geológica o geográficamente las materias primas del objeto?                                                                       |
+| **P4.6 Evidencia, datos y metodología** | CQ-OBJ-19 | ¿Qué muestras físicas derivan del mismo objeto y qué resultados analíticos contradictorios produjeron distintos laboratorios?                        |
+|                                         | CQ-OBJ-21 | ¿Qué conjuntos de datos analíticos se generaron durante el estudio científico del objeto y cómo se documentan?                                       |
+|                                         | CQ-OBJ-22 | ¿Qué procesos de calibración o correcciones metodológicas modificaron una datación o clasificación previamente publicada?                            |
+|                                         | CQ-OBJ-31 | ¿Qué cadenas argumentativas conectan observaciones empíricas, mediciones de laboratorio e inferencias interpretativas?                               |
+| **P4.7 Interpretación disputada**       | CQ-OBJ-28 | ¿Qué hipótesis interpretativas rivales existen sobre la función, cronología o significado cultural del objeto?                                       |
+|                                         | CQ-OBJ-29 | ¿Qué interpretaciones funcionales o tipológicas fueron rechazadas y qué evidencia lo motivó?                                                         |
+|                                         | CQ-OBJ-30 | ¿Qué niveles de certeza se asignan a las interpretaciones del objeto y cómo se justifican?                                                           |
+|                                         | CQ-OBJ-32 | ¿Qué conflictos interpretativos existen entre distintos investigadores sobre la biografía, procedencia o significado del objeto?                     |
+| **P4.8 Espacialidad y territorio**      | CQ-OBJ-46 | ¿Qué relaciones topológicas espaciales (proximidad, co-ocurrencia, asociación funcional) conectan el objeto con otros?                               |
+|                                         | CQ-OBJ-48 | ¿Qué patrones de distribución espacial dentro de un sitio revelan una zonificación funcional (áreas domésticas, rituales)?                           |
+|                                         | CQ-OBJ-50 | ¿Qué correlaciones existen entre la distribución territorial de objetos de un tipo cultural y los períodos geológicos?                               |
 
 ---
 
