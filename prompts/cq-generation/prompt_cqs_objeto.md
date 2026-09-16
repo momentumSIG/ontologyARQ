@@ -98,7 +98,6 @@ No generes código OWL/Turtle. Genera únicamente las preguntas de competencia
 y sus metadatos.
 ```
 
-
 ## Prompt_v2 (14-09-26, rev. 16-09-26)
 
 > **Revisión 16-09-26:** incorporada la corrección del arqueólogo. Se **elimina
@@ -223,12 +222,12 @@ No generes código OWL/Turtle. Genera únicamente las preguntas de competencia
 y sus metadatos.
 ```
 
-
 ## Prompt_v3 — Segunda vuelta, cobertura de lagunas (16-09-26)
 
 > **Objetivo:** generar CQs **nuevas que se suman** a las 30 ya existentes, no un
 > conjunto desde cero. El modelo analiza qué falta por preguntar y decide cuántas
-> necesita, con el mismo número en P1 y en P2.
+> necesita en cada patrón. **No tiene que haber el mismo número en P1 y en P2**:
+> pueden coincidir si sale así, pero no es un requisito.
 > **Temperatura:** 0.1 (estabilidad y consistencia por encima de la exploración).
 
 ```text
@@ -318,7 +317,7 @@ cubiertos** por las 30 CQs existentes. Enumera las lagunas agrupadas por patrón
 
 Genera el conjunto nuevo de CQs que cubra esas lagunas. Requisitos:
 
-- **El mismo número de CQs para P1 y para P2.** Decide tú cuántas hacen falta
+- Decide tú cuántas hacen falta
   en cada patrón a partir de las lagunas detectadas, y **justifica el número
   elegido** en una frase.
 - **No repitas** ninguna pregunta existente, ni la reformules con otras
@@ -342,7 +341,7 @@ Cada CQ debe:
 - No asumir clases biótico/abiótico: expresa el origen de la materia prima a
   través de la materialidad.
 
-Los patrones disponibles son **dos**:
+Los patrones son **dos**:
 
 1. **P1 — Event-Driven:** ¿qué ocurrió? Eventos de la biografía del objeto:
    aprovisionamiento, fabricación, uso, mantenimiento, reparación,
@@ -399,7 +398,7 @@ Para cada CQ, proporciona exactamente esta estructura:
 Termina con:
 
 - Número total de CQs nuevas generadas.
-- Número por patrón (debe ser el mismo en P1 y en P2).
+- Número por patrón.
 - Justificación del número elegido.
 - Lista de lagunas detectadas y qué CQ las cubre.
 - Lista de subgrupos utilizados y, si los hay, los de nueva creación.
@@ -407,3 +406,4 @@ Termina con:
 No generes código OWL/Turtle. Genera únicamente las preguntas de competencia
 y sus metadatos.
 ```
+
