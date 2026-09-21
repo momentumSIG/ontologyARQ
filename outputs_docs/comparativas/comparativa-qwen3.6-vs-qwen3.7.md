@@ -133,6 +133,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 |                                                | CQ-OBJ-26 | ¿Qué muestras físicas se han tomado del objeto para análisis de laboratorio?                                                                                                 |
 |                                                | CQ-OBJ-27 | ¿Qué tratamientos de conservación o análisis de laboratorio ha recibido el objeto tras su excavación?                                                                        |
 
+
 #### P2 — Estados (lo que es) — 13 CQs
 
 
@@ -151,6 +152,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **P2.5 Estado funcional, narrativa y ocupación** | CQ-OBJ-12 | ¿Cuál es la narrativa cronológica completa del objeto, desde la fabricación hasta el depósito?                                      |
 |                                                  | CQ-OBJ-13 | ¿Cambió el rol funcional del objeto durante su vida útil activa?                                                                    |
 |                                                  | CQ-OBJ-49 | ¿Qué objetos de distintos niveles estratigráficos documentan secuencias de ocupación, abandono y reocupación?                       |
+
 
 #### P4 — Asignaciones (lo que sabemos) — 20 CQs
 
@@ -177,6 +179,7 @@ La **temperatura** controla cuán "conservador" o "creativo" es el modelo al gen
 | **P4.8 Espacialidad y territorio**      | CQ-OBJ-46 | ¿Qué relaciones topológicas espaciales (proximidad, co-ocurrencia, asociación funcional) conectan el objeto con otros?                               |
 |                                         | CQ-OBJ-48 | ¿Qué patrones de distribución espacial dentro de un sitio revelan una zonificación funcional (áreas domésticas, rituales)?                           |
 |                                         | CQ-OBJ-50 | ¿Qué correlaciones existen entre la distribución territorial de objetos de un tipo cultural y los períodos geológicos?                               |
+
 
 ---
 
@@ -483,6 +486,21 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 **Conclusión de alineación:** El piloto qwen 3.7-plus tiene una **alineación significativamente mayor** con CIDOC CRM (23 clases vs 4-12 de qwen 3.6) y con CRMarchaeo (5 clases vs 0-3). También incorpora CRMsci y CRMinf, ausentes en el experimento con patrones de qwen 3.6.
 
+
+> [!warning] Matiz indispensable al leer esta tabla
+> La alineación medida es **por clases, no por propiedades**. Sobre
+> `cumulative.ttl` del piloto: 23 clases de CIDOC CRM y 5 de CRMarchaeo reutilizadas
+> como superclases, pero **1 sola propiedad del estándar**
+> (`crm:P12_occurred_in_the_presence_of`) y **0** propiedades `AP` de CRMarchaeo;
+> las 153 propiedades del archivo son propias (`arqo:`).
+>
+> CIDOC CRM define su núcleo como propiedades con dominio y rango, así que dos
+> ontologías que subclasifican las mismas clases pero nombran las relaciones con
+> prefijo propio **no se pueden consultar de forma conjunta**. La cifra de 23 clases
+> es real, pero la interoperabilidad efectiva es menor de lo que sugiere. Queda
+> registrado como deuda técnica en [[Decisiones]] y los próximos prompts deben
+> exigir reutilizar el predicado `P`/`AP` equivalente cuando exista.
+
 ---
 
 ## 7. Clases y propiedades nuevas
@@ -547,35 +565,7 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 ---
 
-## 8. Tabla de métricas comparativas
-
-
-| Métrica                      | Qwen 3.6 P1 | Qwen 3.6 P2 | Qwen 3.6 P4 | Qwen 3.7-plus |
-| ---------------------------- | ----------- | ----------- | ----------- | ------------- |
-| **CQs**                      | 50          | 50          | 50          | 30            |
-| **Clases arqo (cumulative)** | 63          | 34          | 31          | 59            |
-| **Object Props**             | 54          | 29          | 24          | 97            |
-| **Data Props**               | 37          | 20          | 15          | 56            |
-| **Clases CRM usadas**        | 12          | 4           | 5           | 23            |
-| **Clases CRMarchaeo usadas** | 3           | 0           | 0           | 5             |
-| **Clases CRMsci**            | 0           | 0           | 0           | 2             |
-| **Clases CRMinf**            | 0           | 0           | 0           | 1             |
-| **Líneas cumulative**        | 836         | 401         | 346         | 1112          |
-| **Archivos memoryless**      | 50          | 50          | 50          | 30            |
-| **Temperaturas**             | 0.3/0.5/0.7 | 0.3/0.5/0.7 | 0.3/0.5/0.7 | 0.5           |
-| **Validación TTL**           | 100%        | 100%        | 100%        | 100%          |
-
-
-**Lectura clave:**
-
-- Qwen 3.7-plus tiene **más propiedades** (97 obj + 56 data) que cualquier patrón individual de qwen 3.6 (máx 54 + 37)
-- Qwen 3.7-plus tiene **mejor alineación CRM** (23 clases vs máx 12)
-- Qwen 3.7-plus usa **4 ontologías de referencia** (CRM, CRMarchaeo, CRMsci, CRMinf) vs solo 2 de qwen 3.6
-- Qwen 3.6 P1 es el más rico de los 3 patrones (63 clases) pero con menor alineación
-
----
-
-## 9. Observaciones y hallazgos
+## 8. Observaciones y hallazgos
 
 ### 1. Cobertura conceptual
 
@@ -594,9 +584,25 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 
 **Qwen 3.6:** Los 3 patrones son **estrategias separadas** — el modelo genera la misma CQ de forma diferente según el patrón activo
 
-**Qwen 3.7-plus:** Los 3 patrones son **clasificaciones dentro del mismo archivo** — el modelo sabe el patrón de cada CQ pero genera un corpus coherente
+**Qwen 3.7-plus:** Los 3 patrones son **clasificaciones dentro del mismo archivo** — el modelo sabe el patrón de cada CQ pero genera un corpus coherente.
 
-### 3. Alineación ontológica
+
+
+> `EXPLICACIÓN:`
+>
+> `En 3.6, la pregunta es idéntica en los tres casos, pero el modelo la modela según el patrón.`
+>
+> `En 3.7-plus, en cambio, cada CQ se genera una sola vez y el patrón solo dice qué tipo de conocimiento pide (P1/P2/P4). No hay tres respuestas a la misma pregunta: hay un único corpus donde eventos, estados y asignaciones conviven.`
+>
+> `Por qué importa`
+>
+> `- 3.6 aisla el patrón como variable controlada. Como usa las mismas 50 CQs en los tres patrones, puedes comparar cara a cara cómo se modela el mismo requisito bajo evento/estado/asignación. El precio: obtienes 3 ontologías especializadas y separadas, sin integración (por eso P2 y P4 de 3.6 no usan CRMarchaeo ni se conectan con P1).`
+>
+> `- 3.7-prueba la coherencia de un corpus único. El modelo debe producir una ontología que cubra los tres tipos de conocimiento a la vez. El patrón sirve para analizar cobertura y balance (10 por patrón), no para generar.`
+>
+> `Por tanto, en 3.6 el patrón es una instrucción de modelado, y en 3.7 es una etiqueta analítica incrustada en el diseño de las preguntas. En 3.6 las 50 CQs se reutilizan tal cual en los tres patrones; en 3.7 las 30 CQs se diseñaron ya con el patrón incorporado. Es decir, no es solo un cambio de pipeline, es un cambio de diseño metodológico de las propias CQs.`
+
+**3. Alineación ontológica**
 
 - Qwen 3.7-plus duplica la alineación CRM (23 vs 12 clases)
 - Qwen 3.7-plus es el único que usa CRMsci y CRMinf
@@ -670,7 +676,7 @@ Para leer estas tablas: **Clases** = clases nuevas del proyecto; **Obj Props** =
 | Aspecto                  | Memoryless                | Ontogenia                 |
 | ------------------------ | ------------------------- | ------------------------- |
 | **Contexto**             | Vacío en cada CQ          | Acumulado paso a paso     |
-| **Diversidad de clases** | Mayor                     | Menor (reuso)             |
+| **Diversidad de clases** | Mayor                     | Menor (reutiliza)         |
 | **Coherencia global**    | Menor                     | Mayor                     |
 | **Crecimiento**          | No aplica                 | Controlado (4 KB → 64 KB) |
 | **Reuso de clases**      | Mínimo                    | Alto                      |
@@ -697,8 +703,6 @@ Los 8 conceptos del dominio identificados como prioritarios en el brief (§7) **
 8. ✅ **Competing hypotheses / multivocality** — `InterpretiveHypothesis`
 
 Esta verificación confirma que los 8 conceptos están **cubiertos** en el piloto, pero **no** que las mejoras de §12 hayan tenido el efecto buscado.
-
-> ⚠️ **La causalidad está invertida en versiones anteriores de este documento.** Las 8 clases ya existían en el `cumulative.ttl` del piloto, que se generó **antes** de que se creara la sección §7 y con la **versión 1** del prompt (`ALWAYS check`, sin balance guideline). Es decir: el modelo las creó por su cuenta a partir de las 30 CQs originales, no porque §7 ni el balance guideline las provocaran. Medir el efecto real de las mejoras exige regenerar las ontologías con la versión 2 del prompt y las CQs de extensión — propuesta 11 de §12.2, todavía no ejecutada.
 
 ### Ventajas del piloto qwen 3.7-plus
 
@@ -738,12 +742,10 @@ Esta verificación confirma que los 8 conceptos están **cubiertos** en el pilot
 
 ---
 
-## 12. Mejoras propuestas e implementadas
+## 12. Mejoras propuestas por Qwen3.7-plus
 
-### 12.1 Mejoras implementadas (2026-08-28)
+### 12.1 Mejoras propuestas
 
-> **Alcance real (revisión 2026-09-11).** Las mejoras de esta sección son **insumos del pipeline** (brief, CQs y prompts), incorporadas al repositorio en el commit `b04411f` (2026-09-01; trabajo fechado 2026-08-28).
->
 > **Ninguna se ejecutó sobre el piloto.** Las ontologías de `Qwen3.7plus/` son del commit `9a827d9` (2026-08-28) y se generaron con la **versión 1** del prompt. No existe ningún `.ttl` generado para las CQs de extensión (CQ-OBJ-31 a 38). En consecuencia, los resultados comparados en este documento **no reflejan** estas mejoras; medirlas exige regenerar (ver §12.2, propuesta 11).
 
 #### ✅ Mejora 1: Brief con sección de extensiones (§7)
@@ -765,7 +767,7 @@ Esta verificación confirma que los 8 conceptos están **cubiertos** en el pilot
 | Competing hypotheses / multivocality   | `InterpretiveHypothesis`                             |
 
 
-**Impacto esperado (no medido):** se espera que el generador sepa qué conceptos requieren extensiones `arqo:` en lugar de forzar reuso CRM. El piloto comparado no se regeneró, así que este efecto no está verificado.
+**Impacto esperado (no medido):** se espera que el generador sepa qué conceptos requieren extensiones `arqo:` en lugar de forzar reutilización de CRM. El piloto comparado no se regeneró, así que este efecto no está verificado.
 
 #### ✅ Mejora 2: CQs adicionales de extensión
 
@@ -794,7 +796,7 @@ Esta verificación confirma que los 8 conceptos están **cubiertos** en el pilot
 
 **Solución implementada:** Se agregó un "Balance guideline" en ambos prompts (memoryless y ontogenia):
 
-- **Preferir reuso CRM** para conceptos generales (eventos, actores, lugares, tiempos)
+- **Preferir reutilización CRM** para conceptos generales (eventos, actores, lugares, tiempos)
 - **Crear extensiones `arqo:`** cuando el concepto sea arqueológicamente específico (material agency, relational materiality, type-to-period strength, etc.)
 - **"When in doubt, create an `arqo:` class that extends CRM"**
 
@@ -856,8 +858,6 @@ Estas mejoras **no están implementadas todavía** y se proponen para las próxi
 > | Memoryless | `prompts/memoryless/prompt_archaeological_object_v1_original.md` | `prompts/memoryless/prompt_archaeological_object.md` |
 > | Ontogenia  | `prompts/ontogenia/prompt_archaeological_object_v1_original.md`  | `prompts/ontogenia/prompt_archaeological_object.md`  |
 >
->
-> El `procedure.md` de ontogenia **no cambió** entre versiones.
 >
 > **Aviso de aplicación:** el piloto comparado en este documento se generó con la **v1**. La **v2 nunca se ha ejecutado** para generar ontologías.
 
@@ -975,7 +975,7 @@ When in doubt, create an `arqo:` class that extends CRM rather than forcing a CR
 2. Las preguntas de extensión **fuerzan** (por diseño) el modelado de conceptos teóricos que de otro modo se perderían
 3. La guía de equilibrio en los prompts **pretende corregir** el sesgo hacia la reutilización forzada de estándares
 
-> ⚠️ **Ninguna de estas mejoras está validada todavía.** Están implementadas como insumos (brief, CQs y prompts), pero el piloto que se compara se generó **antes** de ellas y con la **v1** del prompt. Las afirmaciones anteriores son hipótesis de diseño, **no resultados medidos**. La comprobación pendiente es la propuesta 11 de §12.2: regenerar y comparar antes/después.
+> ⚠️ **Ninguna de estas mejoras está validada todavía.** El piloto que se compara se generó **antes** de ellas y con la **v1** del prompt. Las afirmaciones anteriores son hipótesis de diseño, **no resultados medidos**. La comprobación pendiente es la propuesta 11 de §12.2: regenerar y comparar antes/después.
 
 ### Próximos pasos
 
